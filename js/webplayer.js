@@ -111,10 +111,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Crear el elemento de audio
                     const audio = new Audio(ciudadServerUrl);
 
+                    // Función para mostrar el toast
+                    function showToast(message) {
+                        const toast = document.createElement('div');
+                        toast.classList.add('toast');
+                        toast.textContent = message;
+                        document.body.appendChild(toast);
+
+                        // Estilos para el toast
+                        toast.style.backgroundColor = 'var(--toast-bg)';
+                        toast.style.color = 'var(--toast-text)';
+                        toast.style.textAlign = 'center'; // Centrar el texto
+
+                        // Mostrar el toast
+                        setTimeout(() => {
+                            toast.classList.add('show');
+                            // Ocultar el toast después de 3 segundos
+                            setTimeout(() => {
+                                toast.classList.remove('show');
+                                // Eliminar el toast del DOM después de la transición
+                                setTimeout(() => {
+                                    document.body.removeChild(toast);
+                                }, 300);
+                            }, 3000);
+                        }, 100);
+                    }
+
                     // Agregar evento de clic al círculo para reproducir/pausar el audio
                     circle.addEventListener('click', () => {
-                        // Si el círculo está en rojo, no hacer nada
+                        // Si el círculo está en rojo, mostrar el toast y no hacer nada
                         if (circle.getAttribute('fill') === 'var(--player-offline)') {
+                            showToast(`${playerName} - ${playerFrecuencia} No Disponible`);
                             return;
                         }
 
@@ -133,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             iconInner.classList.remove('fa-play');
                             iconInner.classList.add('fa-pause');
                             circle.setAttribute('fill', 'var(--player-playing)');
-                            stationInfoElement.innerHTML = `<i class="fas fa-info-circle"></i> ${playerName} - ${ciudad.frecuencia}`;
+                            stationInfoElement.innerHTML = `<i class="fa-solid fa-music"></i> ${playerName} - ${playerFrecuencia}`;
                             currentAudio = audio; // Actualizar el audio actual
                         } else {
                             audio.pause();
@@ -150,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         iconInner.classList.remove('fa-play');
                         iconInner.classList.add('fa-pause');
                         circle.setAttribute('fill', 'var(--player-playing)');
-                        stationInfoElement.innerHTML = `<i class="fas fa-info-circle"></i> ${playerName} - ${ciudad.frecuencia}`;
+                        stationInfoElement.innerHTML = `<i class="fa-solid fa-music"></i> ${playerName} - ${playerFrecuencia}`;
                     });
 
                     audio.addEventListener('pause', () => {
@@ -191,42 +218,50 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     // Obtener datos de la URL de estado y mostrarlos
-                    fetch(statusUrlCompleta)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Verificar si 'data.icestats.source' es un array o un objeto
-                            let sources = data.icestats.source;
-                            if (!Array.isArray(sources)) {
-                                sources = [sources]; // Convertir a array si es un objeto único
-                            }
-
-                            sources.forEach(source => {
-                                const sonIguales = ciudadSrv === source.server_url;
-                                if (sonIguales) {
-                                    iguales.push({
-                                        ciudad: ciudad.name,
-                                        ciudadServerUrl: ciudadServerUrl,
-                                        ciudadSrv: ciudadSrv,
-                                        statusUrlServerUrl: source.server_url
-                                    });
-                                    // Si la URL coincide, cambiar el color del círculo a "online"
-                                    circle.setAttribute('fill', 'var(--player-online)');
-                                    iconInner.classList.remove('fa-pause');
-                                    iconInner.classList.add('fa-play');
-                                    listenersText.textContent = source.listeners;
+                    function updateListeners() {
+                        fetch(statusUrlCompleta)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Verificar si 'data.icestats.source' es un array o un objeto
+                                let sources = data.icestats.source;
+                                if (!Array.isArray(sources)) {
+                                    sources = [sources]; // Convertir a array si es un objeto único
                                 }
-                            });
 
-                            // Mostrar los resultados en la consola
-                            /* console.log("URLs Iguales:"); */
-                            iguales.forEach(item => {
-                                /* console.log(`    Ciudad: ${item.ciudad}, JSON: ${item.ciudadSrv}, XSL: ${item.statusUrlServerUrl}`); */
+                                sources.forEach(source => {
+                                    const sonIguales = ciudadSrv === source.server_url;
+                                    if (sonIguales) {
+                                        iguales.push({
+                                            ciudad: ciudad.name,
+                                            ciudadServerUrl: ciudadServerUrl,
+                                            ciudadSrv: ciudadSrv,
+                                            statusUrlServerUrl: source.server_url
+                                        });
+                                        // Si la URL coincide, cambiar el color del círculo a "online"
+                                        circle.setAttribute('fill', 'var(--player-online)');
+                                        iconInner.classList.remove('fa-pause');
+                                        iconInner.classList.add('fa-play');
+                                        listenersText.textContent = source.listeners;
+                                    }
+                                });
+
+                                // Mostrar los resultados en la consola
+                                /* console.log("URLs Iguales:"); */
+                                iguales.forEach(item => {
+                                    /* console.log(`    Ciudad: ${item.ciudad}, JSON: ${item.ciudadSrv}, XSL: ${item.statusUrlServerUrl}`); */
+                                });
+                            })
+                            .catch(error => {
+                                console.error("Error al obtener los datos de estado:", error);
+                                circle.setAttribute('fill', 'var(--player-offline)'); // Asegurar que el círculo esté "offline" en caso de error
                             });
-                        })
-                        .catch(error => {
-                            console.error("Error al obtener los datos de estado:", error);
-                            circle.setAttribute('fill', 'var(--player-offline)'); // Asegurar que el círculo esté "offline" en caso de error
-                        });
+                    }
+
+                    // Actualizar los listeners cada 20 segundos
+                    setInterval(updateListeners, 20000);
+
+                    // Llamar a la función para actualizar los listeners al cargar la página
+                    updateListeners();
 
                     // Guardar la URL del audio en el círculo para fácil acceso
                     circle.setAttribute('data-audio-src', ciudadServerUrl);
@@ -252,38 +287,47 @@ document.addEventListener('DOMContentLoaded', () => {
             let totalListeners = 0;
             let totalSources = 0;
 
-            // Obtener datos de la URL de estado y mostrarlos
-            fetch(statusUrlCompleta)
-                .then(response => response.json())
-                .then(data => {
-                    // Verificar si 'data.icestats.source' es un array o un objeto
-                    let sources = data.icestats.source;
-                    if (!Array.isArray(sources)) {
-                        sources = [sources]; // Convertir a array si es un objeto único
-                    }
+            // Función para actualizar el total de listeners y sources
+            function updateTotalInfo() {
+                fetch(statusUrlCompleta)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Verificar si 'data.icestats.source' es un array o un objeto
+                        let sources = data.icestats.source;
+                        if (!Array.isArray(sources)) {
+                            sources = [sources]; // Convertir a array si es un objeto único
+                        }
 
-                    totalSources = sources.length;
+                        totalSources = sources.length;
+                        totalListeners = 0;
 
-                    sources.forEach(source => {
-                        totalListeners += parseInt(source.listeners);
+                        sources.forEach(source => {
+                            totalListeners += parseInt(source.listeners);
+                        });
+
+                        totalListenersElement.innerHTML = `<i class="fas fa-headphones"></i> Oyentes: ${totalListeners}`;
+                        totalSourcesElement.innerHTML = `<i class="fas fa-broadcast-tower"></i> ${totalSources} Emisoras de ${totalEstaciones}`;
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener los datos de estado:", error);
                     });
+            }
 
-                    totalListenersElement.innerHTML = `<i class="fas fa-headphones"></i> Oyentes: ${totalListeners}`;
-                    totalSourcesElement.innerHTML = `<i class="fas fa-broadcast-tower"></i> ${totalSources} Emisoras de ${totalEstaciones}`;
+            // Actualizar la información cada 20 segundos
+            setInterval(updateTotalInfo, 20000);
 
-                    // Limpiar el contenido anterior de infoCard
-                    infoCard.querySelector('.card-body').innerHTML = '';
+            // Llamar a la función para actualizar la información al cargar la página
+            updateTotalInfo();
 
-                    // Agregar los elementos a la tarjeta
-                    infoCard.querySelector('.card-body').appendChild(stationName);
-                    infoCard.querySelector('.card-body').appendChild(stationInfoElement); // Agrega el elemento de información de la estación
-                    infoCard.querySelector('.card-body').appendChild(totalListenersElement);
-                    infoCard.querySelector('.card-body').appendChild(totalSourcesElement);
-                    infoCard.querySelector('.card-body').appendChild(developerLink);
-                })
-                .catch(error => {
-                    console.error("Error al obtener los datos de estado:", error);
-                });
+            // Limpiar el contenido anterior de infoCard
+            infoCard.querySelector('.card-body').innerHTML = '';
+
+            // Agregar los elementos a la tarjeta
+            infoCard.querySelector('.card-body').appendChild(stationName);
+            infoCard.querySelector('.card-body').appendChild(stationInfoElement); // Agrega el elemento de información de la estación
+            infoCard.querySelector('.card-body').appendChild(totalListenersElement);
+            infoCard.querySelector('.card-body').appendChild(totalSourcesElement);
+            infoCard.querySelector('.card-body').appendChild(developerLink);
 
             // Función para determinar la ubicación de la tarjeta
             function setInfoCardPosition() {

@@ -210,3 +210,26 @@ html {
     visibility: visible;
     opacity: 1;
 }
+
+/* Estilos para el toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--toast-bg);
+    color: var(--toast-text);
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Agrega transición para transform */
+    text-align: center; /* Centrar el texto */
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px); /* Agrega un pequeño desplazamiento hacia arriba */
+}
