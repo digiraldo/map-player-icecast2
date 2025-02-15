@@ -1,0 +1,136 @@
+/* Variables para los temas */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --tooltip-bg: rgba(0, 0, 0, 0.8);
+    --hover-color: #0366d6;
+    --map-filter: none;
+    --toast-bg: rgba(0, 0, 0, 0.8);
+    --toast-text: #ffffff;
+    --player-offline: #ff4444;
+    --player-online: #00C851;
+    --player-playing: #0099CC;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-bg: rgba(40, 40, 40, 0.95);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --tooltip-bg: rgba(60, 60, 60, 0.9);
+    --hover-color: #58a6ff;
+    --map-filter: brightness(0.7) contrast(1.2) saturate(0.8);
+    --toast-bg: rgba(60, 60, 60, 0.9);
+    --toast-text: #ffffff;
+}
+
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --tooltip-bg: rgba(0, 0, 0, 0.8);
+    --hover-color: #0366d6;
+    --map-filter: none;
+    --toast-bg: rgba(0, 0, 0, 0.8);
+    --toast-text: #ffffff;
+}
+
+
+/* Estilos para centrar y ajustar el SVG */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden; /* Importante para evitar scroll */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+}
+
+.theme-transition {
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+}
+
+.container-fluid {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center;
+    padding: 0; /* Elimina el padding del container */
+}
+
+#map {
+    width: 100%;
+    height: 100%; /* El SVG ocupa todo el alto disponible */
+    max-width: 100%; /* Evita que el SVG se desborde horizontalmente */
+    display: block;
+    margin: auto;
+}
+
+#fullscreenButton {
+    position: absolute; /* Posicionamiento absoluto */
+    bottom: 10px; /* Margen inferior */
+    right: 10px; /* Margen derecho */
+    z-index: 10; /* Asegura que el botón esté encima del mapa */
+}
+
+/* Estilos para la tarjeta de información */
+#infoCard {
+    width: 200px; /* Reducir el ancho de la tarjeta */
+    position: absolute; /* Posicionamiento absoluto */
+    box-shadow: 0 4px 8px var(--shadow-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: none;
+    z-index: 10; /* Asegura que la tarjeta esté encima del mapa */
+    transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease; /* Transición para el fondo, el texto y la transformación */
+}
+
+#infoCard .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem; /* Reducir el padding del header */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+}
+
+#infoCard .card-body {
+    text-align: center;
+    padding: 0.5rem; /* Reducir el padding del body */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+}
+
+#infoCard .card-title {
+    font-size: 1rem; /* Reducir el tamaño del título */
+    margin-bottom: 0.5rem; /* Reducir el margen inferior del título */
+    transition: color 0.5s ease; /* Transición para el texto */
+}
+
+#infoCard .btn-link {
+    color: var(--hover-color);
+    text-decoration: none;
+    font-size: 0.8rem; /* Reducir el tamaño del enlace */
+    transition: color 0.5s ease; /* Transición para el texto */
+}
+
+#infoCard .btn-link:hover {
+    text-decoration: underline;
+}
+
+#infoCard img {
+    max-width: 80px; /* Reducir el tamaño del logo */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: opacity 0.5s ease; /* Transición para la opacidad */
+}
+
+/* Estilos para la tarjeta de información en pantallas pequeñas */
+.small-card {
+    transform: scale(0.7); /* Escalar la tarjeta al 70% de su tamaño original */
+    transform-origin: top right; /* Establecer el origen de la transformación en la esquina superior derecha */
+}
