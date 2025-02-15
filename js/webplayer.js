@@ -36,6 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     circle.setAttribute('class', 'station-circle'); // Clase para estilos CSS adicionales
                     map.appendChild(circle);
 
+                    // Crear el icono de Font Awesome dentro del círculo
+                    const icon = document.createElementNS("http://www.w3.org/2000/svg", 'foreignObject');
+                    icon.setAttribute('x', playerX - playerR / 2); // Centrar horizontalmente
+                    icon.setAttribute('y', playerY - playerR / 2); // Centrar verticalmente
+                    icon.setAttribute('width', playerR);
+                    icon.setAttribute('height', playerR);
+                    icon.setAttribute('class', 'station-icon');
+                    icon.style.pointerEvents = 'none'; // Para que los clics se registren en el círculo
+
+                    const iconInner = document.createElement('i');
+                    iconInner.setAttribute('class', 'fas'); // Clase base de Font Awesome
+                    iconInner.style.fontSize = playerR + 'px'; // Ajustar tamaño del icono
+                    iconInner.style.textAlign = 'center'; // Centrar el icono
+                    iconInner.style.lineHeight = playerR + 'px'; // Centrar verticalmente
+                    icon.appendChild(iconInner);
+                    map.appendChild(icon);
+
+                    // Ocultar el icono inicialmente
+                    iconInner.style.display = 'none';
+
                     // Crear el texto debajo del círculo
                     const text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
                     text.setAttribute('x', playerX);
@@ -52,28 +72,56 @@ document.addEventListener('DOMContentLoaded', () => {
                     circle.addEventListener('click', () => {
                         if (audio.paused) {
                             audio.play();
+                            iconInner.classList.remove('fa-play');
+                            iconInner.classList.add('fa-pause');
                             circle.setAttribute('fill', 'var(--player-playing)');
                         } else {
                             audio.pause();
+                            iconInner.classList.remove('fa-pause');
+                            iconInner.classList.add('fa-play');
                             circle.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
                         }
                     });
 
                     // Escuchar eventos de audio para actualizar el color del círculo
                     audio.addEventListener('playing', () => {
+                        iconInner.classList.remove('fa-play');
+                        iconInner.classList.add('fa-pause');
                         circle.setAttribute('fill', 'var(--player-playing)');
                     });
 
                     audio.addEventListener('pause', () => {
+                        iconInner.classList.remove('fa-pause');
+                        iconInner.classList.add('fa-play');
                         circle.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
                     });
 
                     audio.addEventListener('ended', () => {
+                        iconInner.classList.remove('fa-pause');
+                        iconInner.classList.add('fa-play');
                         circle.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
                     });
 
                     audio.addEventListener('error', () => {
+                        iconInner.classList.remove('fa-pause');
+                        iconInner.classList.add('fa-play');
                         circle.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
+                    });
+
+                    // Eventos de mouse para mostrar/ocultar el icono
+                    circle.addEventListener('mouseover', () => {
+                        if (circle.getAttribute('fill') === 'var(--player-online)') {
+                            iconInner.classList.remove('fa-pause');
+                            iconInner.classList.add('fa-play');
+                        } else if (circle.getAttribute('fill') === 'var(--player-playing)') {
+                            iconInner.classList.remove('fa-play');
+                            iconInner.classList.add('fa-pause');
+                        }
+                        iconInner.style.display = 'block';
+                    });
+
+                    circle.addEventListener('mouseout', () => {
+                        iconInner.style.display = 'none';
                     });
 
                     // Obtener datos de la URL de estado y mostrarlos
@@ -97,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                     });
                                     // Si la URL coincide, cambiar el color del círculo a "online"
                                     circle.setAttribute('fill', 'var(--player-online)');
+                                    iconInner.classList.remove('fa-pause');
+                                    iconInner.classList.add('fa-play');
                                 }
                             });
 

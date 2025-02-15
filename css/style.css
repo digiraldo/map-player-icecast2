@@ -12,6 +12,8 @@
     --player-offline: #ff4444;
     --player-online: #00C851;
     --player-playing: #0099CC;
+    --player-paused: #FFBB33;
+    --player-icon: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -24,6 +26,8 @@
     --map-filter: brightness(0.7) contrast(1.2) saturate(0.8);
     --toast-bg: rgba(60, 60, 60, 0.9);
     --toast-text: #ffffff;
+    --player-paused: #FFBB33;
+    --player-icon: #dedbdb;
 }
 
 [data-theme="light"] {
@@ -36,6 +40,8 @@
     --map-filter: none;
     --toast-bg: rgba(0, 0, 0, 0.8);
     --toast-text: #ffffff;
+    --player-paused: #FFBB33;
+    --player-icon: #868585;
 }
 
 
@@ -139,6 +145,17 @@ html {
 .station-circle {
     cursor: pointer;
     transition: fill 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.station-icon {
+    pointer-events: none;
+}
+
+.station-icon i {
+    color: var(--player-icon); /* Ajusta el color del icono */
+    text-align: center;
+    line-height: 20px; /* Ajusta según el tamaño del círculo */
+    font-size: 20px; /* Ajusta según el tamaño del círculo */
 }
 
 .station-name {
