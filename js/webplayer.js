@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             const reproductor = data.reproductor;
-            
 
             // Unir hostUrl con statusUrl
             const statusUrlCompleta = reproductor.hostUrl + "/" + reproductor.statusUrl;
@@ -12,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Arrays para almacenar los resultados
             const iguales = [];
+
+            // Obtener el elemento SVG
+            const map = document.getElementById('map');
 
             // Analizar y comparar serverUrl
             reproductor.ciudades.forEach(ciudad => {
@@ -24,6 +26,55 @@ document.addEventListener('DOMContentLoaded', () => {
                     const playerName = ciudad.name;
                     /* console.log(playerX, playerY, playerR); */
                     /* console.log("URL de la ciudad:", ciudadServerUrl); */
+
+                    // Crear el círculo del reproductor
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    circle.setAttribute('cx', playerX);
+                    circle.setAttribute('cy', playerY);
+                    circle.setAttribute('r', playerR);
+                    circle.setAttribute('fill', 'var(--player-offline)'); // Color inicial
+                    circle.setAttribute('class', 'station-circle'); // Clase para estilos CSS adicionales
+                    map.appendChild(circle);
+
+                    // Crear el texto debajo del círculo
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                    text.setAttribute('x', playerX);
+                    text.setAttribute('y', parseFloat(playerY) + parseFloat(playerR) + 5); // Ajustar la posición Y
+                    text.setAttribute('text-anchor', 'middle'); // Centrar el texto horizontalmente
+                    text.setAttribute('class', 'station-name'); // Clase para estilos CSS adicionales
+                    text.textContent = playerName;
+                    map.appendChild(text);
+
+                    // Crear el elemento de audio
+                    const audio = new Audio(ciudadServerUrl);
+
+                    // Agregar evento de clic al círculo para reproducir/pausar el audio
+                    circle.addEventListener('click', () => {
+                        if (audio.paused) {
+                            audio.play();
+                            circle.setAttribute('fill', 'var(--player-playing)');
+                        } else {
+                            audio.pause();
+                            circle.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
+                        }
+                    });
+
+                    // Escuchar eventos de audio para actualizar el color del círculo
+                    audio.addEventListener('playing', () => {
+                        circle.setAttribute('fill', 'var(--player-playing)');
+                    });
+
+                    audio.addEventListener('pause', () => {
+                        circle.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
+                    });
+
+                    audio.addEventListener('ended', () => {
+                        circle.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
+                    });
+
+                    audio.addEventListener('error', () => {
+                        circle.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
+                    });
 
                     // Obtener datos de la URL de estado y mostrarlos
                     fetch(statusUrlCompleta)
@@ -44,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         ciudadSrv: ciudadSrv,
                                         statusUrlServerUrl: source.server_url
                                     });
+                                    // Si la URL coincide, cambiar el color del círculo a "online"
+                                    circle.setAttribute('fill', 'var(--player-online)');
                                 }
                             });
 
@@ -55,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         })
                         .catch(error => {
                             console.error("Error al obtener los datos de estado:", error);
+                            circle.setAttribute('fill', 'var(--player-offline)'); // Asegurar que el círculo esté "offline" en caso de error
                         });
                 }
             });

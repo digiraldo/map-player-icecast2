@@ -134,3 +134,16 @@ html {
     transform: scale(0.7); /* Escalar la tarjeta al 70% de su tamaño original */
     transform-origin: top right; /* Establecer el origen de la transformación en la esquina superior derecha */
 }
+
+/* Estilos para los círculos de las estaciones */
+.station-circle {
+    cursor: pointer;
+    transition: fill 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.station-name {
+    font-size: 0.4em;
+    fill: var(--text-color);
+    transition: fill 0.3s ease;
+    /* Otros estilos para el nombre de la estación */
+}
