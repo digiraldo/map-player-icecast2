@@ -1,27 +1,38 @@
 // Autor: Di Giraldo
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Cachear elementos del DOM
+    const body = document.body;
+    const themeIcon = document.getElementById('themeIcon');
+    const infoCard = document.getElementById('infoCard');
+    const stationLogo = document.getElementById('stationLogo');
+    const stationName = document.getElementById('stationName');
+    const developerLink = document.getElementById('developerLink');
+    const themeButton = document.getElementById('themeButton');
+
     // Función para cambiar el tema
     function setTheme(theme) {
-        const body = document.body;
-        body.classList.add('theme-transition'); // Agregar clase para la transición
+        body.classList.add('theme-transition');
 
-        document.body.setAttribute('data-theme', theme);
+        // Actualizar el atributo data-theme
+        body.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
 
-        const themeIcon = document.getElementById('themeIcon');
-        if (theme === 'dark') {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        } else {
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-        }
+        // Actualizar el icono del tema
+        requestAnimationFrame(() => {
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
 
         // Eliminar la clase de transición después de un tiempo
         setTimeout(() => {
             body.classList.remove('theme-transition');
-        }, 500); // Duración de la transición en milisegundos
+        }, 500);
     }
 
     // Obtener el tema guardado en localStorage
@@ -29,9 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTheme(savedTheme);
 
     // Configurar el botón de tema
-    const themeButton = document.getElementById('themeButton');
     themeButton.addEventListener('click', () => {
-        const currentTheme = document.body.getAttribute('data-theme');
+        const currentTheme = body.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
     });
@@ -43,11 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const reproductor = data.reproductor;
 
             // Actualizar la tarjeta con la información
-            const infoCard = document.getElementById('infoCard');
-            const stationLogo = document.getElementById('stationLogo');
-            const stationName = document.getElementById('stationName');
-            const developerLink = document.getElementById('developerLink');
-
             stationLogo.src = reproductor.url_logo;
             stationName.textContent = reproductor.estacion;
             developerLink.href = `https://github.com/${reproductor.desarrollador}`;
@@ -58,26 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const screenHeight = window.innerHeight;
                 const cardWidth = infoCard.offsetWidth;
                 const cardHeight = infoCard.offsetHeight;
-
-                // Márgenes predeterminados
                 const margin = 20;
 
                 let left, top;
+                let isSmallScreen = screenWidth <= 768;
 
-                // Ubicación en la esquina superior izquierda para pantallas grandes
-                if (screenWidth > 768) {
+                if (!isSmallScreen) {
                     left = margin;
                     top = margin;
-                    infoCard.classList.remove('small-card'); // Remover la clase para pantallas pequeñas
-                }
-                // Ubicación en la parte superior derecha para pantallas pequeñas
-                else {
+                    infoCard.classList.remove('small-card');
+                } else {
                     left = screenWidth - cardWidth - margin;
                     top = margin;
-                    infoCard.classList.add('small-card'); // Agregar la clase para pantallas pequeñas
+                    infoCard.classList.add('small-card');
                 }
 
-                // Aplicar estilos de ubicación
                 infoCard.style.left = `${left}px`;
                 infoCard.style.top = `${top}px`;
             }

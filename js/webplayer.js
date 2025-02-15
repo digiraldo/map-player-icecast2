@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Variable para almacenar el audio actual
             let currentAudio = null;
+            let currentCircle = null; // Variable para almacenar el círculo actual
 
             // Analizar y comparar serverUrl
             reproductor.ciudades.forEach(ciudad => {
@@ -149,9 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (currentAudio && !currentAudio.paused) {
                             currentAudio.pause();
                             // Restablecer el color del círculo del audio anterior
-                            const prevCircle = document.querySelector(`circle[data-audio-src="${currentAudio.src}"]`);
-                            if (prevCircle) {
-                                prevCircle.setAttribute('fill', 'var(--player-online)');
+                            if (currentCircle) {
+                                currentCircle.setAttribute('fill', 'var(--player-online)');
                             }
                         }
 
@@ -162,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             circle.setAttribute('fill', 'var(--player-playing)');
                             stationInfoElement.innerHTML = `<i class="fa-solid fa-music"></i> ${playerName} - ${playerFrecuencia}`;
                             currentAudio = audio; // Actualizar el audio actual
+                            currentCircle = circle; // Actualizar el círculo actual
                         } else {
                             audio.pause();
                             iconInner.classList.remove('fa-pause');
@@ -169,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             circle.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
                             stationInfoElement.textContent = "Reproducir Emisora";
                             currentAudio = null; // No hay audio actual
+                            currentCircle = null; // No hay círculo actual
                         }
                     });
 
