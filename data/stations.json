@@ -422,7 +422,7 @@
                 "fill": "#ff0000",
                 "stroke": "#000000",
                 "stroke-width": "0",
-                "serverUrl": "bogota",
+                "serverUrl": "inhouse",
                 "name": "Bogotá",
                 "frecuencia": "92.4 FM"
             },

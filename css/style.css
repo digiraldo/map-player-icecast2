@@ -14,6 +14,10 @@
     --player-playing: #0099CC;
     --player-paused: #FFBB33;
     --player-icon: #ffffff;
+    --monserrat-font: 'Montserrat', sans-serif;
+    --worksans-font: 'Work Sans', sans-serif;
+    --listeners-font-size: 0.6em;
+    
 }
 
 [data-theme="dark"] {
@@ -159,8 +163,50 @@ html {
 }
 
 .station-name {
+    font-family: var(--worksans-font); /* Ajusta la fuente del nombre de la estación */
     font-size: 0.4em;
     fill: var(--text-color);
     transition: fill 0.3s ease;
     /* Otros estilos para el nombre de la estación */
+}
+
+.listeners-text {
+    font-family: var(--monserrat-font); /* Ajusta la fuente del nombre de la estación */
+    font-size: 0.4em; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    fill: var(--text-color); /* Ajusta el color del texto */
+    text-anchor: middle; /* Centra el texto horizontalmente */
+    alignment-baseline: middle; /* Centra el texto verticalmente */
+    pointer-events: none; /* Evita que el texto interfiera con los clics en el círculo */
+}
+
+/* Estilos para el tooltip */
+.tooltip {
+    position: absolute;
+    background-color: var(--tooltip-bg);
+    color: var(--toast-text);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Para que no interfiera con los eventos del círculo */
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+
+.tooltip.show {
+    visibility: visible;
+    opacity: 1;
 }
