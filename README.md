@@ -43,7 +43,7 @@ Este proyecto es un webplayer de radio de Colombia que muestra un mapa de Colomb
 
 ## Créditos
 
-*   Este proyecto fue creado por [Tu Nombre].
+*   Este proyecto fue creado por [DiGiraldo].
 *   Se utilizaron recursos de Bootstrap y Font Awesome.
 
 ## Licencia

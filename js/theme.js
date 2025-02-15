@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const themeIcon = document.getElementById('themeIcon');
         if (theme === 'dark') {
-            themeIcon.classList.remove('fa-adjust');
+            themeIcon.classList.remove('fa-moon');
             themeIcon.classList.add('fa-sun');
         } else {
             themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-adjust');
+            themeIcon.classList.add('fa-moon');
         }
 
         // Eliminar la clase de transición después de un tiempo
