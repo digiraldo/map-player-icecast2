@@ -30,7 +30,7 @@
         </button>
 
         <!-- Tarjeta de información -->
-        <div id="infoCard" class="card">
+        <div id="infoCard" class="card text-center">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <button id="themeButton" class="btn btn-sm btn-outline-secondary">
                     <i id="themeIcon" class="fas fa-adjust"></i>
@@ -42,11 +42,17 @@
             <img id="stationLogo" src="" class="card-img-top" alt="Station Logo">
             <div class="card-body">
                 <h5 id="stationName" class="card-title"></h5>
+                <p id="totalListenersElement"></p>
+                <p id="totalSourcesElement"></p>
+                <p id="stationInfoElement"></p>
+            </div>
+            <div class="card-footer">
                 <a id="developerLink" href="#" class="btn btn-link">
-                    <i class="fab fa-github"></i> Desarrollador
+                    <i class="fab fa-github"></i>
                 </a>
             </div>
         </div>
+
     </div>
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
@@ -61,6 +67,7 @@
     <script src="js/webplayer.js"></script>
     <script src="js/fullscreen.js"></script>
     <script src="js/theme.js"></script>
+    
 
 </body>
 </html>

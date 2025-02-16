@@ -91,7 +91,7 @@ html {
 
 /* Estilos para la tarjeta de información */
 #infoCard {
-    width: 200px; /* Reducir el ancho de la tarjeta */
+    width: 250px; /* Reducir el ancho de la tarjeta */
     position: absolute; /* Posicionamiento absoluto */
     box-shadow: 0 4px 8px var(--shadow-color);
     background-color: var(--card-bg);
@@ -99,31 +99,61 @@ html {
     border: none;
     z-index: 10; /* Asegura que la tarjeta esté encima del mapa */
     transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease; /* Transición para el fondo, el texto y la transformación */
+    display: flex; /* Agregamos flexbox */
+    flex-direction: column; /* Alineamos los elementos verticalmente */
 }
 
 #infoCard .card-header {
     background-color: transparent;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0.5rem; /* Reducir el padding del header */
+    padding: 0.4rem; /* Reducir el padding del header */
     transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
 }
 
 #infoCard .card-body {
     text-align: center;
-    padding: 0.5rem; /* Reducir el padding del body */
+    padding: 0rem; /* Reducir el padding del body */
     transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+    flex-grow: 1; /* El card-body ocupa el espacio restante */
+}
+
+#infoCard .card-footer {
+    background-color: transparent;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Cambiado a border-top */
+    padding: 0.4rem; /* Reducir el padding del header */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+    margin-top: auto; /* Empuja el footer al final */
 }
 
 #infoCard .card-title {
     font-size: 1rem; /* Reducir el tamaño del título */
-    margin-bottom: 0.5rem; /* Reducir el margen inferior del título */
+    margin-bottom: 0.1rem; /* Reducir el margen inferior del título */
     transition: color 0.5s ease; /* Transición para el texto */
 }
+
+#infoCard #totalListenersElement {
+    margin-bottom: 0.3rem;
+}
+
+#infoCard .station-info {
+    margin-bottom: 0.3rem;
+}
+
+#infoCard #stationName {
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem; /* Aumentar el tamaño del nombre de la estación */)
+}
+
+#infoCard #totalSourcesElement {
+    margin-bottom: 0.3rem
+}
+
+
 
 #infoCard .btn-link {
     color: var(--hover-color);
     text-decoration: none;
-    font-size: 0.8rem; /* Reducir el tamaño del enlace */
+    font-size: 1.5rem; /* Reducir el tamaño del enlace */
     transition: color 0.5s ease; /* Transición para el texto */
 }
 
@@ -132,7 +162,7 @@ html {
 }
 
 #infoCard img {
-    max-width: 80px; /* Reducir el tamaño del logo */
+    max-width: 120px; /* Reducir el tamaño del logo */
     height: auto;
     display: block;
     margin: 0 auto;
