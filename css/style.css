@@ -17,7 +17,6 @@
     --monserrat-font: 'Montserrat', sans-serif;
     --worksans-font: 'Work Sans', sans-serif;
     --listeners-font-size: 0.6em;
-    
 }
 
 [data-theme="dark"] {
@@ -48,87 +47,88 @@
     --player-icon: #868585;
 }
 
-
-/* Estilos para centrar y ajustar el SVG */
-body,
-html {
+/* Estilos generales */
+body, html {
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
     min-height: 100vh;
     height: 100vh;
-    overflow: hidden; /* Importante para evitar scroll */
-    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+    overflow: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .theme-transition {
-    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .container-fluid {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra verticalmente */
+    justify-content: center;
     align-items: center;
-    padding: 0; /* Elimina el padding del container */
+    padding: 0;
 }
 
 #map {
     width: 100%;
-    height: 100%; /* El SVG ocupa todo el alto disponible */
-    max-width: 100%; /* Evita que el SVG se desborde horizontalmente */
+    height: 100%;
+    max-width: 100%;
     display: block;
     margin: auto;
 }
 
 #fullscreenButton {
-    position: absolute; /* Posicionamiento absoluto */
-    bottom: 10px; /* Margen inferior */
-    right: 10px; /* Margen derecho */
-    z-index: 10; /* Asegura que el botón esté encima del mapa */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
 }
 
-/* Estilos para la tarjeta de información */
+/* Tarjeta de información */
 #infoCard {
-    width: 250px; /* Reducir el ancho de la tarjeta */
-    position: absolute; /* Posicionamiento absoluto */
+    width: 250px;
+    position: absolute;
     box-shadow: 0 4px 8px var(--shadow-color);
     background-color: var(--card-bg);
     color: var(--text-color);
     border: none;
-    z-index: 10; /* Asegura que la tarjeta esté encima del mapa */
-    transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease; /* Transición para el fondo, el texto y la transformación */
-    display: flex; /* Agregamos flexbox */
-    flex-direction: column; /* Alineamos los elementos verticalmente */
+    z-index: 10;
+    transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+#infoCard .card-header,
+#infoCard .card-body,
+#infoCard .card-footer {
+    background-color: transparent;
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 #infoCard .card-header {
-    background-color: transparent;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0.4rem; /* Reducir el padding del header */
-    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
+    padding: 0.4rem;
 }
 
 #infoCard .card-body {
     text-align: center;
-    padding: 0rem; /* Reducir el padding del body */
-    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
-    flex-grow: 1; /* El card-body ocupa el espacio restante */
+    padding: 0rem;
+    flex-grow: 1;
 }
 
 #infoCard .card-footer {
-    background-color: transparent;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Cambiado a border-top */
-    padding: 0.4rem; /* Reducir el padding del header */
-    transition: background-color 0.5s ease, color 0.5s ease; /* Transición para el fondo y el texto */
-    margin-top: auto; /* Empuja el footer al final */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.4rem;
+    margin-top: auto;
 }
 
 #infoCard .card-title {
-    font-size: 1rem; /* Reducir el tamaño del título */
-    margin-bottom: 0.1rem; /* Reducir el margen inferior del título */
-    transition: color 0.5s ease; /* Transición para el texto */
+    font-size: 1rem;
+    margin-bottom: 0.1rem;
+    transition: color 0.5s ease;
 }
 
 #infoCard #totalListenersElement {
@@ -141,20 +141,18 @@ html {
 
 #infoCard #stationName {
     margin-bottom: 0.6rem;
-    font-size: 1.2rem; /* Aumentar el tamaño del nombre de la estación */)
+    font-size: 1.2rem;
 }
 
 #infoCard #totalSourcesElement {
     margin-bottom: 0.3rem
 }
 
-
-
 #infoCard .btn-link {
     color: var(--hover-color);
     text-decoration: none;
-    font-size: 1.5rem; /* Reducir el tamaño del enlace */
-    transition: color 0.5s ease; /* Transición para el texto */
+    font-size: 1.5rem;
+    transition: color 0.5s ease;
 }
 
 #infoCard .btn-link:hover {
@@ -162,23 +160,23 @@ html {
 }
 
 #infoCard img {
-    max-width: 120px; /* Reducir el tamaño del logo */
+    max-width: 120px;
     height: auto;
     display: block;
     margin: 0 auto;
-    transition: opacity 0.5s ease; /* Transición para la opacidad */
+    transition: opacity 0.5s ease;
 }
 
 /* Estilos para la tarjeta de información en pantallas pequeñas */
 .small-card {
-    transform: scale(0.7); /* Escalar la tarjeta al 70% de su tamaño original */
-    transform-origin: top right; /* Establecer el origen de la transformación en la esquina superior derecha */
+    transform: scale(0.7);
+    transform-origin: top right;
 }
 
 /* Estilos para los círculos de las estaciones */
 .station-circle {
     cursor: pointer;
-    transition: fill 0.3s ease; /* Transición suave para el cambio de color */
+    transition: fill 0.3s ease;
 }
 
 .station-icon {
@@ -186,28 +184,27 @@ html {
 }
 
 .station-icon i {
-    color: var(--player-icon); /* Ajusta el color del icono */
+    color: var(--player-icon);
     text-align: center;
-    line-height: 20px; /* Ajusta según el tamaño del círculo */
-    font-size: 20px; /* Ajusta según el tamaño del círculo */
+    line-height: 20px;
+    font-size: 20px;
 }
 
 .station-name {
-    font-family: var(--worksans-font); /* Ajusta la fuente del nombre de la estación */
+    font-family: var(--worksans-font);
     font-size: 0.4em;
     fill: var(--text-color);
     transition: fill 0.3s ease;
-    /* Otros estilos para el nombre de la estación */
 }
 
 .listeners-text {
-    font-family: var(--monserrat-font); /* Ajusta la fuente del nombre de la estación */
-    font-size: 0.4em; /* Ajusta el tamaño del texto */
+    font-family: var(--monserrat-font);
+    font-size: 0.4em;
     font-weight: bold;
-    fill: var(--text-color); /* Ajusta el color del texto */
-    text-anchor: middle; /* Centra el texto horizontalmente */
-    alignment-baseline: middle; /* Centra el texto verticalmente */
-    pointer-events: none; /* Evita que el texto interfiera con los clics en el círculo */
+    fill: var(--text-color);
+    text-anchor: middle;
+    alignment-baseline: middle;
+    pointer-events: none;
 }
 
 /* Estilos para el tooltip */
@@ -222,7 +219,7 @@ html {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
-    pointer-events: none; /* Para que no interfiera con los eventos del círculo */
+    pointer-events: none;
 }
 
 .tooltip::before {
@@ -254,12 +251,113 @@ html {
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Agrega transición para transform */
-    text-align: center; /* Centrar el texto */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    text-align: center;
 }
 
 .toast.show {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(-10px); /* Agrega un pequeño desplazamiento hacia arriba */
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* Estilos para Bootstrap */
+.btn {
+    margin: 5px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+/* Estilos para los modales */
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.modal-footer {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Estilos para DataTables */
+table.dataTable {
+    color: var(--text-color);
+}
+
+table.dataTable thead th {
+    color: var(--text-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+table.dataTable tbody td {
+    color: var(--text-color);
+}
+
+table.dataTable.no-footer {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para DataTables en modo oscuro */
+[data-theme="dark"] {
+    --dt-text-color: var(--text-color) !important;
+}
+
+[data-theme="dark"] table.dataTable,
+[data-theme="dark"] table.dataTable tbody tr,
+[data-theme="dark"] table.dataTable tbody td,
+[data-theme="dark"] table.dataTable thead th,
+[data-theme="dark"] table.dataTable.no-footer {
+    color: var(--dt-text-color) !important;
+    background-color: var(--card-bg) !important; /* Agregado para el fondo */
+}
+
+[data-theme="dark"] .dataTables_wrapper .dataTables_length label,
+[data-theme="dark"] .dataTables_wrapper .dataTables_filter label,
+[data-theme="dark"] .dataTables_info {
+    color: var(--dt-text-color) !important;
+}
+
+[data-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: var(--dt-text-color) !important; /* Asegura que el texto sea legible */
+    background-color: transparent !important;
+    border: none !important;
+}
+
+[data-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #007bff !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+[data-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background-color: rgb(115, 115, 116) !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+[data-theme="dark"] .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #0056b3 !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+[data-theme="dark"] .dataTables_wrapper .dataTables_filter input,
+[data-theme="dark"] .dataTables_wrapper .dataTables_length select {
+    color: var(--dt-text-color);
+    background-color: var(--card-bg);
+    border: 1px solid var(--dt-text-color);
 }

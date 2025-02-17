@@ -169,3 +169,56 @@
         <desc id="sanandres_des">105.5 FM</desc>
     </circle>
 </root>
+
+
+
+
+                    // Verificar si iconInner es null
+                    if (iconInner) {
+                        // Escuchar eventos de audio para actualizar el color del círculo
+                        audio.addEventListener('playing', () => {
+                            console.log('playing');
+                            iconInner.classList.remove('fa-play');
+                            iconInner.classList.add('fa-pause');
+                            target.setAttribute('fill', 'var(--player-playing)');
+                            iconInner.className = 'fas fa-pause'; // Mostrar el icono de pausa
+
+                            // Actualizar el badge inmediatamente al comenzar la reproducción
+                            updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
+
+                            // Actualizar el badge cada 10 segundos
+                            listenersBadgeInterval = setInterval(() => updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv), 10000);
+                        });
+
+                        audio.addEventListener('pause', () => {
+                            console.log('pause');
+                            console.log('Deteniendo intervalo:', listenersBadgeInterval);
+                            iconInner.classList.remove('fa-pause');
+                            iconInner.classList.add('fa-play');
+                            target.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
+                            // stationInfoElement.textContent = "Reproducir Emisora";
+                            // iconInner.className = 'fas fa-play';
+
+                            // Detener el intervalo
+                            // clearInterval(listenersBadgeInterval);
+                            clearTimeout(listenersBadgeInterval);
+                        });
+
+                        audio.addEventListener('ended', () => {
+                            console.log('ended');
+                            iconInner.classList.remove('fa-pause');
+                            iconInner.classList.add('fa-play');
+                            target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
+                            stationInfoElement.textContent = "Reproducir Emisora";
+                        });
+
+                        audio.addEventListener('error', () => {
+                            console.log('error');
+                            iconInner.classList.remove('fa-pause');
+                            iconInner.classList.add('fa-play');
+                            target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
+                            stationInfoElement.textContent = "Reproducir Emisora";
+                        });
+                    } else {
+                        console.error("No se pudo encontrar el elemento iconInner");
+                    }

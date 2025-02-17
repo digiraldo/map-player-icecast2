@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargar datos del archivo JSON
     fetch('data/stations.json')
         .then(response => response.json())
         .then(data => {
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Unir hostUrl con statusUrl
             const statusUrlCompleta = reproductor.hostUrl + "/" + reproductor.statusUrl;
             const hostSRV = reproductor.hostUrl;
-            console.log("URL completa del estado:", statusUrlCompleta);
 
             // Arrays para almacenar los resultados
             const iguales = [];
@@ -97,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Agregar el icono interno al foreignObject
                     icon.appendChild(iconInner);
 
-                    // console.log("map:", map);
                     map.appendChild(icon);
 
                     // Ocultar el icono inicialmente
@@ -208,10 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Función para actualizar el badge de oyentes
             function updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv) {
-                // console.log("updateListenersBadge se está ejecutando");
-                // console.log("currentAudio:", currentAudio);
-                // console.log("currentCircle:", currentCircle);
-                // console.log("hostSRV:", hostSRV);
                 if (currentAudio && currentCircle) {
                     // Obtener el número de oyentes de la emisora que está reproduciendo
                     fetch(statusUrlCompleta)
@@ -219,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         .then(data => {
                             // Verificar si 'data.icestats.source' es un array o un objeto
                             let sources = data.icestats.source;
-                            // console.log("sources:", sources);
                             if (!Array.isArray(sources)) {
                                 sources = [sources]; // Convertir a array si es un objeto único
                             }
@@ -227,21 +219,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Encontrar la fuente que coincide con la URL del audio actual
                             const source = sources.find(source => {
                                 const sourceServerUrl = hostSRV + "/" + source.server_url;
-                                // console.log("source.server_url:", sourceServerUrl);
-                                // console.log("ciudadServerUrl:", ciudadServerUrl);
-
-                                // console.log("elsource.server_url:", source.server_url);
-                                // console.log("soloCiudadServerUrl:", ciudadSrv);
                                 return sourceServerUrl === ciudadServerUrl;
                             });
 
                             if (source) {
                                 // Actualizar el texto de los listeners
                                 const numOyentes = source.listeners;
-                                console.log("numOyentes:", numOyentes); // Agregar esta línea para depurar
                                 stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${numOyentes}<span class="visually-hidden">unread messages</span></span></button>`;
                             } else {
-                                stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0<span class="visually-hidden">unread messages</span></span></button>`;
+                                stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}</button>`;
                             }
                         })
                         .catch(error => {
@@ -256,9 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Agregar evento de clic al contenedor SVG
             map.addEventListener('click', (event) => {
-                console.log("Evento click disparado");
                 const target = event.target;
-                // console.log(target);
 
                 // Verificar si el clic fue en un círculo
                 if (target.tagName === 'circle') {
@@ -293,55 +277,59 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Encontrar el icono interno del círculo actual
                     const iconInner = target.parentNode.querySelector('.station-icon i');
 
-                    // Verificar si iconInner es null
-                    if (iconInner) {
-                        // Escuchar eventos de audio para actualizar el color del círculo
-                        audio.addEventListener('playing', () => {
-                            console.log('playing');
-                            iconInner.classList.remove('fa-play');
-                            iconInner.classList.add('fa-pause');
-                            target.setAttribute('fill', 'var(--player-playing)');
-                            iconInner.className = 'fas fa-pause'; // Mostrar el icono de pausa
+                    // Remover todos los event listeners existentes
+                    audio.removeEventListener('playing', audio.playingHandler);
+                    audio.removeEventListener('pause', audio.pauseHandler);
+                    audio.removeEventListener('ended', audio.endedHandler);
+                    audio.removeEventListener('error', audio.errorHandler);
 
-                            // Actualizar el badge inmediatamente al comenzar la reproducción
-                            updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
+                    // Definir los handlers de eventos
+                    audio.playingHandler = () => {
+                        console.log('playing');
+                        iconInner.classList.remove('fa-play');
+                        iconInner.classList.add('fa-pause');
+                        target.setAttribute('fill', 'var(--player-playing)');
+                        iconInner.className = 'fas fa-pause'; // Mostrar el icono de pausa
 
-                            // Actualizar el badge cada 10 segundos
-                            listenersBadgeInterval = setInterval(() => updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv), 10000);
-                        });
+                        // Actualizar el badge inmediatamente al comenzar la reproducción
+                        updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
 
-                        audio.addEventListener('pause', () => {
-                            console.log('pause');
-                            console.log('Deteniendo intervalo:', listenersBadgeInterval);
-                            iconInner.classList.remove('fa-pause');
-                            iconInner.classList.add('fa-play');
-                            target.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
-                            stationInfoElement.textContent = "Reproducir Emisora";
-                            iconInner.className = 'fas fa-play'; // Mostrar el icono de play
+                        // Actualizar el badge cada 10 segundos
+                        listenersBadgeInterval = setInterval(() => updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv), 10000);
+                    };
 
-                            // Detener el intervalo
-                            // clearInterval(listenersBadgeInterval);
-                            clearTimeout(listenersBadgeInterval);
-                        });
+                    audio.pauseHandler = () => {
+                        console.log('pause');
+                        // console.log('Deteniendo intervalo:', listenersBadgeInterval);
+                        iconInner.classList.remove('fa-pause');
+                        iconInner.classList.add('fa-play');
+                        target.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
 
-                        audio.addEventListener('ended', () => {
-                            console.log('ended');
-                            iconInner.classList.remove('fa-pause');
-                            iconInner.classList.add('fa-play');
-                            target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
-                            stationInfoElement.textContent = "Reproducir Emisora";
-                        });
+                        // Detener el intervalo
+                        clearTimeout(listenersBadgeInterval);
+                    };
 
-                        audio.addEventListener('error', () => {
-                            console.log('error');
-                            iconInner.classList.remove('fa-pause');
-                            iconInner.classList.add('fa-play');
-                            target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
-                            stationInfoElement.textContent = "Reproducir Emisora";
-                        });
-                    } else {
-                        console.error("No se pudo encontrar el elemento iconInner");
-                    }
+                    audio.endedHandler = () => {
+                        console.log('ended');
+                        iconInner.classList.remove('fa-pause');
+                        iconInner.classList.add('fa-play');
+                        target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
+                        stationInfoElement.textContent = "Reproducir Emisora";
+                    };
+
+                    audio.errorHandler = () => {
+                        console.log('error');
+                        iconInner.classList.remove('fa-pause');
+                        iconInner.classList.add('fa-play');
+                        target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
+                        stationInfoElement.textContent = "Reproducir Emisora";
+                    };
+
+                    // Agregar los event listeners
+                    audio.addEventListener('playing', audio.playingHandler);
+                    audio.addEventListener('pause', audio.pauseHandler);
+                    audio.addEventListener('ended', audio.endedHandler);
+                    audio.addEventListener('error', audio.errorHandler);
 
                     if (audio.paused) {
                         audio.play();
@@ -363,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             iconInner.classList.add('fa-play');
                         }
                         target.setAttribute('fill', 'var(--player-online)'); // Cambiar a --player-online
-                        stationInfoElement.textContent = "Reproducir Emisora";
+                        stationInfoElement.textContent = "Mapa Emisora";
                         currentAudio = null; // No hay audio actual
                         currentCircle = null; // No hay círculo actual
                     }
