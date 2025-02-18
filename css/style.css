@@ -212,7 +212,6 @@ body, html {
     position: absolute;
     background-color: var(--tooltip-bg);
     color: var(--toast-text);
-    padding: 5px;
     border-radius: 5px;
     font-size: 0.8em;
     z-index: 1000;
@@ -220,17 +219,28 @@ body, html {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    padding: 8px 12px;
+    left: 50%;
+    top: 100%; /* Posicionar abajo del círculo */
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    display: flex; /* Centrar el texto verticalmente */
+    justify-content: center; /* Centrar el texto horizontalmente */
+    align-items: center; /* Centrar el texto verticalmente */
 }
 
 .tooltip::before {
     content: "";
     position: absolute;
-    top: 100%;
-    left: 50%;
+    bottom: 100%;
+    left: 50%; /* Centrar la flecha */
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: var(--tooltip-bg) transparent transparent transparent;
+    border-color: transparent transparent var(--tooltip-bg) transparent;
+    transform: translateX(-50%); /* Ajustar el centrado */
 }
 
 .tooltip.show {

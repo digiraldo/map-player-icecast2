@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ciudad.serverUrl) {
                     ciudadSrv = ciudad.serverUrl;
                     const ciudadServerUrl = reproductor.hostUrl + "/" + ciudadSrv;
-                    const playerR = ciudad.r;
+                    const playerR = reproductor.r;
                     const playerX = ciudad.cx;
                     const playerY = ciudad.cy;
                     const playerName = ciudad.name;
