@@ -306,6 +306,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         // Detener el intervalo
                         clearTimeout(listenersBadgeInterval);
+
+                        // Eliminar el contenido del elemento stationInfoElement
+                        stationInfoElement.innerHTML = '';
                     };
 
                     audio.endedHandler = () => {
