@@ -43,73 +43,126 @@ Este proyecto es un webplayer de radio de Colombia que muestra un mapa de Colomb
 
 ### Instalación
 
-1. Descarga e instala Node.js desde [nodejs.org](https://nodejs.org/).
+1.  Descarga e instala Node.js desde [nodejs.org](https://nodejs.org/).
 
-2. Abre una terminal y navega a la carpeta de tu proyecto.
+2.  Abre una terminal y navega a la carpeta de tu proyecto.
 
-3. Ejecuta el siguiente comando para inicializar un nuevo proyecto Node.js:
+3.  Ejecuta el siguiente comando para inicializar un nuevo proyecto Node.js:
 
     ```bash
     npm init -y
     ```
 
-4. Ejecuta el siguiente comando para instalar Express:
+4.  Ejecuta el siguiente comando para instalar Express, body-parser, cors y fs:
 
     ```bash
-    npm install express
+    npm install express body-parser cors fs
     ```
 
 ### Configuración
 
-1. Crea un archivo llamado `server.js` en la raíz de tu proyecto y agrega el siguiente código:
+1.  Crea un archivo llamado `update_stations.js` en la carpeta `js` de tu proyecto y agrega el siguiente código:
 
     ```javascript
     const express = require('express');
+    const bodyParser = require('body-parser');
+    const cors = require('cors');
     const fs = require('fs');
-    const path = require('path');
+
     const app = express();
+    const port = 3000;
 
-    app.use(express.json());
+    // Configurar CORS para permitir solicitudes desde cualquier origen
+    app.use(cors());
 
-    app.post('/guardar-station', (req, res) => {
-        const updatedReproductor = req.body;
+    // Configurar body-parser para analizar solicitudes JSON
+    app.use(bodyParser.json());
 
-        fs.readFile(path.join(__dirname, 'data', 'stations.json'), 'utf8', (err, data) => {
+    app.post('/update_stations', (req, res) => {
+        const data = req.body;
+
+        // Ruta al archivo stations.json
+        const file = 'data/stations.json';
+
+        // Leer el contenido actual del archivo
+        fs.readFile(file, 'utf8', (err, fileData) => {
             if (err) {
-                console.error('Error al leer el archivo JSON:', err);
-                return res.status(500).send('Error al leer el archivo JSON');
+                console.error('Error al leer el archivo stations.json:', err);
+                return res.status(500).send('Error al leer el archivo stations.json');
             }
 
-            const stations = JSON.parse(data);
-            stations.reproductor = updatedReproductor;
+            try {
+                // Convertir los datos del archivo a un objeto JSON
+                const stations = JSON.parse(fileData);
 
-            fs.writeFile(path.join(__dirname, 'data', 'stations.json'), JSON.stringify(stations, null, 2), 'utf8', (err) => {
-                if (err) {
-                    console.error('Error al escribir en el archivo JSON:', err);
-                    return res.status(500).send('Error al escribir en el archivo JSON');
-                }
+                // Actualizar la información de las ciudades
+                stations.reproductor.ciudades = data.reproductor.ciudades;
 
-                res.send({ message: 'Datos guardados correctamente' });
-            });
+                // Convertir los datos actualizados a una cadena JSON
+                const updatedData = JSON.stringify(stations, null, 4);
+
+                // Escribir los datos actualizados en el archivo
+                fs.writeFile(file, updatedData, 'utf8', (err) => {
+                    if (err) {
+                        console.error('Error al actualizar el archivo stations.json:', err);
+                        return res.status(500).send('Error al actualizar el archivo stations.json');
+                    }
+
+                    console.log('Archivo stations.json actualizado correctamente');
+                    res.send('Archivo stations.json actualizado correctamente');
+                });
+            } catch (err) {
+                console.error('Error al analizar o escribir el archivo stations.json:', err);
+                return res.status(500).send('Error al analizar o escribir el archivo stations.json');
+            }
         });
     });
 
-    app.listen(3000, () => {
-        console.log('Servidor escuchando en el puerto 3000');
+    app.listen(port, () => {
+        console.log(`Servidor escuchando en el puerto ${port}`);
     });
     ```
 
-2. En la terminal, ejecuta el siguiente comando para iniciar el servidor:
+2.  Modifica la función `saveCiudades()` en `js/crud.js` para que apunte al script del lado del servidor:
+
+    ```javascript
+    function saveCiudades() {
+        $.ajax({
+            url: 'http://localhost:3000/update_stations', // Cambiar la URL al script del lado del servidor
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ "reproductor": { "ciudades": ciudades } }), // Enviar los datos como una cadena JSON
+            success: function(response) {
+                console.log('Archivo stations.json actualizado correctamente');
+                // Mostrar un mensaje de éxito al usuario
+                alert('Cambios guardados correctamente');
+
+                // Actualizar el localStorage
+                updateLocalStorage();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al actualizar el archivo stations.json:', error);
+                // Mostrar un mensaje de error al usuario
+                alert('Error al guardar los cambios: ' + error);
+                // Imprimir información detallada sobre el error
+                console.log('Código de estado:', xhr.status);
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        });
+    }
+    ```
+
+3.  En la terminal, ejecuta el siguiente comando para iniciar el servidor:
 
     ```bash
-    node server.js
+    node js/update_stations.js
     ```
 
 El servidor ahora debería estar ejecutándose en `http://localhost:3000`.
 
 ### Uso
 
-- Para guardar los cambios del formulario "Editar Información de la Estación", asegúrate de que el servidor esté ejecutándose y que las solicitudes se envíen a `http://localhost:3000/guardar-station`.
+*   Para guardar los cambios de las ciudades, asegúrate de que el servidor esté ejecutándose y que las solicitudes se envíen a `http://localhost:3000/update_stations`.
 
 ## Personalización
 

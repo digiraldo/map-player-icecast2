@@ -1,0 +1,20 @@
+{
+  "name": "map-player-icecast2",
+  "version": "1.0.0",
+  "description": "Este proyecto es un webplayer de radio de Colombia que muestra un mapa de Colombia con estaciones de radio ubicadas en diferentes ciudades.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digiraldo/map-player-icecast2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/digiraldo/map-player-icecast2/issues"
+  },
+  "homepage": "https://github.com/digiraldo/map-player-icecast2#readme"
+}

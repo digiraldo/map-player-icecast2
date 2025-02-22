@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para cargar la información del reproductor desde localStorage
     function loadPlayerInfo() {
         // Obtener la información del reproductor desde localStorage
-        const reproductorData = localStorage.getItem('reproductor');
+        let reproductorData = localStorage.getItem('reproductor');
 
         // Si no hay información en localStorage, cargar la información desde el archivo stations.json
         if (!reproductorData) {
@@ -86,8 +86,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Crear un objeto con los datos actualizados
+        // Obtener la información existente del localStorage
+        const existingReproductorData = localStorage.getItem('reproductor');
+        let existingReproductor = {};
+
+        if (existingReproductorData) {
+            existingReproductor = JSON.parse(existingReproductorData);
+        }
+
+        // Crear un objeto con los datos actualizados, fusionando los valores existentes
         const updatedReproductor = {
+            ...existingReproductor, // Mantener los valores existentes
             estacion: newstationNameRadio,
             hostUrl: newStationHostUrl,
             statusUrl: newStationStatusUrl,
@@ -96,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             url_logo: newStationUrlLogo
         };
 
-        // Guardar la información actualizada en localStorage
+        // Guardar la información actualizada del reproductor en localStorage
         localStorage.setItem('reproductor', JSON.stringify(updatedReproductor));
 
         // Cerrar el modal

@@ -178,31 +178,55 @@ $(document).ready(function() {
     }
 
     function updateMap() {
-        $('#map circle').remove();
-        ciudades.forEach(ciudad => {
-            const circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        const map = $('#map');
+
+        ciudades.forEach((ciudad, index) => {
+            const stationName = ciudad.name;
+            let circle = map.find(`circle[data-station-name="${stationName}"]`);
+
+            if (circle.length === 0) {
+                // Si el círculo no existe, crear uno nuevo
+                circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                circle.setAttribute('class', 'station-circle');
+                circle.setAttribute('data-station-name', stationName); // Agregar el atributo data-station-name
+                map.append(circle);
+            } else {
+                circle = circle[0]; // Obtener el elemento DOM del objeto jQuery
+            }
+
+            // Actualizar los atributos del círculo
             circle.setAttribute('cx', ciudad.cx);
             circle.setAttribute('cy', ciudad.cy);
             circle.setAttribute('r', ciudad.r);
             circle.setAttribute('fill', ciudad.fill);
-            circle.setAttribute('class', 'station-circle');
-            circle.setAttribute('data-station-name', ciudad.name);
             circle.setAttribute('data-station-frecuencia', ciudad.frecuencia);
             circle.setAttribute('data-audio-url', ciudad.serverUrl);
-            $('#map').append(circle);
+        });
+
+        // Eliminar los círculos que no están en el array ciudades
+        map.find('circle.station-circle').each((index, circle) => {
+            const stationName = circle.getAttribute('data-station-name');
+            const cityIndex = ciudades.findIndex(ciudad => ciudad.name === stationName);
+
+            if (cityIndex === -1) {
+                $(circle).remove();
+            }
         });
     }
 
     function saveCiudades() {
         $.ajax({
-            url: 'data/stations.json',
-            type: 'PUT', // Usar el método PUT para actualizar el archivo
+            url: 'http://localhost:3000/update_stations', // Cambiar la URL al script del lado del servidor
+            type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ "reproductor": { "ciudades": ciudades } }), // Enviar solo el array de ciudades
+            data: JSON.stringify({ "reproductor": { "ciudades": ciudades } }), // Enviar los datos como una cadena JSON
             success: function(response) {
                 console.log('Archivo stations.json actualizado correctamente');
                 // Mostrar un mensaje de éxito al usuario
                 alert('Cambios guardados correctamente');
+
+                // Actualizar el localStorage
+                updateLocalStorage();
             },
             error: function(xhr, status, error) {
                 console.error('Error al actualizar el archivo stations.json:', error);
@@ -213,6 +237,32 @@ $(document).ready(function() {
                 console.log('Respuesta del servidor:', xhr.responseText);
             }
         });
+    }
+
+    function updateLocalStorage() {
+        console.log('updateLocalStorage() ejecutado'); // Agregar este console.log()
+
+        // Obtener la información del reproductor desde localStorage
+        let reproductorData = localStorage.getItem('reproductor');
+        let reproductor = {};
+
+        // Si no hay información en localStorage, usar un objeto vacío
+        if (reproductorData) {
+            reproductor = JSON.parse(reproductorData);
+        }
+
+        // Verificar si el objeto reproductor tiene la propiedad ciudades
+        if (!reproductor.ciudades) {
+            reproductor.ciudades = [];
+        }
+
+        // Actualizar la información de las ciudades en el objeto reproductor
+        reproductor.ciudades = ciudades;
+
+        console.log('Datos a guardar en localStorage:', reproductor); // Agregar este console.log()
+
+        // Guardar la información actualizada en localStorage
+        localStorage.setItem('reproductor', JSON.stringify(reproductor));
     }
 
     loadCiudades();
