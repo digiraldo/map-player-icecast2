@@ -371,3 +371,29 @@ table.dataTable.no-footer {
     background-color: var(--card-bg);
     border: 1px solid var(--dt-text-color);
 }
+
+/* Estilos para el contenedor del logo y el canvas */
+.logo-container {
+    position: relative; /* Importante para el posicionamiento absoluto del canvas */
+    width: 100%; /* O el ancho deseado */
+    height: auto; /* Ajusta la altura automáticamente */
+}
+
+.logo-container img {
+    display: block; /* Elimina el espacio extra debajo de la imagen */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    max-width: 120px;
+    height: auto;
+    transition: opacity 0.5s ease;
+    position: relative; /* Asegura que la imagen esté encima del canvas */
+    z-index: 1; /* Asegura que la imagen esté encima del canvas */
+}
+
+.logo-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Asegura que el canvas esté detrás de la imagen */
+}

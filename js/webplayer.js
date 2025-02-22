@@ -31,6 +31,52 @@ document.addEventListener('DOMContentLoaded', () => {
             // Declarar ciudadSrv en un ámbito superior
             let ciudadSrv;
 
+            // Canvas de ondas
+            const waveCanvas = document.getElementById('waveCanvas');
+            const waveCtx = waveCanvas.getContext('2d');
+            waveCanvas.style.display = 'none'; // Ocultar inicialmente
+
+            let waveAnimation;
+
+            function drawWave() {
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+
+                const numberOfWaves = 6; // Número de ondas a dibujar
+                const baseAmplitude = 15; // Amplitud base
+                const baseFrequency = 0.02; // Frecuencia base
+                const baseSpeed = 0.1; // Velocidad base
+
+                for (let j = 0; j < numberOfWaves; j++) {
+                    waveCtx.beginPath();
+                    waveCtx.strokeStyle = `rgba(0, 200, 81, ${0.7 - j * 0.2})`; // Verde claro con transparencia decreciente
+                    waveCtx.lineWidth = 2;
+
+                    const amplitude = baseAmplitude + j * 5; // Amplitud diferente para cada onda
+                    const frequency = baseFrequency + j * 0.01; // Frecuencia diferente para cada onda
+                    const speed = baseSpeed + j * 0.05; // Velocidad diferente para cada onda
+
+                    for (let i = 0; i < waveCanvas.width; i++) {
+                        const y = waveCanvas.height / 2 + amplitude * Math.sin(frequency * i + Date.now() * speed);
+                        waveCtx.lineTo(i, y);
+                    }
+
+                    waveCtx.stroke();
+                }
+
+                waveAnimation = requestAnimationFrame(drawWave);
+            }
+
+            function startWave() {
+                waveCanvas.style.display = 'block';
+                drawWave();
+            }
+
+            function stopWave() {
+                waveCanvas.style.display = 'none';
+                cancelAnimationFrame(waveAnimation);
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+            }
+
             // Analizar y comparar serverUrl
             reproductor.ciudades.forEach(ciudad => {
                 if (ciudad.serverUrl) {
@@ -262,11 +308,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (!currentAudio.paused && currentCircle === target) {
                             // Si el mismo círculo está activo, pausar el audio
                             currentAudio.pause();
+                            stopWave(); // Detener la animación de la onda
                             return; // Salir de la función para evitar crear un nuevo objeto Audio
                         } else {
                             // Si hay otro audio reproduciéndose, detenerlo
                             currentAudio.pause();
                             resetCircleAppearance(currentCircle);
+                            stopWave(); // Detener la animación de la onda
                         }
                     }
 
@@ -290,6 +338,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         target.setAttribute('fill', 'var(--player-playing)');
                         iconInner.className = 'fas fa-pause'; // Mostrar el icono de pausa
 
+                        // Ajustar el tamaño del canvas al tamaño del logo
+                        waveCanvas.width = stationLogo.offsetWidth;
+                        waveCanvas.height = stationLogo.offsetHeight;
+
+                        // Iniciar la animación de ondas
+                        startWave();
+
                         // Actualizar el badge inmediatamente al comenzar la reproducción
                         updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
 
@@ -303,6 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         iconInner.classList.remove('fa-pause');
                         iconInner.classList.add('fa-play');
                         target.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
+                        stopWave(); // Detener la animación de la onda
 
                         // Detener el intervalo
                         clearTimeout(listenersBadgeInterval);
@@ -317,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         iconInner.classList.add('fa-play');
                         target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
                         stationInfoElement.textContent = "Reproducir Emisora";
+                        stopWave(); // Detener la animación de la onda
                     };
 
                     audio.errorHandler = () => {
@@ -325,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         iconInner.classList.add('fa-play');
                         target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
                         stationInfoElement.textContent = "Reproducir Emisora";
+                        stopWave(); // Detener la animación de la onda
                     };
 
                     // Agregar los event listeners
