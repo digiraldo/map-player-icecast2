@@ -54,8 +54,15 @@
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="crudModalLabel">Gestión de Ciudades</h5>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCityModal">Agregar Ciudad</button>
+                        <h5 class="modal-title" id="crudModalLabel">Gestión de Estaciones  </h5>
+                        <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCityModal">
+                                <i class="fas fa-plus"></i> Agregar Ciudad
+                            </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editStationModal">
+                                <i class="fas fa-edit"></i> Editar Estación
+                            </button>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -129,6 +136,47 @@
             </div>
         </div>
 
+        <!-- Modal para editar información de la estación -->
+        <div class="modal fade" id="editStationModal" tabindex="-1" aria-labelledby="editStationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editStationModalLabel">Editar Información de la Estación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="stationForm">
+                            <div class="mb-3">
+                                <label for="stationNameRadio" class="form-label">Nombre de la Estación</label>
+                                <input type="text" class="form-control" id="stationNameRadio" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stationHostUrl" class="form-label">URL del Host</label>
+                                <input type="text" class="form-control" id="stationHostUrl" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stationStatusUrl" class="form-label">URL del Estado</label>
+                                <input type="text" class="form-control" id="stationStatusUrl" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stationTotalStations" class="form-label">Total de Estaciones</label>
+                                <input type="number" class="form-control" id="stationTotalStations" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stationR" class="form-label">Tamaño de los Círculos (4-10)</label>
+                                <input type="number" class="form-control" id="stationR" min="4" max="10" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="stationUrlLogo" class="form-label">URL del Logo</label>
+                                <input type="text" class="form-control" id="stationUrlLogo" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -139,5 +187,6 @@
     <script src="js/fullscreen.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/webplayer.js"></script>
+    <script src="js/player-info.js"></script>
 </body>
 </html>
