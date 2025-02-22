@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const playerName = target.getAttribute('data-station-name');
                     const playerFrecuencia = target.getAttribute('data-station-frecuencia');
                     const ciudadServerUrl = target.getAttribute('data-audio-url');
+                    const ciudadSrv = ciudadServerUrl.replace(hostSRV + '/', '');
 
                     // Si el círculo está en rojo, mostrar el toast y no hacer nada
                     if (target.getAttribute('fill') === 'var(--player-offline)') {
@@ -257,17 +258,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     // Si hay un audio reproduciéndose, detenerlo
-                    if (currentAudio && !currentAudio.paused) {
-                        currentAudio.pause();
-                        // Restablecer el color del círculo del audio anterior
-                        if (currentCircle) {
-                            currentCircle.setAttribute('fill', 'var(--player-online)');
-                            // Encontrar el icono interno del círculo anterior y actualizarlo
-                            const prevIconInner = currentCircle.parentNode.querySelector('.station-icon i');
-                            if (prevIconInner) {
-                                prevIconInner.classList.remove('fa-pause');
-                                prevIconInner.classList.add('fa-play');
-                            }
+                    if (currentAudio) {
+                        if (!currentAudio.paused && currentCircle === target) {
+                            // Si el mismo círculo está activo, pausar el audio
+                            currentAudio.pause();
+                            return; // Salir de la función para evitar crear un nuevo objeto Audio
+                        } else {
+                            // Si hay otro audio reproduciéndose, detenerlo
+                            currentAudio.pause();
+                            resetCircleAppearance(currentCircle);
                         }
                     }
 
@@ -331,32 +330,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     audio.addEventListener('ended', audio.endedHandler);
                     audio.addEventListener('error', audio.errorHandler);
 
-                    if (audio.paused) {
-                        audio.play();
-                        if (iconInner) {
-                            iconInner.classList.remove('fa-play');
-                            iconInner.classList.add('fa-pause');
-                        }
-                        target.setAttribute('fill', 'var(--player-playing)'); // Cambiar a --player-playing
-                        stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}</button>`;
-                        currentAudio = audio; // Actualizar el audio actual
-                        currentCircle = target; // Actualizar el círculo actual
-
-                        // Actualizar el badge al hacer clic en el círculo
-                        updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
-                    } else {
-                        audio.pause();
-                        if (iconInner) {
-                            iconInner.classList.remove('fa-pause');
-                            iconInner.classList.add('fa-play');
-                        }
-                        target.setAttribute('fill', 'var(--player-online)'); // Cambiar a --player-online
-                        stationInfoElement.textContent = "Mapa Emisora";
-                        currentAudio = null; // No hay audio actual
-                        currentCircle = null; // No hay círculo actual
+                    audio.play();
+                    if (iconInner) {
+                        iconInner.classList.remove('fa-play');
+                        iconInner.classList.add('fa-pause');
                     }
+                    target.setAttribute('fill', 'var(--player-playing)'); // Cambiar a --player-playing
+                    stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}</button>`;
+                    currentAudio = audio; // Actualizar el audio actual
+                    currentCircle = target; // Actualizar el círculo actual
+
+                    // Actualizar el badge al hacer clic en el círculo
+                    updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
                 }
             });
+
+            function resetCircleAppearance(circle) {
+                if (circle) {
+                    circle.setAttribute('fill', 'var(--player-online)');
+                    const prevIconInner = circle.parentNode.querySelector('.station-icon i');
+                    if (prevIconInner) {
+                        prevIconInner.classList.remove('fa-pause');
+                        prevIconInner.classList.add('fa-play');
+                    }
+                }
+            }
 
             // Actualizar la tarjeta con la información
             const infoCard = document.getElementById('infoCard');
