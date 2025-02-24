@@ -224,7 +224,7 @@ $(document).ready(function() {
                 console.log('Archivo stations.json actualizado correctamente');
                 // Mostrar un mensaje de éxito al usuario
                 alert('Cambios guardados correctamente');
-
+    
                 // Actualizar el localStorage
                 updateLocalStorage();
             },
