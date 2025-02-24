@@ -52,6 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cargar la información en el modal de edición al inicio
     const editStationModal = document.getElementById('editStationModal');
     editStationModal.addEventListener('show.bs.modal', function () {
+        // Cachear elementos del DOM del modal
+        const editStationNameRadioInput = document.getElementById('stationNameRadio');
+        const editStationHostUrlInput = document.getElementById('stationHostUrl');
+        const editStationStatusUrlInput = document.getElementById('stationStatusUrl');
+        const editStationTotalStationsInput = document.getElementById('stationTotalStations');
+        const editStationRInput = document.getElementById('stationR');
+        const editStationUrlLogoInput = document.getElementById('stationUrlLogo');
+
         // Obtener la información del reproductor desde localStorage
         const reproductorData = localStorage.getItem('reproductor');
 
@@ -59,12 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (reproductorData) {
             const reproductor = JSON.parse(reproductorData);
 
-            document.getElementById('stationNameRadio').value = reproductor.estacion;
-            document.getElementById('stationHostUrl').value = reproductor.hostUrl;
-            document.getElementById('stationStatusUrl').value = reproductor.statusUrl;
-            document.getElementById('stationTotalStations').value = reproductor.total_estaciones;
-            document.getElementById('stationR').value = reproductor.r;
-            document.getElementById('stationUrlLogo').value = reproductor.url_logo;
+            editStationNameRadioInput.value = reproductor.estacion;
+            editStationHostUrlInput.value = reproductor.hostUrl;
+            editStationStatusUrlInput.value = reproductor.statusUrl;
+            editStationTotalStationsInput.value = reproductor.total_estaciones;
+            editStationRInput.value = reproductor.r;
+            editStationUrlLogoInput.value = reproductor.url_logo;
         }
     });
 
@@ -107,6 +115,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Guardar la información actualizada del reproductor en localStorage
         localStorage.setItem('reproductor', JSON.stringify(updatedReproductor));
+
+        // Enviar los datos actualizados al servidor
+        fetch('/update_stations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ reproductor: updatedReproductor })
+        })
+            .then(response => response.text())
+            .then(message => {
+                console.log(message); // Mostrar mensaje de éxito
+            })
+            .catch(error => console.error('Error al actualizar el archivo stations.json:', error));
 
         // Cerrar el modal
         const editStationModal = document.getElementById('editStationModal');
