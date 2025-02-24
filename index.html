@@ -27,7 +27,7 @@
 
         <!-- Tarjeta de información -->
         <div id="infoCard" class="card text-center">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header px-2 py-1 d-flex justify-content-between align-items-center">
                 <button id="themeButton" class="btn btn-sm btn-outline-secondary">
                     <i id="themeIcon" class="fas fa-adjust"></i>
                 </button>
@@ -45,138 +45,10 @@
                 <p id="totalSourcesElement"></p>
                 <p id="stationInfoElement"></p>
             </div>
-            <div class="card-footer">
-                <a id="developerLink" href="#" class="btn btn-link">
+            <div class="card-footer px-2 py-0">
+                <a id="developerLink" href="#" class="btn btn-link py-0">
                     <i class="fab fa-github"></i>
                 </a>
-            </div>
-        </div>
-
-        <!-- Modal CRUD -->
-        <div class="modal fade" id="crudModal" tabindex="-1" aria-labelledby="crudModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="crudModalLabel">Gestión de Estaciones  </h5>
-                        <div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCityModal">
-                                <i class="fas fa-plus"></i> Agregar Ciudad
-                            </button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editStationModal">
-                                <i class="fas fa-edit"></i> Editar Estación
-                            </button>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table id="citiesTable" class="display" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Frecuencia</th>
-                                            <th>URL del Servidor</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Las ciudades se agregarán aquí dinámicamente -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal para agregar/editar ciudad -->
-        <div class="modal fade" id="addCityModal" tabindex="-1" aria-labelledby="addCityModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCityModalLabel">Agregar/Editar Ciudad</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <form id="cityForm">
-                                    <div class="mb-3">
-                                        <label for="cityName" class="form-label">Nombre de la Ciudad</label>
-                                        <input type="text" class="form-control" id="cityName" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="cityFrequency" class="form-label">Frecuencia</label>
-                                        <input type="text" class="form-control" id="cityFrequency" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="cityServerUrl" class="form-label">URL del Servidor</label>
-                                        <input type="text" class="form-control" id="cityServerUrl" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="cityCx" class="form-label">Coordenada X</label>
-                                        <input type="number" class="form-control" id="cityCx" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="cityCy" class="form-label">Coordenada Y</label>
-                                        <input type="number" class="form-control" id="cityCy" required>
-                                    </div>
-                                    <input type="hidden" id="cityIndex">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </form>
-                            </div>
-                            <div class="col-md-6">
-                                <svg id="previewMap" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 553.76801" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
-                                    <image href="img/colombia-mapa.svg" width="100%" height="100%" />
-                                    <circle id="previewCircle" cx="0" cy="0" r="7" fill="#ff0000" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal para editar información de la estación -->
-        <div class="modal fade" id="editStationModal" tabindex="-1" aria-labelledby="editStationModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editStationModalLabel">Editar Información de la Estación</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="stationForm">
-                            <div class="mb-3">
-                                <label for="stationNameRadio" class="form-label">Nombre de la Estación</label>
-                                <input type="text" class="form-control" id="stationNameRadio" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="stationHostUrl" class="form-label">URL del Host</label>
-                                <input type="text" class="form-control" id="stationHostUrl" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="stationStatusUrl" class="form-label">URL del Estado</label>
-                                <input type="text" class="form-control" id="stationStatusUrl" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="stationTotalStations" class="form-label">Total de Estaciones</label>
-                                <input type="number" class="form-control" id="stationTotalStations" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="stationR" class="form-label">Tamaño de los Círculos (4-10)</label>
-                                <input type="number" class="form-control" id="stationR" min="4" max="10" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="stationUrlLogo" class="form-label">URL del Logo</label>
-                                <input type="text" class="form-control" id="stationUrlLogo" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -186,10 +58,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="js/crud.js"></script>
+
     <script src="js/fullscreen.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/webplayer.js"></script>
-    <script src="js/player-info.js"></script>
+    <!-- <script src="js/crud.js"></script> -->
+    <!-- <script src="js/player-info.js"></script> -->
 </body>
 </html>
