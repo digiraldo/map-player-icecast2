@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -11,6 +12,14 @@ app.use(cors());
 
 // Configurar body-parser para analizar solicitudes JSON
 app.use(bodyParser.json());
+
+// Servir archivos estáticos desde la carpeta raíz del proyecto
+app.use(express.static(path.join(__dirname, '../')));
+
+// Nueva ruta GET para la raíz
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
 
 app.post('/update_stations', (req, res) => {
     const data = req.body;
