@@ -3,57 +3,33 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             const reproductor = data.reproductor;
-
-            // Unir hostUrl con statusUrl
-            const statusUrlCompleta = reproductor.hostUrl + "/" + reproductor.statusUrl;
+            const statusUrlCompleta = `${reproductor.hostUrl}/${reproductor.statusUrl}`;
             const hostSRV = reproductor.hostUrl;
-
-            // Arrays para almacenar los resultados
-            const iguales = [];
-
-            // Obtener el elemento SVG
             const map = document.getElementById('map');
-
-            // Guardar totalEstaciones en una variable
-            let totalEstaciones = reproductor.total_estaciones;
-
-            // Elemento para mostrar la información de la emisora en la tarjeta
-            const stationInfoElement = document.createElement('p');
-            stationInfoElement.classList.add('station-info');
-
-            // Variable para almacenar el audio actual
-            let currentAudio = null;
-            let currentCircle = null; // Variable para almacenar el círculo actual
-
-            // Crear un mapa para almacenar los círculos por URL
-            const circles = new Map();
-
-            // Declarar ciudadSrv en un ámbito superior
-            let ciudadSrv;
-
-            // Canvas de ondas
             const waveCanvas = document.getElementById('waveCanvas');
             const waveCtx = waveCanvas.getContext('2d');
-            waveCanvas.style.display = 'none'; // Ocultar inicialmente
-
+            const stationInfoElement = document.createElement('p');
+            stationInfoElement.classList.add('station-info');
+            let currentAudio = null;
+            let currentCircle = null;
+            const circles = new Map();
             let waveAnimation;
 
+            // Función para dibujar la onda de audio
             function drawWave() {
                 waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-
-                const numberOfWaves = 6; // Número de ondas a dibujar
-                const baseAmplitude = 15; // Amplitud base
-                const baseFrequency = 0.02; // Frecuencia base
-                const baseSpeed = 0.1; // Velocidad base
+                const numberOfWaves = 6;
+                const baseAmplitude = 15;
+                const baseFrequency = 0.02;
+                const baseSpeed = 0.1;
 
                 for (let j = 0; j < numberOfWaves; j++) {
                     waveCtx.beginPath();
-                    waveCtx.strokeStyle = `rgba(0, 200, 81, ${0.7 - j * 0.2})`; // Verde claro con transparencia decreciente
+                    waveCtx.strokeStyle = `rgba(0, 200, 81, ${0.7 - j * 0.2})`;
                     waveCtx.lineWidth = 2;
-
-                    const amplitude = baseAmplitude + j * 5; // Amplitud diferente para cada onda
-                    const frequency = baseFrequency + j * 0.01; // Frecuencia diferente para cada onda
-                    const speed = baseSpeed + j * 0.05; // Velocidad diferente para cada onda
+                    const amplitude = baseAmplitude + j * 5;
+                    const frequency = baseFrequency + j * 0.01;
+                    const speed = baseSpeed + j * 0.05;
 
                     for (let i = 0; i < waveCanvas.width; i++) {
                         const y = waveCanvas.height / 2 + amplitude * Math.sin(frequency * i + Date.now() * speed);
@@ -66,53 +42,114 @@ document.addEventListener('DOMContentLoaded', () => {
                 waveAnimation = requestAnimationFrame(drawWave);
             }
 
+            // Función para iniciar la animación de la onda de audio
             function startWave() {
                 waveCanvas.style.display = 'block';
                 drawWave();
             }
 
+            // Función para detener la animación de la onda de audio
             function stopWave() {
                 waveCanvas.style.display = 'none';
                 cancelAnimationFrame(waveAnimation);
                 waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
             }
 
-            // Analizar y comparar serverUrl
+            // Función para mostrar un mensaje emergente (toast)
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.classList.add('toast');
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                toast.style.backgroundColor = 'var(--toast-bg)';
+                toast.style.color = 'var(--toast-text)';
+                toast.style.textAlign = 'center';
+
+                setTimeout(() => {
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                        setTimeout(() => {
+                            document.body.removeChild(toast);
+                        }, 300);
+                    }, 3000);
+                }, 100);
+            }
+
+            // Función para actualizar la información de los oyentes
+            function updateListeners() {
+                fetch(statusUrlCompleta)
+                    .then(response => response.json())
+                    .then(data => {
+                        let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
+                        sources.forEach(source => {
+                            const circleData = circles.get(source.server_url);
+                            if (circleData && circleData.circle !== currentCircle) {
+                                circleData.circle.setAttribute('fill', 'var(--player-online)');
+                                circleData.iconInner.classList.replace('fa-pause', 'fa-play');
+                                circleData.listenersText.textContent = source.listeners;
+                            }
+                        });
+                    })
+                    .catch(() => {
+                        circles.forEach(({ circle }) => {
+                            circle.setAttribute('fill', 'var(--player-offline)');
+                        });
+                    });
+            }
+
+            // Función para actualizar la insignia de oyentes
+            function updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl) {
+                if (currentAudio && currentCircle) {
+                    fetch(statusUrlCompleta)
+                        .then(response => response.json())
+                        .then(data => {
+                            let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
+                            const source = sources.find(source => `${hostSRV}/${source.server_url}` === ciudadServerUrl);
+                            const numOyentes = source ? source.listeners : 'Error';
+                            stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music fixed-color"></i> ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${numOyentes}<span class="visually-hidden">unread messages</span></span></button>`;
+                        })
+                        .catch(() => {
+                            stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music fixed-color"></i> ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">Error<span class="visually-hidden">unread messages</span></span></button>`;
+                        });
+                }
+            }
+
+            // Función para restablecer la apariencia del círculo
+            function resetCircleAppearance(circle) {
+                if (circle) {
+                    circle.setAttribute('fill', 'var(--player-online)');
+                    const prevIconInner = circle.parentNode.querySelector('.station-icon i');
+                    if (prevIconInner) {
+                        prevIconInner.classList.replace('fa-pause', 'fa-play');
+                    }
+                }
+            }
+
+            // Crear círculos para cada ciudad
             reproductor.ciudades.forEach(ciudad => {
                 if (ciudad.serverUrl) {
-                    ciudadSrv = ciudad.serverUrl;
-                    const ciudadServerUrl = reproductor.hostUrl + "/" + ciudadSrv;
-                    const playerR = reproductor.r;
-                    const playerX = ciudad.cx;
-                    const playerY = ciudad.cy;
-                    const playerName = ciudad.name;
-                    const playerFrecuencia = ciudad.frecuencia;
-
-                    // Crear el círculo del reproductor
+                    const ciudadServerUrl = `${reproductor.hostUrl}/${ciudad.serverUrl}`;
                     const circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
-                    circle.setAttribute('cx', playerX);
-                    circle.setAttribute('cy', playerY);
-                    circle.setAttribute('r', playerR);
-                    circle.setAttribute('fill', 'var(--player-offline)'); // Color inicial
-                    circle.setAttribute('class', 'station-circle'); // Clase para estilos CSS adicionales
-                    circle.setAttribute('data-station-name', playerName); // Agregar atributo para identificar la estación
-                    circle.setAttribute('data-station-frecuencia', playerFrecuencia); // Agregar atributo para identificar la estación
-                    circle.setAttribute('data-audio-url', ciudadServerUrl); // Agregar atributo para identificar la estación
+                    circle.setAttribute('cx', ciudad.cx);
+                    circle.setAttribute('cy', ciudad.cy);
+                    circle.setAttribute('r', reproductor.r);
+                    circle.setAttribute('fill', 'var(--player-offline)');
+                    circle.setAttribute('class', 'station-circle');
+                    circle.setAttribute('data-station-name', ciudad.name);
+                    circle.setAttribute('data-station-frecuencia', ciudad.frecuencia);
+                    circle.setAttribute('data-audio-url', ciudadServerUrl);
                     map.appendChild(circle);
 
-                    // Crear el tooltip
+                    // Crear tooltip para mostrar información de la ciudad
                     const tooltip = document.createElement('div');
                     tooltip.classList.add('tooltip');
-                    tooltip.innerHTML = `
-                        ${playerName}
-                        ${playerFrecuencia}
-                    `;
+                    tooltip.innerHTML = `${ciudad.name} ${ciudad.frecuencia}`;
                     document.body.appendChild(tooltip);
 
-                    // Agregar eventos de mouse para mostrar/ocultar el tooltip
                     circle.addEventListener('mousemove', (event) => {
-                        tooltip.style.left = (event.pageX + 10) + 'px';
-                        tooltip.style.top = (event.pageY + 10) + 'px';
+                        tooltip.style.left = `${event.pageX + 10}px`;
+                        tooltip.style.top = `${event.pageY + 10}px`;
                     });
 
                     circle.addEventListener('mouseover', () => {
@@ -123,301 +160,137 @@ document.addEventListener('DOMContentLoaded', () => {
                         tooltip.classList.remove('show');
                     });
 
-                    // Crear el icono de Font Awesome dentro del círculo
+                    // Crear icono de reproducción/pausa
                     const icon = document.createElementNS("http://www.w3.org/2000/svg", 'foreignObject');
-                    icon.setAttribute('x', playerX - playerR / 2); // Centrar horizontalmente
-                    icon.setAttribute('y', playerY - playerR / 2); // Centrar verticalmente
-                    icon.setAttribute('width', playerR);
-                    icon.setAttribute('height', playerR);
+                    icon.setAttribute('x', ciudad.cx - reproductor.r / 2);
+                    icon.setAttribute('y', ciudad.cy - reproductor.r / 2);
+                    icon.setAttribute('width', reproductor.r);
+                    icon.setAttribute('height', reproductor.r);
                     icon.setAttribute('class', 'station-icon');
-                    icon.style.pointerEvents = 'none'; // Para que los clics se registren en el círculo
+                    icon.style.pointerEvents = 'none';
 
                     const iconInner = document.createElement('i');
-                    iconInner.setAttribute('class', 'fas fa-play'); // Clase base de Font Awesome
-                    iconInner.style.fontSize = playerR + 'px'; // Ajustar tamaño del icono
-                    iconInner.style.textAlign = 'center'; // Centrar el icono
-                    iconInner.style.lineHeight = playerR + 'px'; // Centrar verticalmente
-
-                    // Agregar el icono interno al foreignObject
+                    iconInner.setAttribute('class', 'fas fa-play');
+                    iconInner.style.fontSize = `${reproductor.r}px`;
+                    iconInner.style.textAlign = 'center';
+                    iconInner.style.lineHeight = `${reproductor.r}px`;
                     icon.appendChild(iconInner);
-
                     map.appendChild(icon);
-
-                    // Ocultar el icono inicialmente
                     iconInner.style.display = 'none';
 
-                    // Agregar eventos de mouse para mostrar/ocultar el icono
                     circle.addEventListener('mouseover', () => {
                         iconInner.style.display = 'block';
-                        listenersText.style.display = 'none'; // Ocultar listeners
-                        if (currentAudio && !currentAudio.paused && currentCircle === circle) {
-                            iconInner.className = 'fas fa-pause'; // Mostrar el icono de pausa si está reproduciendo
-                        } else {
-                            iconInner.className = 'fas fa-play'; // Mostrar el icono de play si no está reproduciendo
-                        }
+                        listenersText.style.display = 'none';
+                        iconInner.className = currentAudio && !currentAudio.paused && currentCircle === circle ? 'fas fa-pause' : 'fas fa-play';
                     });
 
                     circle.addEventListener('mouseout', () => {
                         iconInner.style.display = 'none';
-                        listenersText.style.display = 'block'; // Mostrar listeners
+                        listenersText.style.display = 'block';
                     });
 
-                    // Crear el texto para mostrar los listeners
+                    // Crear texto para mostrar el número de oyentes
                     const listenersText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-                    listenersText.setAttribute('x', playerX);
-                    listenersText.setAttribute('y', playerY + 5); // Ajustar la posición Y para centrar verticalmente
-                    listenersText.setAttribute('text-anchor', 'middle'); // Centrar el texto horizontalmente
-                    listenersText.setAttribute('class', 'listeners-text'); // Clase para estilos CSS adicionales
-                    listenersText.textContent = '0'; // Valor inicial
+                    listenersText.setAttribute('x', ciudad.cx);
+                    listenersText.setAttribute('y', ciudad.cy + 5);
+                    listenersText.setAttribute('text-anchor', 'middle');
+                    listenersText.setAttribute('class', 'listeners-text');
+                    listenersText.textContent = '0';
                     map.appendChild(listenersText);
 
-                    // Crear el texto debajo del círculo
+                    // Crear texto para mostrar el nombre de la estación
                     const text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-                    text.setAttribute('x', playerX);
-                    text.setAttribute('y', parseFloat(playerY) + parseFloat(playerR) + 5); // Ajustar la posición Y
-                    text.setAttribute('text-anchor', 'middle'); // Centrar el texto horizontalmente
-                    text.setAttribute('class', 'station-name'); // Clase para estilos CSS adicionales
-                    text.textContent = playerName;
+                    text.setAttribute('x', ciudad.cx);
+                    text.setAttribute('y', parseFloat(ciudad.cy) + parseFloat(reproductor.r) + 5);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('class', 'station-name');
+                    text.textContent = ciudad.name;
                     map.appendChild(text);
 
-                    // Guardar el círculo y el texto de listeners en el mapa
-                    circles.set(ciudadSrv, { circle: circle, listenersText: listenersText, iconInner: iconInner });
+                    circles.set(ciudad.serverUrl, { circle, listenersText, iconInner });
                 }
             });
 
-            // Función para mostrar el toast
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.classList.add('toast');
-                toast.textContent = message;
-                document.body.appendChild(toast);
-
-                // Estilos para el toast
-                toast.style.backgroundColor = 'var(--toast-bg)';
-                toast.style.color = 'var(--toast-text)';
-                toast.style.textAlign = 'center'; // Centrar el texto
-
-                // Mostrar el toast
-                setTimeout(() => {
-                    toast.classList.add('show');
-                    // Ocultar el toast después de 3 segundos
-                    setTimeout(() => {
-                        toast.classList.remove('show');
-                        // Eliminar el toast del DOM después de la transición
-                        setTimeout(() => {
-                            document.body.removeChild(toast);
-                        }, 300);
-                    }, 3000);
-                }, 100);
-            }
-
-            // Función para actualizar los listeners
-            function updateListeners() {
-                fetch(statusUrlCompleta)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Verificar si 'data.icestats.source' es un array o un objeto
-                        let sources = data.icestats.source;
-                        if (!Array.isArray(sources)) {
-                            sources = [sources]; // Convertir a array si es un objeto único
-                        }
-
-                        sources.forEach(source => {
-                            const ciudadSrv = source.server_url;
-                            const circleData = circles.get(ciudadSrv);
-
-                            if (circleData) {
-                                const { circle, listenersText, iconInner } = circleData;
-
-                                // Verificar si el círculo actual es el mismo que el círculo que está reproduciendo audio
-                                if (circle !== currentCircle) {
-                                    // Si la URL coincide, cambiar el color del círculo a "online" y mostrar los listeners
-                                    circle.setAttribute('fill', 'var(--player-online)');
-                                    iconInner.classList.remove('fa-pause');
-                                    iconInner.classList.add('fa-play');
-                                    listenersText.textContent = source.listeners;
-                                }
-                            }
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Error al obtener los datos de estado:", error);
-                        // Si hay un error, poner todos los círculos en rojo
-                        circles.forEach(({ circle }) => {
-                            circle.setAttribute('fill', 'var(--player-offline)');
-                        });
-                    });
-            }
-
-            // Función para actualizar el badge de oyentes
-            function updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv) {
-                if (currentAudio && currentCircle) {
-                    // Obtener el número de oyentes de la emisora que está reproduciendo
-                    fetch(statusUrlCompleta)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Verificar si 'data.icestats.source' es un array o un objeto
-                            let sources = data.icestats.source;
-                            if (!Array.isArray(sources)) {
-                                sources = [sources]; // Convertir a array si es un objeto único
-                            }
-
-                            // Encontrar la fuente que coincide con la URL del audio actual
-                            const source = sources.find(source => {
-                                const sourceServerUrl = hostSRV + "/" + source.server_url;
-                                return sourceServerUrl === ciudadServerUrl;
-                            });
-
-                            if (source) {
-                                // Actualizar el texto de los listeners
-                                const numOyentes = source.listeners;
-                                stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${numOyentes}<span class="visually-hidden">unread messages</span></span></button>`;
-                            } else {
-                                stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}</button>`;
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error al obtener los datos de estado:", error);
-                            stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">Error<span class="visually-hidden">unread messages</span></span></button>`;
-                        });
-                }
-            }
-
-            // Variable para almacenar el ID del intervalo
-            let listenersBadgeInterval;
-
-            // Agregar evento de clic al contenedor SVG
+            // Manejar el evento de clic en el mapa
             map.addEventListener('click', (event) => {
                 const target = event.target;
-
-                // Verificar si el clic fue en un círculo
                 if (target.tagName === 'circle') {
                     const playerName = target.getAttribute('data-station-name');
                     const playerFrecuencia = target.getAttribute('data-station-frecuencia');
                     const ciudadServerUrl = target.getAttribute('data-audio-url');
-                    const ciudadSrv = ciudadServerUrl.replace(hostSRV + '/', '');
 
-                    // Si el círculo está en rojo, mostrar el toast y no hacer nada
                     if (target.getAttribute('fill') === 'var(--player-offline)') {
                         showToast(`${playerName} - ${playerFrecuencia} No Disponible`);
                         return;
                     }
 
-                    // Si hay un audio reproduciéndose, detenerlo
                     if (currentAudio) {
                         if (!currentAudio.paused && currentCircle === target) {
-                            // Si el mismo círculo está activo, pausar el audio
                             currentAudio.pause();
-                            stopWave(); // Detener la animación de la onda
-                            return; // Salir de la función para evitar crear un nuevo objeto Audio
+                            stopWave();
+                            return;
                         } else {
-                            // Si hay otro audio reproduciéndose, detenerlo
                             currentAudio.pause();
                             resetCircleAppearance(currentCircle);
-                            stopWave(); // Detener la animación de la onda
+                            stopWave();
                         }
                     }
 
-                    // Crear el elemento de audio
                     const audio = new Audio(ciudadServerUrl);
-
-                    // Encontrar el icono interno del círculo actual
                     const iconInner = target.parentNode.querySelector('.station-icon i');
 
-                    // Remover todos los event listeners existentes
                     audio.removeEventListener('playing', audio.playingHandler);
                     audio.removeEventListener('pause', audio.pauseHandler);
                     audio.removeEventListener('ended', audio.endedHandler);
                     audio.removeEventListener('error', audio.errorHandler);
 
-                    // Definir los handlers de eventos
                     audio.playingHandler = () => {
-                        console.log('playing');
-                        iconInner.classList.remove('fa-play');
-                        iconInner.classList.add('fa-pause');
+                        iconInner.classList.replace('fa-play', 'fa-pause');
                         target.setAttribute('fill', 'var(--player-playing)');
-                        iconInner.className = 'fas fa-pause'; // Mostrar el icono de pausa
-
-                        // Ajustar el tamaño del canvas al tamaño del logo
                         waveCanvas.width = stationLogo.offsetWidth;
                         waveCanvas.height = stationLogo.offsetHeight;
-
-                        // Iniciar la animación de ondas
                         startWave();
-
-                        // Actualizar el badge inmediatamente al comenzar la reproducción
-                        updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
-
-                        // Actualizar el badge cada 10 segundos
-                        listenersBadgeInterval = setInterval(() => updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv), 10000);
+                        updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl);
+                        listenersBadgeInterval = setInterval(() => updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl), 10000);
                     };
 
                     audio.pauseHandler = () => {
-                        console.log('pause');
-                        // console.log('Deteniendo intervalo:', listenersBadgeInterval);
-                        iconInner.classList.remove('fa-pause');
-                        iconInner.classList.add('fa-play');
-                        target.setAttribute('fill', 'var(--player-online)'); // Cambiar a color "online" al pausar
-                        stopWave(); // Detener la animación de la onda
-
-                        // Detener el intervalo
+                        iconInner.classList.replace('fa-pause', 'fa-play');
+                        target.setAttribute('fill', 'var(--player-online)');
+                        stopWave();
                         clearTimeout(listenersBadgeInterval);
-
-                        // Eliminar el contenido del elemento stationInfoElement
                         stationInfoElement.innerHTML = '';
                     };
 
                     audio.endedHandler = () => {
-                        console.log('ended');
-                        iconInner.classList.remove('fa-pause');
-                        iconInner.classList.add('fa-play');
-                        target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" al finalizar
+                        iconInner.classList.replace('fa-pause', 'fa-play');
+                        target.setAttribute('fill', 'var(--player-offline)');
                         stationInfoElement.textContent = "Reproducir Emisora";
-                        stopWave(); // Detener la animación de la onda
+                        stopWave();
                     };
 
                     audio.errorHandler = () => {
-                        console.log('error');
-                        iconInner.classList.remove('fa-pause');
-                        iconInner.classList.add('fa-play');
-                        target.setAttribute('fill', 'var(--player-offline)'); // Cambiar a color "offline" si hay un error
+                        iconInner.classList.replace('fa-pause', 'fa-play');
+                        target.setAttribute('fill', 'var(--player-offline)');
                         stationInfoElement.textContent = "Reproducir Emisora";
-                        stopWave(); // Detener la animación de la onda
+                        stopWave();
                     };
 
-                    // Agregar los event listeners
                     audio.addEventListener('playing', audio.playingHandler);
                     audio.addEventListener('pause', audio.pauseHandler);
                     audio.addEventListener('ended', audio.endedHandler);
                     audio.addEventListener('error', audio.errorHandler);
 
                     audio.play();
-                    if (iconInner) {
-                        iconInner.classList.remove('fa-play');
-                        iconInner.classList.add('fa-pause');
-                    }
-                    target.setAttribute('fill', 'var(--player-playing)'); // Cambiar a --player-playing
-                    stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music"></i>  ${playerName} - ${playerFrecuencia}</button>`;
-                    currentAudio = audio; // Actualizar el audio actual
-                    currentCircle = target; // Actualizar el círculo actual
-
-                    // Actualizar el badge al hacer clic en el círculo
-                    updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl, ciudadSrv);
+                    iconInner.classList.replace('fa-play', 'fa-pause');
+                    target.setAttribute('fill', 'var(--player-playing)');
+                    stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music fixed-color"></i> ${playerName} - ${playerFrecuencia}</button>`;
+                    currentAudio = audio;
+                    currentCircle = target;
+                    updateListenersBadge(playerName, playerFrecuencia, ciudadServerUrl);
                 }
             });
 
-            function resetCircleAppearance(circle) {
-                if (circle) {
-                    circle.setAttribute('fill', 'var(--player-online)');
-                    const prevIconInner = circle.parentNode.querySelector('.station-icon i');
-                    if (prevIconInner) {
-                        prevIconInner.classList.remove('fa-pause');
-                        prevIconInner.classList.add('fa-play');
-                    }
-                }
-            }
-
-            // Actualizar la tarjeta con la información
             const infoCard = document.getElementById('infoCard');
             const stationLogo = document.getElementById('stationLogo');
             const stationName = document.getElementById('stationName');
@@ -427,124 +300,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
             stationLogo.src = reproductor.url_logo;
             stationName.textContent = reproductor.estacion;
-
-            //Estilos del link del desarrollador
             developerLink.href = `https://github.com/${reproductor.desarrollador}`;
-            developerLink.classList.add('btn', 'btn-link'); // Agrega clases de Bootstrap
-            developerLink.innerHTML = '<i class="fab fa-github"></i>'; // Agrega el icono de GitHub y el texto
+            developerLink.classList.add('btn', 'btn-link');
+            developerLink.innerHTML = '<i class="fab fa-github"></i>';
 
-            let totalListeners = 0;
-            let totalSources = 0;
-
-            // Función para actualizar el total de listeners y sources
+            // Función para actualizar la información total de oyentes y emisoras
             function updateTotalInfo() {
                 fetch(statusUrlCompleta)
                     .then(response => response.json())
                     .then(data => {
-                        // Verificar si 'data.icestats.source' es un array o un objeto
-                        let sources = data.icestats.source;
-                        if (!Array.isArray(sources)) {
-                            sources = [sources]; // Convertir a array si es un objeto único
-                        }
+                        let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
+                        const totalListeners = sources.reduce((acc, source) => acc + parseInt(source.listeners), 0);
+                        const totalSources = sources.length;
 
-                        totalSources = sources.length;
-                        totalListeners = 0;
+                        totalListenersElement.innerHTML = `<i class="fas fa-headphones"></i>  Total Oyentes: <span class="total-listeners">${totalListeners}</span>`;
+                        totalSourcesElement.innerHTML = `<i class="fas fa-broadcast-tower"></i>  <span class="total-sources">${totalSources}</span> Emisoras de  <span class="total-estaciones">${reproductor.total_estaciones}</span>`;
 
-                        sources.forEach(source => {
-                            totalListeners += parseInt(source.listeners);
-                        });
-
-                        // Actualizar la tarjeta con la información
-                        const infoCard = document.getElementById('infoCard');
-                        const stationLogo = document.getElementById('stationLogo');
-                        const stationName = document.getElementById('stationName');
-                        const developerLink = document.getElementById('developerLink');
-                        const totalListenersElement = document.getElementById('totalListenersElement');
-                        const totalSourcesElement = document.getElementById('totalSourcesElement');
-
-                        stationLogo.src = reproductor.url_logo;
-                        stationName.textContent = reproductor.estacion;
-
-                        //Estilos del link del desarrollador
-                        developerLink.href = `https://github.com/${reproductor.desarrollador}`;
-                        developerLink.classList.add('btn', 'btn-link'); // Agrega clases de Bootstrap
-                        developerLink.innerHTML = '<i class="fab fa-github"></i>'; // Agrega el icono de GitHub y el texto
-
-                        totalListenersElement.innerHTML = `<i class="fas fa-headphones"></i> Oyentes: ${totalListeners}`;
-                        totalSourcesElement.innerHTML = `<i class="fas fa-broadcast-tower"></i> ${totalSources} Emisoras de ${totalEstaciones}`;
-
-                        // Limpiar el contenido anterior de infoCard
                         infoCard.querySelector('.card-body').innerHTML = '';
-
-                        // Agregar los elementos a la tarjeta
-                        infoCard.querySelector('.card-body').appendChild(stationName);
-                        infoCard.querySelector('.card-body').appendChild(stationInfoElement); // Agrega el elemento de información de la estación
-                        infoCard.querySelector('.card-body').appendChild(totalListenersElement);
-                        infoCard.querySelector('.card-body').appendChild(totalSourcesElement);
-                        infoCard.querySelector('.card-body').appendChild(developerLink);
+                        infoCard.querySelector('.card-body').append(stationName, stationInfoElement, totalListenersElement, totalSourcesElement);
                     })
-                    .catch(error => {
-                        console.error("Error al obtener los datos de estado:", error);
-                    });
+                    .catch(console.error);
             }
 
-            // Actualizar la información cada 20 segundos
+            // Actualizar la información total cada 20 segundos
             setInterval(updateTotalInfo, 20000);
-
-            // Llamar a la función para actualizar la información al cargar la página
-            setTimeout(updateTotalInfo, 500); // Retrasar la llamada en 500m
-
-            // Actualizar los listeners cada 20 segundos
+            setTimeout(updateTotalInfo, 500);
             setInterval(updateListeners, 20000);
-
-            // Llamar a la función para actualizar los listeners al cargar la página
             updateListeners();
 
-            // Limpiar el contenido anterior de infoCard
             infoCard.querySelector('.card-body').innerHTML = '';
+            infoCard.querySelector('.card-body').append(stationName, stationInfoElement, totalListenersElement, totalSourcesElement);
 
-            // Agregar los elementos a la tarjeta
-            infoCard.querySelector('.card-body').appendChild(stationName);
-            infoCard.querySelector('.card-body').appendChild(stationInfoElement); // Agrega el elemento de información de la estación
-            infoCard.querySelector('.card-body').appendChild(totalListenersElement);
-            infoCard.querySelector('.card-body').appendChild(totalSourcesElement);
-            infoCard.querySelector('.card-body').appendChild(developerLink);
-
-            // Función para determinar la ubicación de la tarjeta
+            // Función para establecer la posición de la tarjeta de información
             function setInfoCardPosition() {
                 const screenWidth = window.innerWidth;
-                const screenHeight = window.innerHeight;
-                const cardWidth = infoCard.offsetWidth;
-                const cardHeight = infoCard.offsetHeight;
-
-                // Márgenes predeterminados
                 const margin = 20;
-
-                let left, top;
-
-                // Ubicación en la esquina superior izquierda para pantallas grandes
-                if (screenWidth > 860) {
-                    left = margin;
-                    top = margin;
-                    infoCard.classList.remove('small-card'); // Remover la clase para pantallas pequeñas
-                }
-                // Ubicación en la parte superior derecha para pantallas pequeñas
-                else {
-                    left = screenWidth - cardWidth - margin;
-                    top = margin;
-                    infoCard.classList.add('small-card'); // Agregar la clase para pantallas pequeñas
-                }
-
-                // Aplicar estilos de ubicación
+                const left = screenWidth > 860 ? margin : screenWidth - infoCard.offsetWidth - margin;
+                const top = margin;
                 infoCard.style.left = `${left}px`;
                 infoCard.style.top = `${top}px`;
+                infoCard.classList.toggle('small-card', screenWidth <= 860);
             }
 
-            // Establecer la posición inicial
             setInfoCardPosition();
-
-            // Actualizar la posición al cambiar el tamaño de la ventana
             window.addEventListener('resize', setInfoCardPosition);
         })
-        .catch(error => console.error('Error al cargar el archivo JSON:', error));
+        .catch(console.error);
 });
