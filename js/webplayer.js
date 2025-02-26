@@ -334,12 +334,72 @@ document.addEventListener('DOMContentLoaded', () => {
             // Función para establecer la posición de la tarjeta de información
             function setInfoCardPosition() {
                 const screenWidth = window.innerWidth;
+                // console.log(screenWidth);
                 const margin = 20;
-                const left = screenWidth > 860 ? margin : screenWidth - infoCard.offsetWidth - margin;
-                const top = margin;
-                infoCard.style.left = `${left}px`;
+                let left = screenWidth > 1028 ? margin : screenWidth - infoCard.offsetWidth - margin;
+                let top = margin;
+                let scale = 1; // Escala por defecto
+                let right = 'auto'; // Inicializa right en 'auto'
+
+                if (screenWidth <= 430) {
+                    // console.log("Menor a 430 > " + screenWidth);
+                    // Ajustes para pantallas menores a 430px
+                    top = 100;
+                    left = 'auto';
+                    right = 5;
+                    scale = 0.55;
+                    infoCard.style.transformOrigin = 'top right';
+                } else if (screenWidth <= 490) {
+                    // console.log("Menor a 490 -> " + screenWidth);
+                    // Ajustes para pantallas menores a 490px
+                    top = 50;
+                    left = 'auto';
+                    right = 5;
+                    scale = 0.62;
+                    infoCard.style.transformOrigin = 'top right';
+                } else if (screenWidth <= 538) {
+                    // console.log("Menor a 538 --> " + screenWidth);
+                    // Ajustes para pantallas menores a 538px
+                    top = 40;
+                    left = 'auto';
+                    right = 5;
+                    scale = 0.7;
+                    infoCard.style.transformOrigin = 'top right';
+                } else if (screenWidth <= 629) {
+                    // console.log("Menor a 629 ---> " + screenWidth);
+                    // Ajustes para pantallas menores a 629px
+                    top = 20;
+                    left = 'auto';
+                    right = 10;
+                    scale = 0.75;
+                    infoCard.style.transformOrigin = 'top right';
+                } else if (screenWidth <= 720) {
+                    // console.log("Menor a 720 ----> " + screenWidth);
+                    // Ajustes para pantallas menores a 720px
+                    top = 20;
+                    left = 'auto';
+                    right = 15;
+                    scale = 0.8;
+                    infoCard.style.transformOrigin = 'top right';
+                } else if (screenWidth <= 990) {
+                    // console.log("Menor a 990 -----> " + screenWidth);
+                    // Ajustes para pantallas menores a 990px
+                    top = 20;
+                    left = 'auto';
+                    right = 20;
+                    scale = 0.87;
+                    infoCard.style.transformOrigin = 'top right';
+                } else {
+                    // Restablece el origen de la transformación para resoluciones mayores
+                    infoCard.style.transformOrigin = 'top left';
+                    right = 'auto'; // Restablece el right
+                }
+
+                infoCard.style.left = left === 'auto' ? 'auto' : `${left}px`; // Establece left o auto
+                infoCard.style.right = right === 'auto' ? 'auto' : `${right}px`; // Establece right o auto
                 infoCard.style.top = `${top}px`;
-                infoCard.classList.toggle('small-card', screenWidth <= 860);
+                infoCard.style.transform = `scale(${scale})`; // Aplica la escala
+                infoCard.classList.toggle('small-card', screenWidth <= 1028);
             }
 
             setInfoCardPosition();
