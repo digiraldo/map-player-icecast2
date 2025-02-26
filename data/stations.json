@@ -1,12 +1,12 @@
 {
     "reproductor": {
-        "estacion": "Radio Policía Nacional",
-        "hostUrl": "https://radio.policia.gov.co:8080",
+        "estacion": "Radio Policía Nacional de",
+        "hostUrl": "https:\/\/radio.policia.gov.co:8080",
         "statusUrl": "status-json.xsl",
-        "total_estaciones": 41,
+        "total_estaciones": "41",
         "genero": "Tropical",
         "r": "7",
-        "url_logo": "https://www.policia.gov.co/sites/default/files/2025-02/radio-policia-bogota.png",
+        "url_logo": "https:\/\/www.policia.gov.co\/sites\/default\/files\/2025-02\/radio-policia-bogota.png",
         "desarrollador": "digiraldo",
         "infoCard": {
             "left": "20px",

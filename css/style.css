@@ -230,35 +230,50 @@ body, html {
 /* Estilos para los círculos de las estaciones */
 .station-circle {
     cursor: pointer;
-    transition: fill 0.3s ease;
+    transition: r 0.3s ease, fill 0.3s ease;
 }
 
+/* Reduce el tamaño de los iconos al 80% */
 .station-icon {
     pointer-events: none;
 }
 
 .station-icon i {
     color: var(--player-icon);
-    text-align: center;
-    line-height: 20px;
-    font-size: 20px;
+    font-size: calc(4px + var(--circle-radius, 10) * 0.64px);
+    transition: font-size 0.3s ease, color 0.3s ease;
+    position: absolute;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    pointer-events: none;
+}
+
+/* Para mejorar el efecto al pasar el mouse */
+.station-circle:hover + .station-icon i,
+.station-icon:hover i {
+    /* También reduce el tamaño hover proporcionalmente */
+    font-size: calc(6px + var(--circle-radius, 10) * 0.72px);
 }
 
 .station-name {
     font-family: var(--worksans-font);
-    font-size: 0.4em;
+    font-size: calc(0.2em + var(--circle-radius, 10) * 0.02em);
     fill: var(--text-color);
-    transition: fill 0.3s ease;
+    transition: fill 0.3s ease, font-size 0.3s ease;
 }
 
+/* Asegura que los textos de oyentes sean visibles */
 .listeners-text {
     font-family: var(--monserrat-font);
-    font-size: 0.4em;
+    font-size: calc(0.2em + var(--circle-radius, 10) * 0.02em);
     font-weight: bold;
     fill: var(--text-color);
     text-anchor: middle;
     alignment-baseline: middle;
     pointer-events: none;
+    display: block; /* Asegura que sea visible por defecto */
+    transition: font-size 0.3s ease;
 }
 
 /* Estilos para el tooltip */
