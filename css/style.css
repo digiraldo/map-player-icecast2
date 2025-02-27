@@ -2,9 +2,6 @@
 :root {
     --bg-color: #ffffff;
     --text-color: #333333;
-    --text-total-listeners: #ff0000;
-    --text-total-sources: #0366d6;
-    --text-total-estaciones: #26d603;
     --card-bg: rgba(255, 255, 255, 0.95);
     --shadow-color: rgba(0, 0, 0, 0.1);
     --tooltip-bg: rgba(0, 0, 0, 0.8);
@@ -20,19 +17,12 @@
     --monserrat-font: 'Montserrat', sans-serif;
     --worksans-font: 'Work Sans', sans-serif;
     --listeners-font-size: 0.6em;
-    --icon-color: #4b9185; /* Color de los iconos en la tarjeta de información */
-    --icon-github-color: #000000; /* Color del icono de GitHub en la tarjeta de información */
-    --card-header-bg: #f8f9fa; /* Color de fondo de la cabecera de la tarjeta */
-    --card-header-text: #333333; /* Color del texto de la cabecera de la tarjeta */
 }
 
 [data-theme="dark"] {
     --bg-color: #1a1a1a;
     --text-color: #ffffff;
-    --text-total-listeners: #ff0000;
-    --text-total-sources: #58a6ff;
-    --text-total-estaciones: #6ac567;
-    --card-bg: #282828f2;
+    --card-bg: rgba(40, 40, 40, 0.95);
     --shadow-color: rgba(0, 0, 0, 0.3);
     --tooltip-bg: rgba(60, 60, 60, 0.9);
     --hover-color: #58a6ff;
@@ -41,31 +31,20 @@
     --toast-text: #ffffff;
     --player-paused: #FFBB33;
     --player-icon: #dedbdb;
-    --icon-color: #4b9185; /* Color de los iconos en la tarjeta de información */
-    --icon-github-color: #ffffff; /* Color del icono de GitHub en la tarjeta de información */
-    --card-header-bg: #252525f2; /* Color de fondo de la cabecera de la tarjeta en modo oscuro */
-    --card-header-text: #ffffff; /* Color del texto de la cabecera de la tarjeta en modo oscuro */
 }
 
 [data-theme="light"] {
     --bg-color: #ffffff;
     --text-color: #333333;
-    --text-total-listeners: #ff0000;
-    --text-total-sources: #0366d6;
-    --text-total-estaciones: #267c15;
     --card-bg: rgba(255, 255, 255, 0.95);
     --shadow-color: rgba(0, 0, 0, 0.1);
     --tooltip-bg: rgba(0, 0, 0, 0.8);
-    --hover-color: #0278ff;
+    --hover-color: #0366d6;
     --map-filter: none;
     --toast-bg: rgba(0, 0, 0, 0.8);
     --toast-text: #ffffff;
     --player-paused: #FFBB33;
     --player-icon: #868585;
-    --icon-color: #114d43; /* Color de los iconos en la tarjeta de información */
-    --icon-github-color: #000000; /* Color del icono de GitHub en la tarjeta de información */
-    --card-header-bg: #f8f9fa; /* Color de fondo de la cabecera de la tarjeta en modo claro */
-    --card-header-text: #333333; /* Color del texto de la cabecera de la tarjeta en modo claro */
 }
 
 /* Estilos generales */
@@ -121,28 +100,29 @@ body, html {
     flex-direction: column;
 }
 
-
-/* Estilo para la cabecera de la tarjeta de información */
-#infoCard .card-header {
-    background-color: var(--card-header-bg); /* Cambia este color al que desees */
-    color: var(--card-header-text); /* Cambia este color al que desees */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+#infoCard .card-header,
+#infoCard .card-body,
+#infoCard .card-footer {
+    background-color: transparent;
+    color: var(--text-color);
     transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+#infoCard .card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.4rem;
 }
 
 #infoCard .card-body {
     text-align: center;
     padding: 0rem;
     flex-grow: 1;
-    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Estilo para el footer de la tarjeta de información */
 #infoCard .card-footer {
-    background-color: var(--card-header-bg); /* Cambia este color al que desees */
-    color: var(--card-header-text); /* Cambia este color al que desees */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transition: background-color 0.5s ease, color 0.5s ease;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.4rem;
+    margin-top: auto;
 }
 
 #infoCard .card-title {
@@ -186,41 +166,6 @@ body, html {
     margin: 0 auto;
     transition: opacity 0.5s ease;
 }
-
-/* Estilo para el número total de oyentes */
-.total-listeners {
-    color: var(--text-total-listeners);
-    font-weight: bold;
-}
-
-/* Estilo para el número total de emisoras */
-.total-sources {
-    color: var(--text-total-sources);
-    font-weight: bold;
-}
-
-/* Estilo para el número total de estaciones */
-.total-estaciones {
-    color: var(--text-total-estaciones);
-    font-weight: bold;
-}
-
-/* Estilo para el icono de música que no debe cambiar de color */
-.fixed-color {
-    color: inherit !important; /* Cambia este color al que desees y usa !important para sobrescribir otros estilos */
-}
-
-/* Estilo para los iconos en la tarjeta de información */
-#infoCard .card-body i {
-    color: var(--icon-color); /* Cambia este color al que desees */
-}
-
-/* Estilo para el icono de GitHub en la tarjeta de información */
-#infoCard .btn-link i {
-    color: var(--icon-github-color); /* Cambia este color al que desees */
-}
-
-
 
 /* Estilos para la tarjeta de información en pantallas pequeñas */
 .small-card {
@@ -328,7 +273,7 @@ body, html {
 
 /* Estilos para Bootstrap */
 .btn {
-    margin: 0;
+    margin: 5px;
 }
 
 .table {

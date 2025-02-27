@@ -1,0 +1,1148 @@
+{
+    "default": {
+        "deleted": true,
+        "name": "Bienvenido"
+    },
+    "83526832480": {
+        "name": "Génesis 1,21",
+        "private": false,
+        "reference": {
+            "type": "scripture",
+            "data": {
+                "collection": "ff122eade5a",
+                "version": "Reina Valera 1960",
+                "book": 0,
+                "chapter": "1",
+                "verses": [
+                    "21"
+                ]
+            }
+        },
+        "category": "scripture",
+        "settings": {
+            "activeLayout": "58352683248",
+            "template": "2adc0c95835"
+        },
+        "timestamps": {
+            "created": 1740025483379,
+            "modified": 1740025577742,
+            "used": 1740025577739
+        },
+        "quickAccess": {},
+        "meta": {},
+        "slides": {
+            "95835268324": {
+                "group": "21",
+                "color": null,
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "21 ",
+                                        "style": "font-size: 80px;font-size: 60px;color: #919191",
+                                        "customType": "disableTemplate"
+                                    },
+                                    {
+                                        "value": " Y creó Dios los grandes monstruos marinos,  y todo ser viviente que se mueve,  que las aguas produjeron según su género,  y toda ave alada según su especie.  Y vio Dios que era bueno. ",
+                                        "style": "font-size:800px;font-weight:bold;"
+                                    }
+                                ],
+                                "align": "text-align: left;"
+                            }
+                        ],
+                        "style": "top:21.40px;left:0.00px;width:1920.00px;height:920.60px;background-color:rgb(0 0 0 / 0.4);border-radius:20px;padding:25px;",
+                        "align": "",
+                        "auto": true,
+                        "textFit": "growToFit",
+                        "actions": {},
+                        "specialStyle": {},
+                        "autoFontSize": 107.875
+                    },
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "Génesis 1:21 ",
+                                        "style": "font-size: 50px;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            },
+                            {
+                                "text": [
+                                    {
+                                        "value": "Reina Valera 1960",
+                                        "style": "font-size:32px;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            }
+                        ],
+                        "style": "top:956.00px;left:30px;width:1860px;height:108.30px;opacity:0.8;",
+                        "align": "",
+                        "auto": false,
+                        "actions": {},
+                        "specialStyle": {}
+                    }
+                ]
+            }
+        },
+        "layouts": {
+            "58352683248": {
+                "name": "Reina Valera 1960",
+                "notes": "",
+                "slides": []
+            }
+        },
+        "media": {}
+    },
+    "a284692d0d8": {
+        "name": "Génesis 1,3-5",
+        "private": false,
+        "reference": {
+            "type": "scripture",
+            "data": {
+                "collection": "ff122eade5a",
+                "version": "Reina Valera 1960",
+                "book": 0,
+                "chapter": "1",
+                "verses": [
+                    "3",
+                    "4",
+                    "5"
+                ]
+            }
+        },
+        "category": "scripture",
+        "settings": {
+            "activeLayout": "5a284692d0d",
+            "template": null
+        },
+        "timestamps": {
+            "created": 1740018161314,
+            "modified": 1740024916290,
+            "used": 1740024916270
+        },
+        "quickAccess": {},
+        "meta": {},
+        "slides": {
+            "35a284692d0": {
+                "group": "Génesis 1:3-5",
+                "color": null,
+                "settings": {},
+                "notes": "",
+                "items": [
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "3 ",
+                                        "style": "color: #919191;font-size:101px;font-weight:bold;"
+                                    },
+                                    {
+                                        "value": " Y dijo Dios:  Sea la luz;  y fue la luz. ",
+                                        "style": "font-size:101px;font-weight:bold;"
+                                    },
+                                    {
+                                        "value": "4 ",
+                                        "style": "color: #919191;font-size:101px;font-weight:bold;"
+                                    },
+                                    {
+                                        "value": " Y vio Dios que la luz era buena;  y separó Dios la luz de las tinieblas. ",
+                                        "style": "font-size:101px;font-weight:bold;"
+                                    },
+                                    {
+                                        "value": "5 ",
+                                        "style": "color: #919191;font-size:101px;font-weight:bold;"
+                                    },
+                                    {
+                                        "value": " Y llamó Dios a la luz Día,  y a las tinieblas llamó Noche.  Y fue la tarde y la mañana",
+                                        "style": "font-size:101px;font-weight:bold;"
+                                    },
+                                    {
+                                        "value": " un",
+                                        "style": "font-weight:bold;font-size:101px;"
+                                    },
+                                    {
+                                        "value": " día. ",
+                                        "style": "font-size: 80px;"
+                                    }
+                                ],
+                                "align": "text-align: left;"
+                            }
+                        ],
+                        "style": "top: 30px;left: 30px;width: 1860px;height: 875px;background-color: rgb(0 0 0 / 0.4);border-radius: 20px;padding: 25px;",
+                        "specialStyle": {},
+                        "actions": {},
+                        "auto": true,
+                        "autoFontSize": 101
+                    },
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "Génesis 1:3-5",
+                                        "style": "font-size: 50px;"
+                                    }
+                                ],
+                                "align": ""
+                            }
+                        ],
+                        "style": "top: 910px;left: 30px;width: 1860px;height: 150px;opacity: 0.8;",
+                        "specialStyle": {},
+                        "actions": {}
+                    }
+                ]
+            },
+            "8fb0fc26176": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "settings": {},
+                "notes": "",
+                "items": [],
+                "globalGroup": "verse"
+            }
+        },
+        "layouts": {
+            "5a284692d0d": {
+                "name": "Reina Valera 1960",
+                "notes": "",
+                "slides": []
+            }
+        },
+        "media": {}
+    },
+    "0201d582afe": {
+        "name": "Génesis 1,3-5 - RV",
+        "private": false,
+        "reference": {
+            "type": "scripture",
+            "data": {
+                "collection": "ff122eade5a",
+                "version": "Reina Valera 1960",
+                "book": 0,
+                "chapter": "1",
+                "verses": [
+                    "3",
+                    "4",
+                    "5"
+                ]
+            }
+        },
+        "category": "scripture",
+        "settings": {
+            "activeLayout": "a0201d582af",
+            "template": "73ecf9ec55c"
+        },
+        "timestamps": {
+            "created": 1740018251842,
+            "modified": 1740025471618,
+            "used": 1740025361796
+        },
+        "quickAccess": {},
+        "meta": {},
+        "slides": {
+            "5a0201d582a": {
+                "group": "Génesis 1:3-5",
+                "color": null,
+                "settings": {},
+                "notes": "",
+                "items": [
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "3 ",
+                                        "style": "color: #919191;font-size:792px;"
+                                    },
+                                    {
+                                        "value": " Y dijo Dios:  Sea la luz;  y fue la luz. ",
+                                        "style": "font-size: 60px;color: #919191;font-size:800px;"
+                                    },
+                                    {
+                                        "value": "4 ",
+                                        "style": "font-size:800px;"
+                                    },
+                                    {
+                                        "value": " Y vio Dios que la luz era buena;  y separó Dios la luz de las tinieblas. ",
+                                        "style": "font-weight:bold;font-size:800px;"
+                                    },
+                                    {
+                                        "value": "5 ",
+                                        "style": "font-size: 80px;"
+                                    },
+                                    {
+                                        "value": " Y llamó Dios a la luz Día,  y a las tinieblas llamó Noche.  Y fue la tarde y la mañana un día. ",
+                                        "style": "color: #919191;font-size:792px;"
+                                    }
+                                ],
+                                "align": "text-align: left;"
+                            }
+                        ],
+                        "style": "top:0.00px;left:0.00px;width:1920.00px;height:982.00px;background-color:rgb(0 0 0 / 0.4);border-radius:20px;padding:25px;",
+                        "auto": true,
+                        "align": "",
+                        "textFit": "growToFit",
+                        "actions": {},
+                        "specialStyle": {}
+                    },
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "Génesis 1:3-5",
+                                        "style": "color:#FFFFFF;font-size:59px;font-weight:bold;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            }
+                        ],
+                        "style": "top:982.00px;left:0.00px;width:1920.00px;height:98.42px;opacity:0.8;",
+                        "auto": false,
+                        "align": "",
+                        "actions": {},
+                        "specialStyle": {}
+                    }
+                ]
+            },
+            "15d111c6ff8": {
+                "group": "3 Versiculos",
+                "color": "#2ECC40",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "6 ",
+                                        "style": "color: #919191;font-size:792px;"
+                                    },
+                                    {
+                                        "value": " Luego dijo Dios:  Haya expansión en medio de las aguas,  y separe las aguas de las aguas. ",
+                                        "style": "font-size: 60px;color: #919191;font-size:800px;"
+                                    },
+                                    {
+                                        "value": "7 ",
+                                        "style": "font-size:800px;"
+                                    },
+                                    {
+                                        "value": " E hizo Dios la expansión,  y separó las aguas que estaban debajo de la expansión,  de las aguas que estaban sobre la expansión.  Y fue así. ",
+                                        "style": "font-weight:bold;font-size:800px;"
+                                    },
+                                    {
+                                        "value": "8 ",
+                                        "style": "font-size: 80px;"
+                                    },
+                                    {
+                                        "value": " Y llamó Dios a la expansión Cielos.  Y fue la tarde y la mañana el día segundo. ",
+                                        "style": "color: #919191;font-size:792px;"
+                                    }
+                                ],
+                                "align": "text-align: left;"
+                            }
+                        ],
+                        "style": "top:0.00px;left:0.00px;width:1920.00px;height:982.00px;background-color:rgb(0 0 0 / 0.4);border-radius:20px;padding:25px;",
+                        "auto": true,
+                        "align": "",
+                        "textFit": "growToFit",
+                        "actions": {},
+                        "specialStyle": {}
+                    },
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "Génesis 1:6-8 ",
+                                        "style": "color:#FFFFFF;font-size:59px;font-weight:bold;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            },
+                            {
+                                "text": [
+                                    {
+                                        "value": "Reina Valera 1960",
+                                        "style": "color:#FFFFFF;font-size:59px;font-weight:bold;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            }
+                        ],
+                        "style": "top:982.00px;left:0.00px;width:1920.00px;height:98.42px;opacity:0.8;",
+                        "align": "",
+                        "auto": false,
+                        "actions": {},
+                        "specialStyle": {}
+                    }
+                ]
+            }
+        },
+        "layouts": {
+            "a0201d582af": {
+                "name": "Reina Valera 1960",
+                "notes": "",
+                "slides": []
+            }
+        },
+        "media": {}
+    },
+    "36a71ba2176": {
+        "name": "Génesis 1,6-8",
+        "private": false,
+        "reference": {
+            "type": "scripture",
+            "data": {
+                "collection": "ff122eade5a",
+                "version": "Reina Valera 1960",
+                "book": 0,
+                "chapter": "1",
+                "verses": [
+                    "6",
+                    "7",
+                    "8"
+                ]
+            }
+        },
+        "category": "scripture",
+        "settings": {
+            "activeLayout": "b36a71ba217",
+            "template": null
+        },
+        "timestamps": {
+            "created": 1740024929981,
+            "modified": 1740025075094,
+            "used": 1740025075089
+        },
+        "quickAccess": {},
+        "meta": {},
+        "slides": {
+            "0b36a71ba21": {
+                "group": "6",
+                "color": null,
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "6 ",
+                                        "style": "font-size: 80px;font-size: 60px;color: #919191;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": " ",
+                                        "style": "font-size: 60px;color: #919191;font-size:800px;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": "Luego dijo Dios:  Haya expansión en medio de las aguas,  y separe las aguas de las aguas.",
+                                        "style": "font-size: 60px;font-size:800px;font-weight:bold;color:#FFFFFF;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": " ",
+                                        "style": "font-size: 60px;color: #919191;font-size:800px;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": "7 ",
+                                        "style": "font-size: 80px;font-size: 50px;color: #919191;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": " E hizo Dios la expansión,  y separó las aguas que estaban debajo de la expansión,  de las aguas que estaban sobre la expansión.  Y fue a",
+                                        "style": "font-weight:bold;font-size:800px;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": "s",
+                                        "style": "font-size:800px;color:#FFFFFF;font-weight:bold;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": "í. 8  Y llamó Dios a la expansión Cielos.  Y fue la tarde y la mañana el día ",
+                                        "style": "font-size: 800px;font-weight: bold;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": "s",
+                                        "style": "font-size:792px;color:#FFFFFF;text-shadow:0px 0px 0px #000000;"
+                                    },
+                                    {
+                                        "value": "egundo. ",
+                                        "style": "color: #919191;font-size:792px;text-shadow:0px 0px 0px #000000;"
+                                    }
+                                ],
+                                "align": "text-align: left;"
+                            }
+                        ],
+                        "style": "top:0.00px;left:0.00px;width:1920.00px;height:982.00px;background-color:rgb(0 0 0 / 0.4);border-radius:20px;padding:25px;",
+                        "align": "",
+                        "auto": true,
+                        "textFit": "growToFit",
+                        "actions": {},
+                        "specialStyle": {},
+                        "autoFontSize": 60,
+                        "chords": {
+                            "enabled": false
+                        },
+                        "list": {
+                            "enabled": true
+                        }
+                    },
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "Génesis 1:6-8 Reina Valera 1960",
+                                        "style": "color:#FFFFFF;font-size:59px;font-weight:bold;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            }
+                        ],
+                        "style": "top:982.00px;left:0.00px;width:1920.00px;height:98.42px;opacity:0.8;",
+                        "align": "",
+                        "auto": false,
+                        "actions": {},
+                        "specialStyle": {}
+                    }
+                ]
+            }
+        },
+        "layouts": {
+            "b36a71ba217": {
+                "name": "Reina Valera 1960",
+                "notes": "",
+                "slides": []
+            }
+        },
+        "media": {}
+    },
+    "01a12896899": {
+        "name": "Génesis 1,6",
+        "private": false,
+        "reference": {
+            "type": "scripture",
+            "data": {
+                "collection": "ff122eade5a",
+                "version": "Reina Valera 1960",
+                "book": 0,
+                "chapter": "1",
+                "verses": [
+                    "6"
+                ]
+            }
+        },
+        "category": "scripture",
+        "settings": {
+            "activeLayout": "101a1289689",
+            "template": "73ecf9ec55c"
+        },
+        "timestamps": {
+            "created": 1740018295922,
+            "modified": 1740024814543,
+            "used": 1740024814540
+        },
+        "quickAccess": {},
+        "meta": {},
+        "slides": {
+            "b4b3ba00016": {
+                "group": "2",
+                "color": null,
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "2",
+                                        "style": "color: #919191;font-size:792px;color: #919191;"
+                                    },
+                                    {
+                                        "value": " ",
+                                        "style": "font-size: 60px;color: #919191;font-size:800px;color: #919191;"
+                                    },
+                                    {
+                                        "value": " ",
+                                        "style": "font-size:800px;color: #FFFFFF;"
+                                    },
+                                    {
+                                        "value": "Y la tierra estaba desordenada y vacía,  y las tinieblas estaban sobre la faz del abismo,  y el Espíritu de Dios se movía sobre la faz de las aguas.",
+                                        "style": "font-weight:bold;font-size:800px;color: #FFFFFF;"
+                                    },
+                                    {
+                                        "value": " ",
+                                        "style": "font-size: 80px;color: #FFFFFF;"
+                                    }
+                                ],
+                                "align": "text-align: left;"
+                            }
+                        ],
+                        "style": "top:0.00px;left:0.00px;width:1920.00px;height:982.00px;background-color:rgb(0 0 0 / 0.4);border-radius:20px;padding:25px;",
+                        "auto": true,
+                        "align": "",
+                        "autoFontSize": 132.80859375,
+                        "textFit": "growToFit",
+                        "actions": {},
+                        "specialStyle": {}
+                    },
+                    {
+                        "lines": [
+                            {
+                                "text": [
+                                    {
+                                        "value": "Génesis 1:2",
+                                        "style": "color:#FFFFFF;font-size:59px;font-weight:bold;font-style:italic;"
+                                    },
+                                    {
+                                        "value": " ",
+                                        "style": "font-size: 50px;font-weight:bold;font-style:italic;"
+                                    },
+                                    {
+                                        "value": "Reina Valera 1960",
+                                        "style": "font-size:32px;font-weight:bold;font-style:italic;"
+                                    }
+                                ],
+                                "align": ""
+                            }
+                        ],
+                        "style": "top:982.00px;left:0.00px;width:1920.00px;height:98.42px;opacity:0.8;",
+                        "align": "",
+                        "auto": false,
+                        "actions": {},
+                        "specialStyle": {}
+                    }
+                ]
+            }
+        },
+        "layouts": {
+            "101a1289689": {
+                "name": "Reina Valera 1960",
+                "notes": "",
+                "slides": []
+            }
+        },
+        "media": {}
+    },
+    "32373275d9b": {
+        "name": "Un siervo para tu gloria",
+        "private": false,
+        "category": "song",
+        "settings": {
+            "activeLayout": "24aae258832",
+            "template": "1d31550e4ed"
+        },
+        "timestamps": {
+            "created": 1740022893589,
+            "modified": 1740023501374,
+            "used": 1740023485810
+        },
+        "quickAccess": {},
+        "meta": {},
+        "slides": {
+            "4aae2588323": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "0": {},
+                    "template": "1d31550e4ed"
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Siendo en forma de Dios",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Rey de Toda la Creación",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "De siervo se vistió",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 184.744140625,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "aae25883237": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Hasta lo sumo se humilló",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Sufrió la muerte en sumisión",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Horrenda muerte en una cruz",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 156.8125,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "ae258832373": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Inmenso amor, le hizo descender",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "A servir al pecador",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Gracia sin igual, Cristo demostró",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Dio su vida a mi favor",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 156.8125,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "e2588323732": {
+                "group": "Coros",
+                "color": "#f525d2",
+                "globalGroup": "chorus",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Pon en mí la misma",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Mente que hubo en Cristo",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Hazme un siervo para tu gloria",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 181.28125,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "25883237327": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Tomaré mi cruz",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Te seguiré Jesús",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Hazme un siervo para tu gloria",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 215.869140625,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "58832373275": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "El Soberano e Inmortal",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Coronado en majestad",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Lavando mis pies",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 184.744140625,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "8832373275d": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Inocente de maldad",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Mas cargó mi iniquidad",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Tomando así mi lugar",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 178.814453125,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "832373275d9": {
+                "group": "Verso",
+                "color": "#5825f5",
+                "globalGroup": "verse",
+                "settings": {
+                    "template": ""
+                },
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Herido fue por mi ",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    },
+                                    {
+                                        "value": "transgresión",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Y en silencio padeció",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Por mi rebelión sangre derramó",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "value": "Y por su muerte vivo yo",
+                                        "style": "font-weight: bold;font-size: 800px;"
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "autoFontSize": 154.314453125,
+                        "textFit": "growToFit"
+                    }
+                ]
+            },
+            "07b04b31f25": {
+                "group": "Coros",
+                "color": "#f525d2",
+                "globalGroup": "chorus",
+                "settings": {},
+                "notes": "",
+                "items": [
+                    {
+                        "type": "text",
+                        "lines": [
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "style": "font-weight: bold;font-size: 800px;",
+                                        "value": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "style": "font-weight: bold;font-size: 800px;",
+                                        "value": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "align": "",
+                                "text": [
+                                    {
+                                        "style": "font-weight: bold;font-size: 800px;",
+                                        "value": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "style": "top: 0.00px;left: 0.00px;height: 1080.00px;width: 1920.00px;",
+                        "align": "",
+                        "auto": true,
+                        "textFit": "growToFit"
+                    }
+                ]
+            }
+        },
+        "layouts": {
+            "24aae258832": {
+                "name": "Estándar",
+                "notes": "",
+                "slides": [
+                    {
+                        "id": "4aae2588323"
+                    },
+                    {
+                        "id": "aae25883237"
+                    },
+                    {
+                        "id": "ae258832373"
+                    },
+                    {
+                        "id": "832373275d9"
+                    },
+                    {
+                        "id": "e2588323732"
+                    },
+                    {
+                        "id": "25883237327"
+                    },
+                    {
+                        "id": "58832373275"
+                    },
+                    {
+                        "id": "8832373275d"
+                    }
+                ]
+            }
+        },
+        "media": {}
+    }
+}
