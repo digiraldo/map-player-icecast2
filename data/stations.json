@@ -3,7 +3,7 @@
         "estacion": "Radio Policía Nacional",
         "hostUrl": "https://radio.policia.gov.co:8080",
         "statusUrl": "status-json.xsl",
-        "total_estaciones": 41,
+        "total_estaciones": 4,
         "genero": "Tropical",
         "r": "7",
         "url_logo": "https://www.policia.gov.co/sites/default/files/2025-02/radio-policia-bogota.png",
@@ -16,9 +16,6 @@
             {
                 "cx": "82.073799",
                 "cy": "332.44281",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "popayan",
                 "name": "Popayán",
                 "frecuencia": "94.1 FM"
@@ -26,9 +23,6 @@
             {
                 "cx": "25.719244",
                 "cy": "350.40103",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "tumaco",
                 "name": "Tumaco",
                 "frecuencia": "Online"
@@ -36,9 +30,6 @@
             {
                 "cx": "55.749088",
                 "cy": "359.01099",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "pasto",
                 "name": "Pasto",
                 "frecuencia": "89.5 FM"
@@ -46,9 +37,6 @@
             {
                 "cx": "80.27346",
                 "cy": "225.70242",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "quibdo",
                 "name": "Quibdó",
                 "frecuencia": "104.3 FM"
@@ -56,9 +44,6 @@
             {
                 "cx": "132.40448",
                 "cy": "289.78345",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "ibague",
                 "name": "Ibagué",
                 "frecuencia": "100.0 FM"
@@ -66,9 +51,6 @@
             {
                 "cx": "120.39255",
                 "cy": "355.7496",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "florencia",
                 "name": "Florencia",
                 "frecuencia": "103.1 FM"
@@ -76,9 +58,6 @@
             {
                 "cx": "142.41443",
                 "cy": "333.06039",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "sanvicentedelcaguan",
                 "name": "San Vicente del Caguán",
                 "frecuencia": "97.1 FM"
@@ -86,9 +65,6 @@
             {
                 "cx": "135.39977",
                 "cy": "307.75162",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "neiva",
                 "name": "Neiva",
                 "frecuencia": "97.3 FM"
@@ -96,9 +72,6 @@
             {
                 "cx": "88.410446",
                 "cy": "373.74762",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "mocoa",
                 "name": "Mocoa",
                 "frecuencia": "92.3 FM"
@@ -106,9 +79,6 @@
             {
                 "cx": "288.5",
                 "cy": "527.89087",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "leticia",
                 "name": "Leticia",
                 "frecuencia": "98.9 FM"
@@ -116,9 +86,6 @@
             {
                 "cx": "122.16207",
                 "cy": "88.20948",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "cartagena",
                 "name": "Cartagena",
                 "frecuencia": "106.0 FM"
@@ -126,9 +93,6 @@
             {
                 "cx": "95.701347",
                 "cy": "292.45276",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "cali",
                 "name": "Cali",
                 "frecuencia": "102.0 FM"
@@ -136,9 +100,6 @@
             {
                 "cx": "73.679459",
                 "cy": "290.45078",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "buenaventura",
                 "name": "Buenaventura",
                 "frecuencia": "107.9 FM"
@@ -146,9 +107,6 @@
             {
                 "cx": "127.54185",
                 "cy": "116.04871",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "sincelejo",
                 "name": "Sincelejo",
                 "frecuencia": "95.7 FM"
@@ -156,9 +114,6 @@
             {
                 "cx": "136.6022",
                 "cy": "70.395393",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "barranquilla",
                 "name": "Barranquilla",
                 "frecuencia": "102.6 FM"
@@ -166,9 +121,6 @@
             {
                 "cx": "186.9987",
                 "cy": "86.260651",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "valledupar",
                 "name": "Valledupar",
                 "frecuencia": "92.7 FM"
@@ -176,9 +128,6 @@
             {
                 "cx": "197.64024",
                 "cy": "53.251965",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "riohacha",
                 "name": "Riohacha",
                 "frecuencia": "88.7 FM"
@@ -186,9 +135,6 @@
             {
                 "cx": "166.263",
                 "cy": "59.887405",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "santamarta",
                 "name": "Santa Marta",
                 "frecuencia": "105.4 FM"
@@ -196,9 +142,6 @@
             {
                 "cx": "271.30548",
                 "cy": "188.18018",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "arauca",
                 "name": "Arauca",
                 "frecuencia": "90.3 FM"
@@ -206,9 +149,6 @@
             {
                 "cx": "242.60527",
                 "cy": "189.39268",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "saravena",
                 "name": "Saravena",
                 "frecuencia": "107.9 FM"
@@ -216,9 +156,6 @@
             {
                 "cx": "215.62984",
                 "cy": "244.94312",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "yopal",
                 "name": "Yopal",
                 "frecuencia": "91.7 FM"
@@ -226,9 +163,6 @@
             {
                 "cx": "201.03998",
                 "cy": "335.05243",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "sanjose",
                 "name": "San José del Guaviare",
                 "frecuencia": "91.7 FM"
@@ -236,9 +170,6 @@
             {
                 "cx": "192.33484",
                 "cy": "280.73172",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "villavicencio",
                 "name": "Villavicencio",
                 "frecuencia": "101.8 FM"
@@ -246,9 +177,6 @@
             {
                 "cx": "275.76105",
                 "cy": "365.40302",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "mitu",
                 "name": "Mitú",
                 "frecuencia": "91.3 FM"
@@ -256,9 +184,6 @@
             {
                 "cx": "359.83463",
                 "cy": "215.33139",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "puertocarreno",
                 "name": "Puerto Carreño",
                 "frecuencia": "99.3 FM"
@@ -266,9 +191,6 @@
             {
                 "cx": "135.4745",
                 "cy": "205.62393",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "medellin",
                 "name": "Medellín",
                 "frecuencia": "96.4 FM"
@@ -276,9 +198,6 @@
             {
                 "cx": "87.954781",
                 "cy": "164.91656",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "apartado",
                 "name": "Apartadó",
                 "frecuencia": "99.9 FM"
@@ -286,9 +205,6 @@
             {
                 "cx": "131.62715",
                 "cy": "172.7989",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "caucasia",
                 "name": "Caucasia",
                 "frecuencia": "98.2 FM"
@@ -296,9 +212,6 @@
             {
                 "cx": "108.87038",
                 "cy": "135.5351",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "monteria",
                 "name": "Montería",
                 "frecuencia": "95.5 FM"
@@ -306,9 +219,6 @@
             {
                 "cx": "185.44209",
                 "cy": "238.80571",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "tunja",
                 "name": "Tunja",
                 "frecuencia": "93.6 FM"
@@ -316,9 +226,6 @@
             {
                 "cx": "206.59846",
                 "cy": "216.50533",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "santarosadeviterbo",
                 "name": "Santa Rosa de Viterbo",
                 "frecuencia": "98.1 FM"
@@ -326,9 +233,6 @@
             {
                 "cx": "157.00429",
                 "cy": "220.04916",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "moniquira",
                 "name": "Moniquira",
                 "frecuencia": "92.1 FM"
@@ -336,9 +240,6 @@
             {
                 "cx": "212.80539",
                 "cy": "166.92393",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "cucuta",
                 "name": "Cúcuta",
                 "frecuencia": "88.7 FM"
@@ -346,9 +247,6 @@
             {
                 "cx": "192.13593",
                 "cy": "178.6675",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "bucaramanga",
                 "name": "Bucaramanga",
                 "frecuencia": "91.7 FM"
@@ -356,9 +254,6 @@
             {
                 "cx": "182.34842",
                 "cy": "200.32419",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "socorro",
                 "name": "Socorro",
                 "frecuencia": "Online"
@@ -366,9 +261,6 @@
             {
                 "cx": "140.78915",
                 "cy": "236.20262",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "manizales",
                 "name": "Manizales",
                 "frecuencia": "103.7 FM"
@@ -376,9 +268,6 @@
             {
                 "cx": "165.48668",
                 "cy": "263.89853",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "inhouse",
                 "name": "Bogotá",
                 "frecuencia": "92.4 FM"
@@ -386,9 +275,6 @@
             {
                 "cx": "109.18456",
                 "cy": "243.13832",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "pereira",
                 "name": "Pereira",
                 "frecuencia": "99.1 FM"
@@ -396,9 +282,6 @@
             {
                 "cx": "114.91698",
                 "cy": "266.55237",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "armenia",
                 "name": "Armenia",
                 "frecuencia": "101.4 FM"
@@ -406,9 +289,6 @@
             {
                 "cx": "351.82666",
                 "cy": "291.05045",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "puertoinirida",
                 "name": "Puerto Inírida",
                 "frecuencia": "95.1 FM"
@@ -416,9 +296,6 @@
             {
                 "cx": "35.367664",
                 "cy": "44.686749",
-                "fill": "#ff0000",
-                "stroke": "#000000",
-                "stroke-width": "0",
                 "serverUrl": "sanandres",
                 "name": "San Andrés",
                 "frecuencia": "105.5 FM"

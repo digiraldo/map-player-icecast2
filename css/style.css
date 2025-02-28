@@ -426,6 +426,17 @@ table.dataTable.no-footer {
     border: 1px solid var(--dt-text-color);
 }
 
+/* Estilos para DataTables en pantallas pequeñas */
+@media (max-width: 768px) {
+    .dataTables_wrapper {
+        overflow-x: auto;
+    }
+
+    table.dataTable {
+        width: 100% !important;
+    }
+}
+
 /* Estilos para el contenedor del logo y el canvas */
 .logo-container {
     position: relative; /* Importante para el posicionamiento absoluto del canvas */
