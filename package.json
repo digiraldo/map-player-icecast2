@@ -1,0 +1,12 @@
+{
+  "name": "map-player-icecast2",
+  "version": "1.0.0",
+  "description": "Servidor web temporal para el proyecto map-player-icecast2",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8000"
+  },
+  "dependencies": {
+    "http-server": "^14.1.7"
+  }
+}

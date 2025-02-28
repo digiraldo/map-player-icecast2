@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
             focusElement.blur();
         }
     });
+
+    // Evento global para limpiar backdrops cuando se oculta un modal
+    document.addEventListener('hidden.bs.modal', function (event) {
+        // Esperar un poco antes de limpiar para evitar problemas con múltiples modales
+        setTimeout(cleanupModalBackdrops, 150);
+    });
 });
 
 // Función para cargar los datos de estaciones
@@ -428,7 +434,6 @@ function editStation(index) {
 
 // Función para abrir el formulario de agregar estación
 function addStation() {
-    // console.log('addStation called');
     // Limpiar el formulario
     document.getElementById('stationForm').reset();
     document.getElementById('stationIndex').value = -1;
@@ -440,19 +445,25 @@ function addStation() {
     // Cambiar el título del modal
     document.getElementById('stationFormModalLabel').textContent = 'Agregar Nueva Estación';
     
-    // Mostrar el modal
+    // Cerrar el modal de estaciones antes de abrir el nuevo
     const stationsModal = bootstrap.Modal.getInstance(document.getElementById('stationsModal'));
     stationsModal.hide();
     
-    const formModalElement = document.getElementById('stationFormModal');
-    const formModal = new bootstrap.Modal(formModalElement);
-
-    formModalElement.addEventListener('shown.bs.modal', function () {
+    // Remover manualmente cualquier backdrop que pudiera quedar
+    setTimeout(() => {
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => {
+            backdrop.classList.remove('show');
+            setTimeout(() => backdrop.remove(), 150);
+        });
+        
+        // Mostrar el modal de formulario después de limpiar
+        const formModal = new bootstrap.Modal(document.getElementById('stationFormModal'));
+        formModal.show();
+        
         // Actualizar el círculo en el mapa
         updateCirclePosition();
-    });
-    
-    formModal.show();
+    }, 300);
 }
 
 // Función para guardar una estación (nueva o editada)
@@ -491,10 +502,17 @@ function saveStation() {
     const formModal = bootstrap.Modal.getInstance(document.getElementById('stationFormModal'));
     formModal.hide();
     
-    // Reabrir el modal de estaciones
+    // Eliminar cualquier backdrop residual
     setTimeout(() => {
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => {
+            backdrop.classList.remove('show');
+            setTimeout(() => backdrop.remove(), 150);
+        });
+        
+        // Reabrir el modal de estaciones
         openStationsModal();
-    }, 500);
+    }, 300);
 }
 
 // Función para eliminar una estación
@@ -543,15 +561,22 @@ function openConfigModal() {
         previewDiv.innerHTML = '';
     }
     
-    // Ocultar el modal de estaciones
+    // Cerrar el modal de estaciones antes de abrir el nuevo
     const stationsModal = bootstrap.Modal.getInstance(document.getElementById('stationsModal'));
     stationsModal.hide();
     
-    // Mostrar el modal de configuración
+    // Remover manualmente cualquier backdrop que pudiera quedar
     setTimeout(() => {
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => {
+            backdrop.classList.remove('show');
+            setTimeout(() => backdrop.remove(), 150);
+        });
+        
+        // Mostrar el modal de configuración después de limpiar
         const configModal = new bootstrap.Modal(document.getElementById('configModal'));
         configModal.show();
-    }, 500);
+    }, 300);
 }
 
 // Función para guardar la configuración
@@ -584,10 +609,17 @@ function saveConfig() {
     const configModal = bootstrap.Modal.getInstance(document.getElementById('configModal'));
     configModal.hide();
     
-    // Reabrir el modal de estaciones
+    // Eliminar cualquier backdrop residual
     setTimeout(() => {
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => {
+            backdrop.classList.remove('show');
+            setTimeout(() => backdrop.remove(), 150);
+        });
+        
+        // Reabrir el modal de estaciones
         openStationsModal();
-    }, 500);
+    }, 300);
 }
 
 // Función para actualizar la posición del círculo en el mapa de vista previa
@@ -610,42 +642,81 @@ function updateCirclePosition() {
 
 // Función para guardar todos los cambios en el archivo JSON
 function saveAllChanges() {
-    console.log('saveAllChanges llamada'); // Agregar este console.log
+    console.log('saveAllChanges llamada');
+    
+    // NUEVO: Ordenar las ciudades alfabéticamente por nombre antes de guardar
+    stationsData.reproductor.ciudades.sort((a, b) => {
+        // Ignorar mayúsculas/minúsculas en la comparación
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+    });
+    
+    // Actualizar el número total de estaciones
+    stationsData.reproductor.total_estaciones = stationsData.reproductor.ciudades.length;
+    
     const jsonData = JSON.stringify(stationsData, null, 4);
-    console.log('Datos JSON a enviar:', jsonData); // Agregar este console.log
+    console.log('Longitud de datos JSON:', jsonData.length);
     
     try {
-        // Usar Fetch API para guardar los datos en el servidor
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // Timeout de 5 segundos
+        // Mostrar mensaje de guardado
+        showToast('Guardando cambios...', 'info');
         
-        fetch('../save_stations.php', { // Verificar la ruta aquí
+        // Usar Fetch API para guardar los datos en el servidor
+        fetch('save_stations.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache' // Evitar caché
             },
             body: JSON.stringify({ data: jsonData }),
-            signal: controller.signal
+            redirect: 'follow'
         })
         .then(response => {
-            clearTimeout(timeoutId);
-            if (!response.ok) {
-                throw new Error('Error al guardar los datos');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Respuesta del servidor:', data); // Agregar este console.log
-            showToast('Cambios guardados correctamente en el servidor', 'success');
+            console.log('Respuesta recibida:', response.status, response.statusText);
+            
+            // Convertir a texto para depuración en caso de error
+            return response.text().then(text => {
+                try {
+                    // Intentar parsear como JSON
+                    const data = JSON.parse(text);
+                    if (response.ok) {
+                        console.log('Operación exitosa:', data);
+                        showToast('Cambios guardados correctamente', 'success');
+                        
+                        // Cerrar el modal de estaciones si está abierto
+                        const stationsModal = bootstrap.Modal.getInstance(document.getElementById('stationsModal'));
+                        if (stationsModal) {
+                            stationsModal.hide();
+                        }
+                        
+                        // NUEVO: Recargar la página para actualizar el mapa
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000); // Esperar 1 segundo para que se muestre el mensaje de éxito
+                    } else {
+                        console.error('Error del servidor:', data);
+                        showToast(`Error: ${data.message || 'Error desconocido'}`, 'error');
+                    }
+                    return data;
+                } catch (e) {
+                    // Si no es JSON, mostrar el texto completo
+                    console.error('Respuesta no es JSON:', text);
+                    showToast('Error: Respuesta del servidor inválida', 'error');
+                    throw new Error('Respuesta del servidor inválida');
+                }
+            });
         })
         .catch(error => {
-            clearTimeout(timeoutId);
-            console.error('Error:', error);
-            showToast('Error al guardar los cambios en el servidor', 'error');
+            console.error('Error en fetch:', error);
+            showToast(`Error al guardar: ${error.message}`, 'error');
         });
     } catch (error) {
-        console.error('Error en la solicitud fetch:', error); // Agregar este console.log
-        showToast('Error al guardar los cambios en el servidor', 'error');
+        console.error('Error en la solicitud:', error);
+        showToast(`Error en la solicitud: ${error.message}`, 'error');
     }
 }
 
@@ -668,4 +739,15 @@ function showToast(message, type = 'success') {
     
     const bsToast = new bootstrap.Toast(toast);
     bsToast.show();
+}
+
+// Agregar esta función para limpiar backdrops residuales
+function cleanupModalBackdrops() {
+    const backdrops = document.querySelectorAll('.modal-backdrop');
+    if (backdrops.length > 0) {
+        backdrops.forEach(backdrop => {
+            backdrop.classList.remove('show');
+            setTimeout(() => backdrop.remove(), 150);
+        });
+    }
 }
