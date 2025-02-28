@@ -26,7 +26,7 @@
 
         .st1 {
             fill: #FF152F;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -36,7 +36,7 @@
 
         .st2 {
             fill: #95C6D7;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -46,7 +46,7 @@
 
         .st3 {
             fill: #59F533;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -56,7 +56,7 @@
 
         .st4 {
             fill: #0C883D;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -66,7 +66,7 @@
 
         .st5 {
             fill: #EEEEEE;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -76,7 +76,7 @@
 
         .st6 {
             fill: #E719B8;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -86,7 +86,7 @@
 
         .st7 {
             fill: #D75853;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -96,7 +96,7 @@
 
         .st8 {
             fill: #D153DC;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -106,7 +106,7 @@
 
         .st9 {
             fill: #59498E;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -116,7 +116,7 @@
 
         .st10 {
             fill: #F5CCA0;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -126,7 +126,7 @@
 
         .st11 {
             fill: #914CB6;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -136,7 +136,7 @@
 
         .st12 {
             fill: #A2A27A;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -146,7 +146,7 @@
 
         .st13 {
             fill: #6A92E3;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -156,7 +156,7 @@
 
         .st14 {
             fill: #7634F2;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -166,7 +166,7 @@
 
         .st15 {
             fill: #37B74D;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -176,7 +176,7 @@
 
         .st16 {
             fill: #639BC0;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -186,7 +186,7 @@
 
         .st17 {
             fill: #7B7CE0;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -196,7 +196,7 @@
 
         .st18 {
             fill: #9A12B0;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -206,7 +206,7 @@
 
         .st19 {
             fill: #A964F5;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -216,7 +216,7 @@
 
         .st20 {
             fill: #AC940D;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -226,7 +226,7 @@
 
         .st21 {
             fill: #F5A355;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -236,7 +236,7 @@
 
         .st22 {
             fill: #346A75;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -246,7 +246,7 @@
 
         .st23 {
             fill: #7B97B1;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -256,7 +256,7 @@
 
         .st24 {
             fill: #25D638;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -266,7 +266,7 @@
 
         .st25 {
             fill: #F568D7;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -276,7 +276,7 @@
 
         .st26 {
             fill: #7BC1BA;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -286,7 +286,7 @@
 
         .st27 {
             fill: #782E5E;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -296,7 +296,7 @@
 
         .st28 {
             fill: #64B290;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -306,7 +306,7 @@
 
         .st29 {
             fill: #686EEC;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -316,7 +316,7 @@
 
         .st30 {
             fill: #253BB4;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -326,7 +326,7 @@
 
         .st31 {
             fill: #B4B0BA;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -336,7 +336,7 @@
 
         .st32 {
             fill: #9B9B25;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -346,7 +346,7 @@
 
         .st33 {
             fill: #EE76AD;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }
@@ -356,7 +356,7 @@
 
         .st34 {
             fill: #13C37A;
-            stroke: #444444;
+            stroke: rgba(116,116,116,0.281);
             stroke-width: 0.5;
             stroke-miterlimit: 12;
         }

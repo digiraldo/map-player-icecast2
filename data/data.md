@@ -17,3 +17,7 @@ Que toda la información y sus tablas reconozcan el modo claro y oscuro.
 Agrega un botón en el card-header del modal para agregar o crear una ciudad.
 
 Agrega un botón en el card-header del modal y que abra otro modal para ver y editar la información del Objeto principal (reproductor): con los datos de estación: Nombre:  hostUrl: statusUrl: total_estaciones: genero: r: url_logo:
+
+Todos los botones seran utilizando Bootstrap 5 y deben llevar iconos de fontawesome.
+
+El codigo creado debe llevar comentarios en español para entender el código.

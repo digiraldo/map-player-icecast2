@@ -82,18 +82,72 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => response.json())
                     .then(data => {
                         let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
+                        
+                        // Debug para ayudar a identificar problemas
+                        console.debug('Fuentes disponibles:', sources.map(s => s.server_url));
+                        console.debug('Círculos mapeados:', Array.from(circles.keys()));
+                        
                         sources.forEach(source => {
-                            const circleData = circles.get(source.server_url);
-                            if (circleData && circleData.circle !== currentCircle) {
-                                circleData.circle.setAttribute('fill', 'var(--player-online)');
-                                circleData.iconInner.classList.replace('fa-pause', 'fa-play');
-                                circleData.listenersText.textContent = source.listeners;
+                            // Extraer solo la ruta del servidor sin el host
+                            const serverPath = source.server_url;
+                            
+                            // Intentar encontrar la estación de varias maneras
+                            let circleData = circles.get(serverPath);
+                            
+                            // Si no se encuentra, intentar extraer el nombre de la ciudad del servidor
+                            if (!circleData) {
+                                // Extraer el nombre de la ciudad del server_url (normalmente el último segmento de la ruta)
+                                const serverParts = serverPath.split('/');
+                                const cityName = serverParts[serverParts.length - 1].toLowerCase();
+                                
+                                // Intentar buscar por el nombre de la ciudad
+                                circleData = circles.get(cityName) || circles.get(`name:${cityName}`);
+                                
+                                // Si aún no se encuentra, buscar entre todas las estaciones una coincidencia aproximada
+                                if (!circleData) {
+                                    for (const [key, value] of circles.entries()) {
+                                        if (!key.startsWith('name:') && 
+                                            (key.toLowerCase().includes(cityName) || 
+                                             (value.circle.getAttribute('data-server-url') || '').toLowerCase().includes(cityName))) {
+                                            circleData = value;
+                                            console.debug(`Coincidencia aproximada encontrada: ${key} para ${serverPath}`);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            if (circleData) {
+                                if (circleData.circle !== currentCircle) {
+                                    circleData.circle.setAttribute('fill', 'var(--player-online)');
+                                    circleData.iconInner.classList.replace('fa-pause', 'fa-play');
+                                }
+                                
+                                // Actualizar el número de oyentes
+                                if (circleData.listenersText) {
+                                    circleData.listenersText.textContent = source.listeners;
+                                    circleData.listenersText.style.display = 'block'; // Asegurarse de que sea visible
+                                }
+                            } else {
+                                console.warn(`No se encontró círculo para la fuente: ${source.server_url}`);
+                            }
+                        });
+                        
+                        // Marcar como offline las estaciones que no están en las fuentes
+                        circles.forEach(({ circle, listenersText }, serverUrl) => {
+                            const exists = sources.some(source => source.server_url === serverUrl);
+                            if (!exists && circle !== currentCircle) {
+                                circle.setAttribute('fill', 'var(--player-offline)');
+                                listenersText.textContent = '0'; // Restablecer el contador de oyentes
                             }
                         });
                     })
-                    .catch(() => {
+                    .catch(error => {
+                        console.error('Error al actualizar oyentes:', error);
                         circles.forEach(({ circle }) => {
-                            circle.setAttribute('fill', 'var(--player-offline)');
+                            if (circle !== currentCircle) {
+                                circle.setAttribute('fill', 'var(--player-offline)');
+                            }
                         });
                     });
             }
@@ -139,10 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     circle.setAttribute('data-station-name', ciudad.name);
                     circle.setAttribute('data-station-frecuencia', ciudad.frecuencia);
                     circle.setAttribute('data-audio-url', ciudadServerUrl);
-                    
-                    // Aplicar el radio como variable CSS para controlar tamaños proporcionalmente
-                    circle.style.setProperty('--circle-radius', reproductor.r);
-                    
+                    circle.setAttribute('data-server-url', ciudad.serverUrl); // Añadir atributo para identificación directa
                     map.appendChild(circle);
 
                     // Crear tooltip para mostrar información de la ciudad
@@ -156,62 +207,39 @@ document.addEventListener('DOMContentLoaded', () => {
                         tooltip.style.top = `${event.pageY + 10}px`;
                     });
 
+                    circle.addEventListener('mouseover', () => {
+                        tooltip.classList.add('show');
+                    });
+
+                    circle.addEventListener('mouseout', () => {
+                        tooltip.classList.remove('show');
+                    });
+
                     // Crear icono de reproducción/pausa
                     const icon = document.createElementNS("http://www.w3.org/2000/svg", 'foreignObject');
-                    // Calcular posición exacta para centrar el icono
-                    const radioActual = parseInt(reproductor.r);
-                    icon.setAttribute('x', Math.round(parseInt(ciudad.cx) - radioActual));
-                    icon.setAttribute('y', Math.round(parseInt(ciudad.cy) - radioActual));
-                    icon.setAttribute('width', radioActual * 2);
-                    icon.setAttribute('height', radioActual * 2);
+                    icon.setAttribute('x', ciudad.cx - reproductor.r / 2);
+                    icon.setAttribute('y', ciudad.cy - reproductor.r / 2);
+                    icon.setAttribute('width', reproductor.r);
+                    icon.setAttribute('height', reproductor.r);
                     icon.setAttribute('class', 'station-icon');
                     icon.style.pointerEvents = 'none';
 
-                    const iconDiv = document.createElement('div');
-                    iconDiv.style.width = '100%';
-                    iconDiv.style.height = '100%';
-                    iconDiv.style.display = 'flex';
-                    iconDiv.style.alignItems = 'center';
-                    iconDiv.style.justifyContent = 'center';
-                    iconDiv.style.position = 'relative';
-
                     const iconInner = document.createElement('i');
                     iconInner.setAttribute('class', 'fas fa-play');
-                    // Aplicar la variable CSS al tamaño del icono
-                    iconInner.style.setProperty('--circle-radius', reproductor.r);
-                    iconInner.style.position = 'absolute';
-                    iconInner.style.top = '50%';
-                    iconInner.style.left = '50%';
-                    iconInner.style.transform = 'translate(-50%, -50%)';
-                    // Ocultar el icono por defecto
+                    iconInner.style.fontSize = `${reproductor.r}px`;
+                    iconInner.style.textAlign = 'center';
+                    iconInner.style.lineHeight = `${reproductor.r}px`;
+                    icon.appendChild(iconInner);
+                    map.appendChild(icon);
                     iconInner.style.display = 'none';
 
-                    iconDiv.appendChild(iconInner);
-                    icon.appendChild(iconDiv);
-                    map.appendChild(icon);
-
-                    // Evento mouseover - mostrar icono solo cuando el círculo no está offline
                     circle.addEventListener('mouseover', () => {
-                        tooltip.classList.add('show');
-                        
-                        // Verificar si el círculo está en estado offline
-                        const isOffline = circle.getAttribute('fill') === 'var(--player-offline)' || 
-                                        window.getComputedStyle(circle).fill.includes('rgb(255, 68, 68)') || 
-                                        window.getComputedStyle(circle).fill.includes('#ff4444');
-
-                        if (!isOffline) {
-                            iconInner.style.display = 'block';
-                            listenersText.style.display = 'none';
-                            iconInner.className = currentAudio && !currentAudio.paused && currentCircle === circle ? 'fas fa-pause' : 'fas fa-play';
-                        } else {
-                            iconInner.style.display = 'none';
-                            listenersText.style.display = 'block';
-                        }
+                        iconInner.style.display = 'block';
+                        listenersText.style.display = 'none';
+                        iconInner.className = currentAudio && !currentAudio.paused && currentCircle === circle ? 'fas fa-pause' : 'fas fa-play';
                     });
 
-                    // Evento mouseout - ocultar icono y mostrar número de oyentes
                     circle.addEventListener('mouseout', () => {
-                        tooltip.classList.remove('show');
                         iconInner.style.display = 'none';
                         listenersText.style.display = 'block';
                     });
@@ -234,7 +262,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     text.textContent = ciudad.name;
                     map.appendChild(text);
 
+                    // Modificar cómo se almacena la referencia en el mapa de círculos
+                    // Usar el nombre del stream (sin host) como clave principal para mayor robustez
                     circles.set(ciudad.serverUrl, { circle, listenersText, iconInner });
+                    
+                    // También almacenar una referencia por el nombre de la estación para búsqueda alternativa
+                    if (ciudad.name) {
+                        circles.set(`name:${ciudad.name.toLowerCase()}`, { circle, listenersText, iconInner });
+                    }
                 }
             });
 
@@ -273,8 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     audio.playingHandler = () => {
                         iconInner.classList.replace('fa-play', 'fa-pause');
-                        // Asegurar que el icono use el tamaño correcto al cambiar a pause
-                        iconInner.style.setProperty('--circle-radius', target.style.getPropertyValue('--circle-radius'));
                         target.setAttribute('fill', 'var(--player-playing)');
                         waveCanvas.width = stationLogo.offsetWidth;
                         waveCanvas.height = stationLogo.offsetHeight;
@@ -285,8 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     audio.pauseHandler = () => {
                         iconInner.classList.replace('fa-pause', 'fa-play');
-                        // Asegurar que el icono use el tamaño correcto al cambiar a play
-                        iconInner.style.setProperty('--circle-radius', target.style.getPropertyValue('--circle-radius'));
                         target.setAttribute('fill', 'var(--player-online)');
                         stopWave();
                         clearTimeout(listenersBadgeInterval);
