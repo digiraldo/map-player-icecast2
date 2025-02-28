@@ -45,3 +45,19 @@
         "hostUrl": "https://ra...
 [2025-02-28 03:56:13] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
 [2025-02-28 03:56:13] Éxito: Se escribieron 9422 bytes en el archivo
+[2025-02-28 04:12:25] Iniciando proceso de guardado
+[2025-02-28 04:12:25] Datos recibidos (longitud): 10601
+[2025-02-28 04:12:25] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-02-28 04:12:25] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-02-28 04:12:25] Éxito: Se escribieron 9422 bytes en el archivo
+[2025-02-28 04:13:56] Iniciando proceso de guardado
+[2025-02-28 04:13:56] Datos recibidos (longitud): 10603
+[2025-02-28 04:13:56] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-02-28 04:13:56] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-02-28 04:13:56] Éxito: Se escribieron 9424 bytes en el archivo

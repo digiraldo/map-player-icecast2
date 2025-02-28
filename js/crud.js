@@ -190,7 +190,8 @@ function createModals() {
                         </div>
                         <div class="mb-3">
                             <label for="configRadius" class="form-label">Radio (r)</label>
-                            <input type="number" class="form-control" id="configRadius" min="1" step="1">
+                            <input type="number" class="form-control" id="configRadius" min="4" max="10" step="0.5" required>
+                            <div class="form-text">El radio debe estar entre 4 y 10, en incrementos de 0.5</div>
                         </div>
                         <div class="mb-3">
                             <label for="configLogo" class="form-label">URL Logo</label>
@@ -588,6 +589,13 @@ function saveConfig() {
         return;
     }
     
+    // Validar específicamente el radio
+    const radiusValue = parseFloat(document.getElementById('configRadius').value);
+    if (radiusValue < 4 || radiusValue > 10 || (radiusValue * 10) % 5 !== 0) {
+        alert("El radio debe estar entre 4 y 10, en incrementos de 0.5");
+        return;
+    }
+    
     // Actualizar los datos del reproductor
     stationsData.reproductor.estacion = document.getElementById('configName').value;
     stationsData.reproductor.hostUrl = document.getElementById('configHostUrl').value;
@@ -603,7 +611,8 @@ function saveConfig() {
     stationsData.reproductor.infoCard.left = document.getElementById('configCardLeft').value;
     stationsData.reproductor.infoCard.top = document.getElementById('configCardTop').value;
     
-    showToast('Configuración guardada correctamente', 'success');
+    // Mostrar toast con botón de guardar todos los cambios
+    showToastWithSaveButton('Configuración guardada correctamente');
     
     // Cerrar el modal de configuración
     const configModal = bootstrap.Modal.getInstance(document.getElementById('configModal'));
@@ -620,6 +629,61 @@ function saveConfig() {
         // Reabrir el modal de estaciones
         openStationsModal();
     }, 300);
+}
+
+// Nueva función para mostrar toast con botón de guardar
+function showToastWithSaveButton(message) {
+    // Crear un toast personalizado con botón
+    const toastContainer = document.querySelector('.toast-container');
+    if (!toastContainer) return;
+    
+    // Crear un nuevo elemento toast
+    const customToast = document.createElement('div');
+    customToast.classList.add('toast');
+    customToast.setAttribute('role', 'alert');
+    customToast.setAttribute('aria-live', 'assertive');
+    customToast.setAttribute('aria-atomic', 'true');
+    
+    // Contenido del toast
+    customToast.innerHTML = `
+        <div class="toast-header">
+            <strong class="me-auto">Éxito</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>${message}</div>
+                <button id="saveAllInToast" class="btn btn-primary btn-sm">Guardar Todo</button>
+            </div>
+        </div>
+    `;
+    
+    // Agregar el toast al contenedor
+    toastContainer.appendChild(customToast);
+    
+    // Inicializar el toast
+    const bsToast = new bootstrap.Toast(customToast, {
+        autohide: false
+    });
+    
+    // Mostrar el toast
+    bsToast.show();
+    
+    // Agregar evento al botón de guardar
+    const saveButton = customToast.querySelector('#saveAllInToast');
+    if (saveButton) {
+        saveButton.addEventListener('click', function() {
+            saveAllChanges();
+            bsToast.hide();
+        });
+    }
+    
+    // Eliminar el toast del DOM cuando se oculte
+    customToast.addEventListener('hidden.bs.toast', function() {
+        if (customToast.parentNode) {
+            customToast.parentNode.removeChild(customToast);
+        }
+    });
 }
 
 // Función para actualizar la posición del círculo en el mapa de vista previa

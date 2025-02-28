@@ -5,7 +5,7 @@
         "statusUrl": "status-json.xsl",
         "total_estaciones": 41,
         "genero": "Tropical",
-        "r": "12",
+        "r": "8",
         "url_logo": "https://www.policia.gov.co/sites/default/files/2025-02/radio-policia-bogota.png",
         "desarrollador": "digiraldo",
         "infoCard": {
@@ -21,36 +21,36 @@
                 "cy": "165"
             },
             {
-                "cx": "271.3",
-                "cy": "188.1",
+                "cx": "271.30548",
+                "cy": "188.18018",
                 "serverUrl": "arauca",
                 "name": "Arauca",
                 "frecuencia": "90.3 FM"
             },
             {
-                "cx": "114.9",
-                "cy": "266.5",
+                "cx": "114.91698",
+                "cy": "266.55237",
                 "serverUrl": "armenia",
                 "name": "Armenia",
                 "frecuencia": "101.4 FM"
             },
             {
-                "cx": "136.6",
-                "cy": "70.3",
+                "cx": "136.6022",
+                "cy": "70.395393",
                 "serverUrl": "barranquilla",
                 "name": "Barranquilla",
                 "frecuencia": "102.6 FM"
             },
             {
-                "cx": "165.4",
-                "cy": "263.8",
+                "cx": "165.48668",
+                "cy": "263.89853",
                 "serverUrl": "inhouse",
                 "name": "Bogotá",
                 "frecuencia": "92.4 FM"
             },
             {
-                "cx": "192.1",
-                "cy": "178.6",
+                "cx": "192.13593",
+                "cy": "178.6675",
                 "serverUrl": "bucaramanga",
                 "name": "Bucaramanga",
                 "frecuencia": "91.7 FM"
