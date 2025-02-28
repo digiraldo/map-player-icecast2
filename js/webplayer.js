@@ -87,58 +87,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.debug('Fuentes disponibles:', sources.map(s => s.server_url));
                         console.debug('Círculos mapeados:', Array.from(circles.keys()));
                         
-                        sources.forEach(source => {
-                            // Extraer solo la ruta del servidor sin el host
-                            const serverPath = source.server_url;
-                            
-                            // Intentar encontrar la estación de varias maneras
-                            let circleData = circles.get(serverPath);
-                            
-                            // Si no se encuentra, intentar extraer el nombre de la ciudad del servidor
-                            if (!circleData) {
-                                // Extraer el nombre de la ciudad del server_url (normalmente el último segmento de la ruta)
-                                const serverParts = serverPath.split('/');
-                                const cityName = serverParts[serverParts.length - 1].toLowerCase();
-                                
-                                // Intentar buscar por el nombre de la ciudad
-                                circleData = circles.get(cityName) || circles.get(`name:${cityName}`);
-                                
-                                // Si aún no se encuentra, buscar entre todas las estaciones una coincidencia aproximada
-                                if (!circleData) {
-                                    for (const [key, value] of circles.entries()) {
-                                        if (!key.startsWith('name:') && 
-                                            (key.toLowerCase().includes(cityName) || 
-                                             (value.circle.getAttribute('data-server-url') || '').toLowerCase().includes(cityName))) {
-                                            circleData = value;
-                                            console.debug(`Coincidencia aproximada encontrada: ${key} para ${serverPath}`);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            if (circleData) {
-                                if (circleData.circle !== currentCircle) {
-                                    circleData.circle.setAttribute('fill', 'var(--player-online)');
-                                    circleData.iconInner.classList.replace('fa-pause', 'fa-play');
-                                }
-                                
-                                // Actualizar el número de oyentes
-                                if (circleData.listenersText) {
-                                    circleData.listenersText.textContent = source.listeners;
-                                    circleData.listenersText.style.display = 'block'; // Asegurarse de que sea visible
-                                }
-                            } else {
-                                console.warn(`No se encontró círculo para la fuente: ${source.server_url}`);
+                        // Primero marcar todas las estaciones como offline
+                        circles.forEach(({ circle, listenersText }, serverUrl) => {
+                            if (circle !== currentCircle) {
+                                circle.setAttribute('fill', 'var(--player-offline)');
+                                listenersText.textContent = '0';
                             }
                         });
                         
-                        // Marcar como offline las estaciones que no están en las fuentes
-                        circles.forEach(({ circle, listenersText }, serverUrl) => {
-                            const exists = sources.some(source => source.server_url === serverUrl);
-                            if (!exists && circle !== currentCircle) {
-                                circle.setAttribute('fill', 'var(--player-offline)');
-                                listenersText.textContent = '0'; // Restablecer el contador de oyentes
+                        // Luego actualizamos solo las que tienen coincidencia exacta
+                        sources.forEach(source => {
+                            const serverPath = source.server_url;
+                            
+                            // Solo considerar coincidencia exacta
+                            const circleData = circles.get(serverPath);
+                            
+                            if (circleData && circleData.circle !== currentCircle) {
+                                // Actualizar estación que coincide exactamente
+                                circleData.circle.setAttribute('fill', 'var(--player-online)');
+                                circleData.iconInner.classList.replace('fa-pause', 'fa-play');
+                                circleData.listenersText.textContent = source.listeners;
+                                circleData.listenersText.style.display = 'block';
                             }
                         });
                     })
@@ -159,12 +128,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         .then(response => response.json())
                         .then(data => {
                             let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
-                            const source = sources.find(source => `${hostSRV}/${source.server_url}` === ciudadServerUrl);
-                            const numOyentes = source ? source.listeners : 'Error';
+                            
+                            // Extraer solo la parte serverUrl del ciudadServerUrl completo
+                            const serverUrlPart = ciudadServerUrl.replace(hostSRV + '/', '');
+                            
+                            // Buscar coincidencia exacta
+                            const source = sources.find(source => source.server_url === serverUrlPart);
+                            const numOyentes = source ? source.listeners : '0';
+                            
                             stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music fixed-color"></i> ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${numOyentes}<span class="visually-hidden">unread messages</span></span></button>`;
                         })
                         .catch(() => {
-                            stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music fixed-color"></i> ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">Error<span class="visually-hidden">unread messages</span></span></button>`;
+                            stationInfoElement.innerHTML = `<button type="button" class="btn btn-primary position-relative" style="pointer-events: none"><i class="fas fa-music fixed-color"></i> ${playerName} - ${playerFrecuencia}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0<span class="visually-hidden">unread messages</span></span></button>`;
                         });
                 }
             }
@@ -266,10 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Usar el nombre del stream (sin host) como clave principal para mayor robustez
                     circles.set(ciudad.serverUrl, { circle, listenersText, iconInner });
                     
-                    // También almacenar una referencia por el nombre de la estación para búsqueda alternativa
+                    // Ya no necesitamos almacenar referencias alternativas
+                    // Eliminar el siguiente bloque:
+                    /*
                     if (ciudad.name) {
                         circles.set(`name:${ciudad.name.toLowerCase()}`, { circle, listenersText, iconInner });
                     }
+                    */
                 }
             });
 

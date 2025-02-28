@@ -44,26 +44,17 @@ if ($icecast_data && isset($icecast_data['icestats']['source'])) {
 foreach ($stations_data['reproductor']['ciudades'] as $ciudad) {
     $server_url = $ciudad['serverUrl'] ?? '';
     $name = $ciudad['name'] ?? '';
-    $found = false;
-    $matching_source = null;
     
-    // Buscar esta ciudad en las fuentes activas
-    foreach ($active_sources as $source_url) {
-        if ($server_url === $source_url || 
-            strpos($source_url, $server_url) !== false || 
-            strpos($source_url, strtolower($name)) !== false) {
-            $found = true;
-            $matching_source = $source_url;
-            break;
-        }
-    }
+    // Buscar coincidencia exacta
+    $found = in_array($server_url, $active_sources);
+    $matching_source = $found ? $server_url : null;
     
     $stations_comparison[] = [
         'name' => $name,
         'configured_url' => $server_url,
         'found_in_icecast' => $found,
         'matching_source' => $matching_source,
-        'exact_match' => $server_url === $matching_source
+        'exact_match' => $found
     ];
 }
 
@@ -76,7 +67,8 @@ $response = [
     'active_sources_count' => count($active_sources),
     'configured_stations_count' => count($stations_data['reproductor']['ciudades']),
     'stations_comparison' => $stations_comparison,
-    'active_sources' => $active_sources
+    'active_sources' => $active_sources,
+    'note' => 'Solo se muestran como activas las estaciones con coincidencia exacta entre serverUrl y server_url'
 ];
 
 echo json_encode($response, JSON_PRETTY_PRINT);

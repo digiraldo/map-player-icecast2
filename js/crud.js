@@ -503,28 +503,11 @@ function saveStation() {
         return;
     }
     
-    // Obtener el valor de serverUrl del campo
+    // Obtener el valor de serverUrl del campo y normalizarlo para coincidencias exactas
     let serverUrl = document.getElementById('stationUrl').value.trim();
     
-    // Si estamos editando, asegurarnos de preservar el serverUrl original si el campo está vacío
-    if (index !== -1 && serverUrl === '') {
-        serverUrl = stationsData.reproductor.ciudades[index].serverUrl || '';
-    }
-    
-    // Normalizar serverUrl: quitar el host si está incluido
-    if (serverUrl.includes('//')) {
-        // Si contiene un URL completo con host, extraer solo la ruta
-        try {
-            const url = new URL(serverUrl);
-            serverUrl = url.pathname.startsWith('/') ? url.pathname.substring(1) : url.pathname;
-        } catch (e) {
-            console.warn('Error al normalizar URL:', e);
-            // Si falla, conservar el valor original
-        }
-    }
-    
-    // Eliminar barras diagonales iniciales si existen
-    serverUrl = serverUrl.replace(/^\/+/, '');
+    // Normalizar serverUrl: quitar el host si está incluido y barras iniciales
+    serverUrl = normalizeServerUrl(serverUrl);
     
     const stationData = {
         name: document.getElementById('stationNameCity').value,
@@ -909,8 +892,8 @@ function normalizeServerUrl(url) {
         }
     }
     
-    // Quitar barras iniciales
-    normalized = normalized.replace(/^\/+/, '');
+    // Quitar barras iniciales y finales
+    normalized = normalized.replace(/^\/+|\/+$/g, '');
     
     return normalized;
 }

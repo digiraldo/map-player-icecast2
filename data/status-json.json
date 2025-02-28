@@ -1,305 +1,368 @@
 {
-    "reproductor": {
-        "estacion": "Radio Policía Nacional",
-        "hostUrl": "https://radio.policia.gov.co:8080",
-        "statusUrl": "status-json.xsl",
-        "total_estaciones": 41,
-        "genero": "Tropical",
-        "r": "7",
-        "url_logo": "https://www.policia.gov.co/sites/default/files/2025-02/radio-policia-bogota.png",
-        "desarrollador": "digiraldo",
-        "infoCard": {
-            "left": "20px",
-            "top": "20px"
-        },
-        "ciudades": [
-            {
-                "name": "Apartadó",
-                "frecuencia": "99.9 FM",
-                "serverUrl": "apartado",
-                "cx": "88",
-                "cy": "165"
-            },
-            {
-                "cx": "271.30548",
-                "cy": "188.18018",
-                "serverUrl": "arauca",
-                "name": "Arauca",
-                "frecuencia": "90.3 FM"
-            },
-            {
-                "cx": "114.91698",
-                "cy": "266.55237",
-                "serverUrl": "armenia",
-                "name": "Armenia",
-                "frecuencia": "101.4 FM"
-            },
-            {
-                "cx": "136.6022",
-                "cy": "70.395393",
-                "serverUrl": "barranquilla",
-                "name": "Barranquilla",
-                "frecuencia": "102.6 FM"
-            },
-            {
-                "cx": "165.48668",
-                "cy": "263.89853",
-                "serverUrl": "inhouse",
-                "name": "Bogotá",
-                "frecuencia": "92.4 FM"
-            },
-            {
-                "cx": "192.13593",
-                "cy": "178.6675",
-                "serverUrl": "bucaramanga",
-                "name": "Bucaramanga",
-                "frecuencia": "91.7 FM"
-            },
-            {
-                "name": "Buenaventura",
-                "frecuencia": "107.9 FM",
-                "serverUrl": "buenaventura",
-                "cx": "68.7",
-                "cy": "289"
-            },
-            {
-                "name": "Cali",
-                "frecuencia": "102.0 FM",
-                "serverUrl": "cali",
-                "cx": "97.2",
-                "cy": "293"
-            },
-            {
-                "name": "Cartagena",
-                "frecuencia": "106.0 FM",
-                "serverUrl": "cartagena",
-                "cx": "122.1",
-                "cy": "91"
-            },
-            {
-                "cx": "131.62715",
-                "cy": "172.7989",
-                "serverUrl": "caucasia",
-                "name": "Caucasia",
-                "frecuencia": "98.2 FM"
-            },
-            {
-                "cx": "212.80539",
-                "cy": "166.92393",
-                "serverUrl": "cucuta",
-                "name": "Cúcuta",
-                "frecuencia": "88.7 FM"
-            },
-            {
-                "cx": "120.39255",
-                "cy": "355.7496",
-                "serverUrl": "florencia",
-                "name": "Florencia",
-                "frecuencia": "103.1 FM"
-            },
-            {
-                "name": "Ibagué",
-                "frecuencia": "100.0 FM",
-                "serverUrl": "ibague",
-                "cx": "132.4",
-                "cy": "286"
-            },
-            {
-                "cx": "288.5",
-                "cy": "527.89087",
-                "serverUrl": "leticia",
-                "name": "Leticia",
-                "frecuencia": "98.9 FM"
-            },
-            {
-                "cx": "140.78915",
-                "cy": "236.20262",
-                "serverUrl": "manizales",
-                "name": "Manizales",
-                "frecuencia": "103.7 FM"
-            },
-            {
-                "cx": "135.4745",
-                "cy": "205.62393",
-                "serverUrl": "medellin",
-                "name": "Medellín",
-                "frecuencia": "96.4 FM"
-            },
-            {
-                "cx": "275.76105",
-                "cy": "365.40302",
-                "serverUrl": "mitu",
-                "name": "Mitú",
-                "frecuencia": "91.3 FM"
-            },
-            {
-                "cx": "88.410446",
-                "cy": "373.74762",
-                "serverUrl": "mocoa",
-                "name": "Mocoa",
-                "frecuencia": "92.3 FM"
-            },
-            {
-                "cx": "157.00429",
-                "cy": "220.04916",
-                "serverUrl": "moniquira",
-                "name": "Moniquira",
-                "frecuencia": "92.1 FM"
-            },
-            {
-                "cx": "108.87038",
-                "cy": "135.5351",
-                "serverUrl": "monteria",
-                "name": "Montería",
-                "frecuencia": "95.5 FM"
-            },
-            {
-                "name": "Neiva",
-                "frecuencia": "97.3 FM",
-                "serverUrl": "neiva",
-                "cx": "135.3",
-                "cy": "308.2"
-            },
-            {
-                "cx": "55.749088",
-                "cy": "359.01099",
-                "serverUrl": "pasto",
-                "name": "Pasto",
-                "frecuencia": "89.5 FM"
-            },
-            {
-                "cx": "109.18456",
-                "cy": "243.13832",
-                "serverUrl": "pereira",
-                "name": "Pereira",
-                "frecuencia": "99.1 FM"
-            },
-            {
-                "cx": "82.073799",
-                "cy": "332.44281",
-                "serverUrl": "popayan",
-                "name": "Popayán",
-                "frecuencia": "94.1 FM"
-            },
-            {
-                "cx": "359.83463",
-                "cy": "215.33139",
-                "serverUrl": "puertocarreno",
-                "name": "Puerto Carreño",
-                "frecuencia": "99.3 FM"
-            },
-            {
-                "cx": "351.82666",
-                "cy": "291.05045",
-                "serverUrl": "puertoinirida",
-                "name": "Puerto Inírida",
-                "frecuencia": "95.1 FM"
-            },
-            {
-                "cx": "80.27346",
-                "cy": "225.70242",
-                "serverUrl": "quibdo",
-                "name": "Quibdó",
-                "frecuencia": "104.3 FM"
-            },
-            {
-                "cx": "197.64024",
-                "cy": "53.251965",
-                "serverUrl": "riohacha",
-                "name": "Riohacha",
-                "frecuencia": "88.7 FM"
-            },
-            {
-                "cx": "35.367664",
-                "cy": "44.686749",
-                "serverUrl": "sanandres",
-                "name": "San Andrés",
-                "frecuencia": "105.5 FM"
-            },
-            {
-                "name": "San José del Guaviare",
-                "frecuencia": "91.7 FM",
-                "serverUrl": "sanjose",
-                "cx": "201",
-                "cy": "338"
-            },
-            {
-                "name": "San Vicente del Caguán",
-                "frecuencia": "97.1 FM",
-                "serverUrl": "sanvicentedelcaguan",
-                "cx": "142.4",
-                "cy": "331"
-            },
-            {
-                "cx": "166.263",
-                "cy": "59.887405",
-                "serverUrl": "santamarta",
-                "name": "Santa Marta",
-                "frecuencia": "105.4 FM"
-            },
-            {
-                "cx": "206.59846",
-                "cy": "216.50533",
-                "serverUrl": "santarosadeviterbo",
-                "name": "Santa Rosa de Viterbo",
-                "frecuencia": "98.1 FM"
-            },
-            {
-                "cx": "242.60527",
-                "cy": "189.39268",
-                "serverUrl": "saravena",
-                "name": "Saravena",
-                "frecuencia": "107.9 FM"
-            },
-            {
-                "cx": "127.54185",
-                "cy": "116.04871",
-                "serverUrl": "sincelejo",
-                "name": "Sincelejo",
-                "frecuencia": "95.7 FM"
-            },
-            {
-                "cx": "182.34842",
-                "cy": "200.32419",
-                "serverUrl": "socorro",
-                "name": "Socorro",
-                "frecuencia": "Online"
-            },
-            {
-                "cx": "25.719244",
-                "cy": "350.40103",
-                "serverUrl": "tumaco",
-                "name": "Tumaco",
-                "frecuencia": "Online"
-            },
-            {
-                "cx": "185.44209",
-                "cy": "238.80571",
-                "serverUrl": "tunja",
-                "name": "Tunja",
-                "frecuencia": "93.6 FM"
-            },
-            {
-                "cx": "186.9987",
-                "cy": "86.260651",
-                "serverUrl": "valledupar",
-                "name": "Valledupar",
-                "frecuencia": "92.7 FM"
-            },
-            {
-                "cx": "192.33484",
-                "cy": "280.73172",
-                "serverUrl": "villavicencio",
-                "name": "Villavicencio",
-                "frecuencia": "101.8 FM"
-            },
-            {
-                "cx": "215.62984",
-                "cy": "244.94312",
-                "serverUrl": "yopal",
-                "name": "Yopal",
-                "frecuencia": "91.7 FM"
-            }
-        ]
+    "icestats": {
+    "admin": "coest.gremi@localhost",
+    "host": "192.168.2.109",
+    "location": "Bogota",
+    "server_id": "Icecast 2.4.3",
+    "server_start": "Tue, 21 Jan 2025 08:42:11 -0500",
+    "server_start_iso8601": "2025-01-21T08:42:11-0500",
+    "source": [
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 10,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/Armenia",
+    "server_description": "radiopolicianacional",
+    "server_name": "Armenia",
+    "server_type": "audio/mpeg",
+    "server_url": "Armenia",
+    "stream_start": "Tue, 25 Feb 2025 11:10:25 -0500",
+    "stream_start_iso8601": "2025-02-25T11:10:25-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 128,
+    "genre": "Crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 0,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/Leticia",
+    "server_description": "Radio Policia Nacional",
+    "server_name": "Radio Policia Leticia 98.9 FM",
+    "server_type": "audio/mpeg",
+    "server_url": "Leticia",
+    "stream_start": "Fri, 28 Feb 2025 01:04:03 -0500",
+    "stream_start_iso8601": "2025-02-28T01:04:03-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 128,
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 3,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/barranquilla",
+    "server_description": "radio policia nacional",
+    "server_name": "radio policia barranquilla",
+    "server_type": "audio/mpeg",
+    "server_url": "barranquilla",
+    "stream_start": "Wed, 26 Feb 2025 10:33:33 -0500",
+    "stream_start_iso8601": "2025-02-26T10:33:33-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 128,
+    "genre": "crosover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 3,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/bucaramanga",
+    "server_description": "Radio Policia Nacional",
+    "server_name": "Radio Policia Bucaramanga",
+    "server_type": "audio/mpeg",
+    "server_url": "bucaramanga",
+    "stream_start": "Tue, 25 Feb 2025 08:46:44 -0500",
+    "stream_start_iso8601": "2025-02-25T08:46:44-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 128,
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 5,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/cali",
+    "server_description": "radio policia nacional",
+    "server_name": "radio policia cali 102.0 fm",
+    "server_type": "audio/mpeg",
+    "server_url": "cali",
+    "stream_start": "Thu, 27 Feb 2025 08:24:51 -0500",
+    "stream_start_iso8601": "2025-02-27T08:24:51-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100",
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 44100,
+    "listener_peak": 4,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/florencia",
+    "server_description": "radio policia nacional",
+    "server_name": "radio policia florencia 103.1 fm",
+    "server_type": "audio/mpeg",
+    "server_url": "florencia",
+    "stream_start": "Thu, 27 Feb 2025 06:25:45 -0500",
+    "stream_start_iso8601": "2025-02-27T06:25:45-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=96;ice-channels=1;ice-samplerate=44100",
+    "bitrate": 96,
+    "genre": "91.7fm",
+    "ice-bitrate": 96,
+    "ice-channels": 1,
+    "ice-samplerate": 44100,
+    "listener_peak": 0,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/guaviare",
+    "server_description": "Radio Policia Nacional",
+    "server_name": "Radio Policia Guaviare 91.7fm",
+    "server_type": "audio/mpeg",
+    "server_url": "guaviare",
+    "stream_start": "Thu, 27 Feb 2025 09:25:36 -0500",
+    "stream_start_iso8601": "2025-02-27T09:25:36-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 128,
+    "genre": "crosover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 897,
+    "listeners": 83,
+    "listenurl": "http://192.168.2.109:8080/inhouse",
+    "server_description": "Unspecified description",
+    "server_name": "bogota",
+    "server_type": "audio/mpeg",
+    "server_url": "inhouse",
+    "stream_start": "Thu, 27 Feb 2025 16:04:56 -0500",
+    "stream_start_iso8601": "2025-02-27T16:04:56-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=96;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 96,
+    "genre": "95.1fm",
+    "ice-bitrate": 96,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 0,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/inirida",
+    "server_description": "radio policia nacional ",
+    "server_name": "radio policia inirida 95.1 fm",
+    "server_type": "audio/mpeg",
+    "server_url": "inirida",
+    "stream_start": "Thu, 27 Feb 2025 17:32:29 -0500",
+    "stream_start_iso8601": "2025-02-27T17:32:29-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 128,
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 25,
+    "listeners": 2,
+    "listenurl": "http://192.168.2.109:8080/manizales",
+    "server_description": "radio policia manizales",
+    "server_name": "radio policia manizales103.7 FM",
+    "server_type": "audio/mpeg",
+    "server_url": "manizales",
+    "stream_start": "Thu, 27 Feb 2025 11:14:40 -0500",
+    "stream_start_iso8601": "2025-02-27T11:14:40-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=96;ice-channels=2;ice-samplerate=48000",
+    "bitrate": 96,
+    "genre": "crossover",
+    "ice-bitrate": 96,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 3,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/medellin",
+    "server_description": "radio policia nacional",
+    "server_name": "medellin 96.4 fm",
+    "server_type": "audio/mpeg",
+    "server_url": "medellin",
+    "stream_start": "Tue, 25 Feb 2025 08:46:51 -0500",
+    "stream_start_iso8601": "2025-02-25T08:46:51-0500",
+    "title": "url_get_listener: failed with error: url_get_listener: failed with error: url_get_listener: failed with error: url_get_listener: failed with error: url_get_listener: failed with error: ",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100",
+    "bitrate": 128,
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 44100,
+    "listener_peak": 1,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/mitu",
+    "server_description": "radio policia nacional ",
+    "server_name": "radio policia mitu 91.3",
+    "server_type": "audio/mpeg",
+    "server_url": "mitu ",
+    "stream_start": "Thu, 27 Feb 2025 20:24:07 -0500",
+    "stream_start_iso8601": "2025-02-27T20:24:07-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=1;ice-samplerate=44100",
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 1,
+    "ice-samplerate": 44100,
+    "listener_peak": 4,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/mocoa",
+    "server_description": "radio policia nacional",
+    "server_name": "Radio Policia Mocoa 92.3 fm",
+    "server_type": "audio/mpeg",
+    "server_url": "mocoa",
+    "stream_start": "Tue, 25 Feb 2025 11:08:48 -0500",
+    "stream_start_iso8601": "2025-02-25T11:08:48-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100",
+    "bitrate": 128,
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 44100,
+    "listener_peak": 0,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/monteria",
+    "server_description": "Radio Policia Nacional",
+    "server_name": "Radio Policia Monteria 95.5",
+    "server_type": "audio/mpeg",
+    "server_url": "monteria",
+    "stream_start": "Thu, 27 Feb 2025 15:07:07 -0500",
+    "stream_start_iso8601": "2025-02-27T15:07:07-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100",
+    "bitrate": 128,
+    "genre": "89.5 fm",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 44100,
+    "listener_peak": 0,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/pasto",
+    "server_description": "Radio Policia Nacional",
+    "server_name": "Radio Policia Pasto 89.5",
+    "server_type": "audio/mpeg",
+    "server_url": "pasto",
+    "stream_start": "Thu, 27 Feb 2025 03:21:29 -0500",
+    "stream_start_iso8601": "2025-02-27T03:21:29-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000",
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 48000,
+    "listener_peak": 3,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/pereira",
+    "server_description": "radio policia nacional",
+    "server_name": "Radio Policia Pereira 99.1fm",
+    "server_type": "audio/mpeg",
+    "server_url": "pereira",
+    "stream_start": "Tue, 25 Feb 2025 08:46:43 -0500",
+    "stream_start_iso8601": "2025-02-25T08:46:43-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100",
+    "bitrate": 128,
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 44100,
+    "listener_peak": 2,
+    "listeners": 0,
+    "listenurl": "http://192.168.2.109:8080/quibdo",
+    "server_description": "Radio Policia Quibdo",
+    "server_name": "Quibdo",
+    "server_type": "audio/mpeg",
+    "server_url": "quibdo",
+    "stream_start": "Tue, 25 Feb 2025 08:46:44 -0500",
+    "stream_start_iso8601": "2025-02-25T08:46:44-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=96;ice-channels=1;ice-samplerate=48000",
+    "bitrate": 96,
+    "genre": "Crossover ",
+    "ice-bitrate": 96,
+    "ice-channels": 1,
+    "ice-samplerate": 48000,
+    "listener_peak": 5,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/santamarta",
+    "server_description": "radio policia nacional",
+    "server_name": "radio policia santa marta 105.4",
+    "server_type": "audio/mpeg",
+    "server_url": "santamarta",
+    "stream_start": "Thu, 27 Feb 2025 14:51:18 -0500",
+    "stream_start_iso8601": "2025-02-27T14:51:18-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=96000",
+    "bitrate": 128,
+    "genre": "Crosover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 96000,
+    "listener_peak": 2,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/tunja",
+    "server_description": "radio policia nacional",
+    "server_name": "radio policia tunja",
+    "server_type": "audio/mpeg",
+    "server_url": "tunja",
+    "stream_start": "Thu, 27 Feb 2025 18:10:34 -0500",
+    "stream_start_iso8601": "2025-02-27T18:10:34-0500",
+    "dummy": null
+    },
+    {
+    "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100",
+    "genre": "crossover",
+    "ice-bitrate": 128,
+    "ice-channels": 2,
+    "ice-samplerate": 44100,
+    "listener_peak": 28,
+    "listeners": 1,
+    "listenurl": "http://192.168.2.109:8080/villavicencio",
+    "server_description": "emisora villavicencio",
+    "server_name": "villavicencio 101.8 fm",
+    "server_type": "audio/mpeg",
+    "server_url": "villavicencio",
+    "stream_start": "Wed, 26 Feb 2025 11:35:15 -0500",
+    "stream_start_iso8601": "2025-02-26T11:35:15-0500",
+    "dummy": null
     }
-}
+    ]
+    }
+    }
