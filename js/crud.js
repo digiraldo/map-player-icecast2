@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Esperar un poco antes de limpiar para evitar problemas con múltiples modales
         setTimeout(cleanupModalBackdrops, 150);
     });
+
+    // Agregar después de createModals() en el evento DOMContentLoaded existente
+    const configRadiusInput = document.getElementById('configRadius');
+    if (configRadiusInput) {
+        configRadiusInput.addEventListener('input', function() {
+            document.getElementById('radiusValue').textContent = this.value;
+        });
+    }
 });
 
 // Función para cargar los datos de estaciones
@@ -189,9 +197,13 @@ function createModals() {
                             <input type="text" class="form-control" id="configGenero">
                         </div>
                         <div class="mb-3">
-                            <label for="configRadius" class="form-label">Radio (r)</label>
-                            <input type="number" class="form-control" id="configRadius" min="4" max="10" step="0.5" required>
-                            <div class="form-text">El radio debe estar entre 4 y 10, en incrementos de 0.5</div>
+                            <label for="configRadius" class="form-label">Radio (r): <span id="radiusValue">7</span></label>
+                            <input type="range" class="form-range" id="configRadius" min="4" max="10" step="0.5" value="7" required>
+                            <div class="d-flex justify-content-between">
+                                <small>Min: 4</small>
+                                <small>Max: 10</small>
+                            </div>
+                            <div class="form-text">El radio determina el tamaño de los círculos de las estaciones</div>
                         </div>
                         <div class="mb-3">
                             <label for="configLogo" class="form-label">URL Logo</label>
@@ -545,7 +557,12 @@ function openConfigModal() {
     document.getElementById('configHostUrl').value = config.hostUrl;
     document.getElementById('configStatusUrl').value = config.statusUrl;
     document.getElementById('configGenero').value = config.genero;
-    document.getElementById('configRadius').value = config.r;
+    
+    // Actualizar el valor del slider y el texto
+    const radiusInput = document.getElementById('configRadius');
+    radiusInput.value = config.r;
+    document.getElementById('radiusValue').textContent = config.r;
+    
     document.getElementById('configLogo').value = config.url_logo;
     
     // Configuración de la posición de la tarjeta
