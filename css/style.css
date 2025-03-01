@@ -276,7 +276,7 @@ body, html {
     color: var(--toast-text);
     border-radius: 5px;
     font-size: 0.8em;
-    z-index: 1000;
+    z-index: 1080 !important; /* Mayor que el z-index del modal de Bootstrap (1050) */
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -308,6 +308,26 @@ body, html {
 .tooltip.show {
     visibility: visible;
     opacity: 1;
+}
+
+/* Corregir conflictos con la clase tooltip existente */
+div.tooltip.bs-tooltip-auto {
+    position: absolute;
+    z-index: 1080 !important;
+    background-color: var(--tooltip-bg);
+    color: var(--toast-text);
+    border-radius: 5px;
+    font-size: 0.8em;
+    opacity: 1;
+    pointer-events: none;
+    padding: 8px 12px;
+    white-space: nowrap;
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* Para tooltips específicamente en el modal del CRUD */
+#stationsModal .tooltip {
+    z-index: 1090 !important; /* Aún mayor para asegurar que aparezca sobre el modal */
 }
 
 /* Estilos para el toast */

@@ -340,9 +340,18 @@ function openStationsModal() {
             <td>${ciudad.name} - ${ciudad.frecuencia}</td>
             <td>${ciudad.serverUrl}</td>
             <td class="text-center">
-                <button class="btn btn-sm btn-info view-btn" data-index="${index}"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-primary edit-btn" data-index="${index}"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-sm btn-info view-btn" data-index="${index}" 
+                    data-bs-toggle="tooltip" data-bs-title="Ver detalles">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-primary edit-btn" data-index="${index}" 
+                    data-bs-toggle="tooltip" data-bs-title="Editar estación">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger delete-btn" data-index="${index}" 
+                    data-bs-toggle="tooltip" data-bs-title="Eliminar estación">
+                    <i class="fas fa-trash"></i>
+                </button>
             </td>
         `;
         tableBody.appendChild(row);
@@ -383,6 +392,12 @@ function openStationsModal() {
         btn.addEventListener('click', function() {
             deleteStation(parseInt(this.dataset.index));
         });
+    });
+
+    // Inicializar los tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
     // Mostrar el modal
@@ -552,14 +567,66 @@ function saveStation() {
 
 // Función para eliminar una estación
 function deleteStation(index) {
-    if (confirm('¿Está seguro de que desea eliminar esta estación?')) {
-        stationsData.reproductor.ciudades.splice(index, 1);
+    // Obtener referencia a la estación para mostrar información en el modal
+    const ciudad = stationsData.reproductor.ciudades[index];
+    
+    // Crear modal de confirmación
+    const confirmModal = document.getElementById('deleteConfirmModal');
+    if (confirmModal) {
+        // Si ya existe el modal, actualizar su contenido
+        document.getElementById('stationToDelete').textContent = `${ciudad.name} - ${ciudad.frecuencia}`;
+        document.getElementById('confirmDeleteBtn').onclick = function() {
+            // Ejecutar eliminación al confirmar
+            stationsData.reproductor.ciudades.splice(index, 1);
+            showToast('Estación eliminada correctamente', 'success');
+            
+            // Cerrar el modal y actualizar la tabla
+            const bsModal = bootstrap.Modal.getInstance(confirmModal);
+            bsModal.hide();
+            openStationsModal();
+        };
+    } else {
+        // Si no existe, crear un nuevo modal en el DOM
+        const modalHTML = `
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmModalLabel">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro de que desea eliminar la estación <strong id="stationToDelete">${ciudad.name} - ${ciudad.frecuencia}</strong>?</p>
+                        <p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Esta acción no se puede deshacer.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
         
-        showToast('Estación eliminada correctamente', 'success');
+        // Añadir el modal al DOM
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
         
-        // Actualizar la tabla
-        openStationsModal();
+        // Configurar el evento para el botón de confirmación
+        document.getElementById('confirmDeleteBtn').onclick = function() {
+            // Ejecutar eliminación al confirmar
+            stationsData.reproductor.ciudades.splice(index, 1);
+            showToast('Estación eliminada correctamente', 'success');
+            
+            // Cerrar el modal y actualizar la tabla
+            const confirmModal = document.getElementById('deleteConfirmModal');
+            const bsModal = bootstrap.Modal.getInstance(confirmModal);
+            bsModal.hide();
+            openStationsModal();
+        };
     }
+    
+    // Mostrar el modal de confirmación
+    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    modal.show();
 }
 
 // Función para abrir el modal de configuración
@@ -888,3 +955,12 @@ function normalizeServerUrl(url) {
     
     return normalized;
 }
+
+// Agregar esta función para limpiar los tooltips cuando se cierran los modales
+document.addEventListener('hidden.bs.modal', function () {
+    // Destruir todos los tooltips para evitar elementos huérfanos en el DOM
+    const tooltips = bootstrap.Tooltip.getInstance('[data-bs-toggle="tooltip"]');
+    if (tooltips) {
+        tooltips.dispose();
+    }
+});
