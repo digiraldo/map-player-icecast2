@@ -1,11 +1,11 @@
 {
     "reproductor": {
-        "estacion": "Radio Policía Nacional",
+        "estacion": "Radio Policía Nacional de",
         "hostUrl": "https://radio.policia.gov.co:8080",
+        "url_logo": "",
         "statusUrl": "status-json.xsl",
         "genero": "Tropical",
-        "r": "8",
-        "url_logo": "https://www.policia.gov.co/sites/default/files/2025-02/radio-policia-bogota.png",
+        "r": "8.5",
         "desarrollador": "digiraldo",
         "infoCard": {
             "left": "20px",
@@ -16,7 +16,7 @@
                 "name": "Apartadó",
                 "frecuencia": "99.9 FM",
                 "serverUrl": "apartado",
-                "cx": "87.5",
+                "cx": "87",
                 "cy": "165"
             },
             {

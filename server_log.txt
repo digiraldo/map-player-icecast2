@@ -1,3 +1,3 @@
-[vie. 28/02/2025 17:04:39,39] Iniciando servidor 
-[vie. 28/02/2025 17:04:46,68] PHP encontrado en Laragon 
-[vie. 28/02/2025 17:04:57,97] Iniciando servidor PHP en puerto 8000 
+[sáb. 01/03/2025 10:27:45,25] Iniciando servidor 
+[sáb. 01/03/2025 10:27:45,43] PHP encontrado en Laragon 
+[sáb. 01/03/2025 10:27:47,00] Iniciando servidor PHP en puerto 8000 

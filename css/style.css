@@ -38,7 +38,7 @@
     --hover-color: #58a6ff;
     --map-filter: brightness(0.7) contrast(1.2) saturate(0.8);
     --toast-bg: rgba(60, 60, 60, 0.9);
-    --toast-text: #ffffff;
+    --toast-text: #b7b7b7;
     --player-paused: #FFBB33;
     --player-icon: #dedbdb;
     --icon-color: #4b9185; /* Color de los iconos en la tarjeta de información */
@@ -353,6 +353,114 @@ div.tooltip.bs-tooltip-auto {
     transform: translateX(-50%) translateY(-10px);
 }
 
+/* Ajustar la apariencia de los toasts en Bootstrap */
+.toast-container .toast {
+    background-color: var(--toast-bg);
+}
+
+/* Establecer colores para los diferentes tipos de toast */
+.toast.text-bg-success, 
+.toast.text-bg-danger,
+.toast.text-bg-info {
+    --toast-header-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Ajustar el fondo del header del toast para ambos temas */
+.toast .toast-header {
+    background-color: var(--toast-header-bg, rgba(255, 255, 255, 0.1));
+    color: var(--toast-text);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Botones de cierre en toast - común a ambos temas */
+.toast .btn-close {
+    font-size: 0.8rem;
+    padding: 0.25rem;
+    margin-left: 10px;
+    opacity: 0.8;
+    background-color: transparent !important;
+}
+
+/* Modo claro: X oscura sobre fondo claro */
+.toast .btn-close {
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3E%3C/svg%3E") center/1em auto no-repeat;
+}
+
+/* Modo oscuro: X clara sobre fondo oscuro */
+[data-theme="dark"] .toast .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+/* En todos los toasts, añadir border y hover */
+.toast .btn-close:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 3px;
+}
+
+/* Corregir específicamente la X en toast con fondo éxito/error */
+.toast.text-bg-success .toast-header .btn-close,
+.toast.text-bg-danger .toast-header .btn-close,
+#notificationToast .toast-header .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+/* Corregir específicamente la X en el toast de guardado */
+.toast-container .toast .toast-header .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+/* Ajustes para toasts personalizados con botones de acción */
+.toast .d-flex .btn-close {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botones de cierre en toast personalizados */
+.toast .btn-close {
+    color: var(--toast-text);
+    opacity: 0.7;
+    padding: 5px;
+    margin-left: 10px;
+    transition: opacity 0.2s ease;
+    font-size: 0.8rem;
+}
+
+.toast .btn-close:hover {
+    opacity: 1;
+}
+
+/* Hacer que el botón de cierre sea más visible en los toasts en modo oscuro */
+[data-theme="dark"] .toast .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+    opacity: 0.8;
+    color: var(--toast-text);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.022);
+    border-radius: 50%;
+}
+
+[data-theme="dark"] .toast .btn-close:hover {
+    opacity: 1;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.123);
+}
+
+/* Ajustes para toasts personalizados con botones de acción */
+.toast .d-flex .btn-close {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Estilos para Bootstrap */
 .btn {
     margin: 0;
@@ -490,6 +598,15 @@ table.dataTable.no-footer {
     transition: opacity 0.5s ease;
     position: relative; /* Asegura que la imagen esté encima del canvas */
     z-index: 1; /* Asegura que la imagen esté encima del canvas */
+}
+
+/* Estilo específico para el logo DiGiraldo cuando se usa como predeterminado */
+.logo-container img[src*="DiGiraldo-Logo.png"] {
+    max-width: 80px !important; /* Usar !important para sobrescribir cualquier otra regla */
+    width: 60px !important; /* Establecer también el ancho */
+    height: auto !important; /* Mantener proporción */
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .logo-container canvas {

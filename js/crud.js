@@ -191,15 +191,7 @@ function createModals() {
                             <input type="url" class="form-control" id="configHostUrl" required>
                         </div>
                         <div class="mb-3">
-                            <label for="configStatusUrl" class="form-label">Status URL</label>
-                            <input type="text" class="form-control" id="configStatusUrl" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="configGenero" class="form-label">Género</label>
-                            <input type="text" class="form-control" id="configGenero">
-                        </div>
-                        <div class="mb-3">
-                            <label for="configRadius" class="form-label">Radio (r): <span id="radiusValue">7</span></label>
+                            <label for="configRadius" class="form-label">Tamaño del Circulo: <span id="radiusValue">7</span></label>
                             <input type="range" class="form-range" id="configRadius" min="5" max="10" step="0.5" value="7" required>
                             <div class="d-flex justify-content-between">
                                 <small>Min: 5</small>
@@ -209,22 +201,13 @@ function createModals() {
                         </div>
                         <div class="mb-3">
                             <label for="configLogo" class="form-label">URL Logo</label>
-                            <input type="url" class="form-control" id="configLogo">
+                            <div class="input-group">
+                                <span class="input-group-text" id="logoPreviewSpan">
+                                    <img id="logoPreviewIcon" src="img/radio-ico.ico" alt="Logo" style="height: 24px; width: auto;">
+                                </span>
+                                <input type="url" class="form-control" id="configLogo" placeholder="URL de la imagen del logo">
+                            </div>
                             <div class="mt-2" id="logoPreview" style="text-align: center;"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="configCardLeft" class="form-label">Tarjeta Posición X</label>
-                                    <input type="text" class="form-control" id="configCardLeft">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="configCardTop" class="form-label">Tarjeta Posición Y</label>
-                                    <input type="text" class="form-control" id="configCardTop">
-                                </div>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -314,10 +297,26 @@ function createModals() {
     document.getElementById('configLogo').addEventListener('input', function() {
         const logoUrl = this.value;
         const previewDiv = document.getElementById('logoPreview');
+        const logoPreviewIcon = document.getElementById('logoPreviewIcon');
         
         if (logoUrl) {
+            // Actualizar el icono en el input-group-text
+            logoPreviewIcon.src = logoUrl;
+            logoPreviewIcon.onerror = function() {
+                this.src = 'img/radio-ico.ico'; // Imagen predeterminada si falla la carga
+            };
+            
+            // Mostrar la previsualización más grande debajo
             previewDiv.innerHTML = `<img src="${logoUrl}" alt="Logo Preview" style="max-width: 100px; max-height: 100px;">`;
+            
+            // Manejar errores en la imagen grande
+            const previewImg = previewDiv.querySelector('img');
+            previewImg.onerror = function() {
+                previewDiv.innerHTML = '<div class="alert alert-warning">No se pudo cargar la imagen</div>';
+            };
         } else {
+            // Si no hay URL, mostrar el icono predeterminado
+            logoPreviewIcon.src = 'img/radio-ico.ico';
             previewDiv.innerHTML = '';
         }
     });
@@ -641,8 +640,6 @@ function openConfigModal() {
     // Llenar el formulario con los datos del reproductor
     document.getElementById('configName').value = config.estacion;
     document.getElementById('configHostUrl').value = config.hostUrl;
-    document.getElementById('configStatusUrl').value = config.statusUrl;
-    document.getElementById('configGenero').value = config.genero;
     
     // Actualizar el valor del slider y el texto
     const radiusInput = document.getElementById('configRadius');
@@ -651,18 +648,17 @@ function openConfigModal() {
     
     document.getElementById('configLogo').value = config.url_logo;
     
-    // Configuración de la posición de la tarjeta
-    if (config.infoCard) {
-        document.getElementById('configCardLeft').value = config.infoCard.left;
-        document.getElementById('configCardTop').value = config.infoCard.top;
-    }
-    
-    // Previsualizar el logo
-    const previewDiv = document.getElementById('logoPreview');
-    if (config.url_logo) {
-        previewDiv.innerHTML = `<img src="${config.url_logo}" alt="Logo Preview" style="max-width: 100px; max-height: 100px;">`;
-    } else {
-        previewDiv.innerHTML = '';
+    // Actualizar la previsualización del logo
+    const logoUrl = config.url_logo;
+    if (logoUrl) {
+        const logoPreviewIcon = document.getElementById('logoPreviewIcon');
+        logoPreviewIcon.src = logoUrl;
+        logoPreviewIcon.onerror = function() {
+            this.src = 'img/radio-ico.ico';
+        };
+        
+        const previewDiv = document.getElementById('logoPreview');
+        previewDiv.innerHTML = `<img src="${logoUrl}" alt="Logo Preview" style="max-width: 100px; max-height: 100px;">`;
     }
     
     // Cerrar el modal de estaciones antes de abrir el nuevo
@@ -702,17 +698,9 @@ function saveConfig() {
     // Actualizar los datos del reproductor
     stationsData.reproductor.estacion = document.getElementById('configName').value;
     stationsData.reproductor.hostUrl = document.getElementById('configHostUrl').value;
-    stationsData.reproductor.statusUrl = document.getElementById('configStatusUrl').value;
-    stationsData.reproductor.genero = document.getElementById('configGenero').value;
+    // No modificamos statusUrl para conservar su valor original
     stationsData.reproductor.r = document.getElementById('configRadius').value;
     stationsData.reproductor.url_logo = document.getElementById('configLogo').value;
-    
-    // Actualizar la posición de la tarjeta
-    if (!stationsData.reproductor.infoCard) {
-        stationsData.reproductor.infoCard = {};
-    }
-    stationsData.reproductor.infoCard.left = document.getElementById('configCardLeft').value;
-    stationsData.reproductor.infoCard.top = document.getElementById('configCardTop').value;
     
     // Mostrar toast con botón de guardar todos los cambios
     showToastWithSaveButton('Configuración guardada correctamente');
@@ -747,11 +735,16 @@ function showToastWithSaveButton(message) {
     customToast.setAttribute('aria-live', 'assertive');
     customToast.setAttribute('aria-atomic', 'true');
     
-    // Contenido del toast
+    // Añadir clases de tema oscuro si es necesario
+    if (document.body.getAttribute('data-theme') === 'dark') {
+        customToast.classList.add('toast-dark');
+    }
+    
+    // Contenido del toast con botón adaptado al tema
     customToast.innerHTML = `
         <div class="toast-header">
             <strong class="me-auto">Éxito</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -789,6 +782,33 @@ function showToastWithSaveButton(message) {
     });
 }
 
+// Función para mostrar notificaciones Toast
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('notificationToast');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastTitle = document.getElementById('toastTitle');
+    
+    toastMessage.textContent = message;
+    toastTitle.textContent = type === 'success' ? 'Éxito' : 'Error';
+    
+    if (type === 'success') {
+        toast.classList.remove('text-bg-danger');
+        toast.classList.add('text-bg-success');
+    } else {
+        toast.classList.remove('text-bg-success');
+        toast.classList.add('text-bg-danger');
+    }
+    
+    // Asegurar que el botón de cierre tenga las clases correctas
+    const closeBtn = toast.querySelector('.btn-close');
+    if (closeBtn) {
+        closeBtn.classList.add('btn-close-white');
+    }
+    
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+}
+
 // Función para actualizar la posición del círculo en el mapa de vista previa
 function updateCirclePosition() {
     const stationCx = document.getElementById('stationCx');
@@ -823,6 +843,9 @@ function updateCirclePosition() {
 function saveAllChanges() {
     console.log('saveAllChanges llamada');
     
+    // NUEVO: Mostrar spinner de carga antes de comenzar el proceso
+    showLoadingSpinner('Guardando cambios...');
+    
     // NUEVO: Ordenar las ciudades alfabéticamente por nombre antes de guardar
     stationsData.reproductor.ciudades.sort((a, b) => {
         // Ignorar mayúsculas/minúsculas en la comparación
@@ -845,9 +868,6 @@ function saveAllChanges() {
     console.log('Longitud de datos JSON:', jsonData.length);
     
     try {
-        // Mostrar mensaje de guardado
-        showToast('Guardando cambios...', 'info');
-        
         // Usar Fetch API para guardar los datos en el servidor
         fetch('save_stations.php', {
             method: 'POST',
@@ -868,7 +888,6 @@ function saveAllChanges() {
                     const data = JSON.parse(text);
                     if (response.ok) {
                         console.log('Operación exitosa:', data);
-                        showToast('Cambios guardados correctamente. Recargando...', 'success');
                         
                         // Cerrar el modal de estaciones si está abierto
                         const stationsModal = bootstrap.Modal.getInstance(document.getElementById('stationsModal'));
@@ -876,18 +895,19 @@ function saveAllChanges() {
                             stationsModal.hide();
                         }
                         
-                        // Forzar recarga completa sin caché para regenerar el mapa y los listeners
-                        setTimeout(() => {
-                            window.location.reload(true);
-                        }, 1000);
+                        // MODIFICADO: En lugar de recargar, forzar reinicio del mapa
+                        hideLoadingSpinner();
+                        reinitializeMapWithSpinner();
                     } else {
                         console.error('Error del servidor:', data);
+                        hideLoadingSpinner();
                         showToast(`Error: ${data.message || 'Error desconocido'}`, 'error');
                     }
                     return data;
                 } catch (e) {
                     // Si no es JSON, mostrar el texto completo
                     console.error('Respuesta no es JSON:', text);
+                    hideLoadingSpinner();
                     showToast('Error: Respuesta del servidor inválida', 'error');
                     throw new Error('Respuesta del servidor inválida');
                 }
@@ -895,10 +915,12 @@ function saveAllChanges() {
         })
         .catch(error => {
             console.error('Error en fetch:', error);
+            hideLoadingSpinner();
             showToast(`Error al guardar: ${error.message}`, 'error');
         });
     } catch (error) {
         console.error('Error en la solicitud:', error);
+        hideLoadingSpinner();
         showToast(`Error en la solicitud: ${error.message}`, 'error');
     }
 }
@@ -918,6 +940,12 @@ function showToast(message, type = 'success') {
     } else {
         toast.classList.remove('text-bg-success');
         toast.classList.add('text-bg-danger');
+    }
+    
+    // Asegurar que el botón de cierre tenga las clases correctas
+    const closeBtn = toast.querySelector('.btn-close');
+    if (closeBtn) {
+        closeBtn.classList.add('btn-close-white');
     }
     
     const bsToast = new bootstrap.Toast(toast);
@@ -964,3 +992,124 @@ document.addEventListener('hidden.bs.modal', function () {
         tooltips.dispose();
     }
 });
+
+/**
+ * Muestra un spinner de carga durante los procesos que requieren tiempo
+ * @param {string} message - Mensaje a mostrar durante la carga
+ */
+function showLoadingSpinner(message = 'Cargando...') {
+    // Verificar si ya existe un spinner y eliminarlo
+    hideLoadingSpinner();
+    
+    // Crear overlay para el spinner
+    const spinnerOverlay = document.createElement('div');
+    spinnerOverlay.id = 'spinnerOverlay';
+    spinnerOverlay.style.position = 'fixed';
+    spinnerOverlay.style.top = '0';
+    spinnerOverlay.style.left = '0';
+    spinnerOverlay.style.width = '100%';
+    spinnerOverlay.style.height = '100%';
+    spinnerOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    spinnerOverlay.style.display = 'flex';
+    spinnerOverlay.style.justifyContent = 'center';
+    spinnerOverlay.style.alignItems = 'center';
+    spinnerOverlay.style.zIndex = '9999';
+    spinnerOverlay.style.flexDirection = 'column';
+    
+    // Crear el spinner
+    const spinnerContainer = document.createElement('div');
+    spinnerContainer.style.textAlign = 'center';
+    spinnerContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+    spinnerContainer.style.padding = '25px';
+    spinnerContainer.style.borderRadius = '10px';
+    spinnerContainer.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    
+    spinnerContainer.innerHTML = `
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        <div class="mt-3" style="color: #333; font-weight: bold;">${message}</div>
+    `;
+    
+    // Añadir el spinner al overlay
+    spinnerOverlay.appendChild(spinnerContainer);
+    
+    // Añadir el overlay al body
+    document.body.appendChild(spinnerOverlay);
+}
+
+/**
+ * Oculta el spinner de carga
+ */
+function hideLoadingSpinner() {
+    const existingOverlay = document.getElementById('spinnerOverlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+}
+
+/**
+ * Reinicializa el mapa forzando una recarga y mostrando un spinner
+ */
+function reinitializeMapWithSpinner() {
+    showLoadingSpinner('Reinicializando mapa...');
+    
+    try {
+        // Limpiar contenedor de estaciones
+        const playersContainer = document.getElementById('players-container');
+        if (playersContainer) {
+            playersContainer.innerHTML = '';
+        }
+        
+        // Fetch reciente de los datos (sin caché)
+        fetch('data/stations.json?nocache=' + new Date().getTime())
+            .then(response => response.json())
+            .then(data => {
+                console.log('Datos recargados:', data);
+                
+                // Actualizar la variable global
+                window.stationsData = data;
+                
+                setTimeout(() => {
+                    if (typeof window.initializePlayer === 'function') {
+                        try {
+                            const reproductor = data.reproductor;
+                            const statusUrlCompleta = `${reproductor.hostUrl}/${reproductor.statusUrl}`;
+                            const hostSRV = reproductor.hostUrl;
+                            
+                            // Reinicializar el mapa con los datos frescos
+                            window.initializePlayer(reproductor, statusUrlCompleta, hostSRV);
+                            
+                            // Mostrar mensaje de éxito
+                            setTimeout(() => {
+                                hideLoadingSpinner();
+                                showToast('Mapa reinicializado con éxito', 'success');
+                            }, 500);
+                        } catch (error) {
+                            console.error('Error al reinicializar el mapa:', error);
+                            hideLoadingSpinner();
+                            showToast('Error al reinicializar el mapa. Recargando página...', 'error');
+                            setTimeout(() => window.location.reload(), 1500);
+                        }
+                    } else {
+                        // Si la función no está disponible, recargar la página
+                        console.error('Función initializePlayer no disponible');
+                        hideLoadingSpinner();
+                        showToast('Reiniciando aplicación...', 'info');
+                        setTimeout(() => window.location.reload(), 1000);
+                    }
+                }, 800); // Pequeño retraso para asegurar que el DOM está listo
+            })
+            .catch(error => {
+                console.error('Error al cargar datos actualizados:', error);
+                hideLoadingSpinner();
+                showToast('Error al reiniciar el mapa. Recargando página...', 'error');
+                setTimeout(() => window.location.reload(), 1500);
+            });
+    } catch (error) {
+        console.error('Error en reinicialización:', error);
+        hideLoadingSpinner();
+        showToast('Error crítico. Recargando página...', 'error');
+        setTimeout(() => window.location.reload(), 1000);
+    }
+}

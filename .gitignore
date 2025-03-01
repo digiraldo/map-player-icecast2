@@ -1,1 +1,81 @@
-node_modules
+# Archivos temporales generados por view_stations.bat
+temp_server.js
+index_view.html
+
+# Archivos de registro
+view_log.txt
+save_log.txt
+*.log
+
+# Archivos de respaldo
+*.bak
+data/stations.json.bak
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# Archivos de entorno local
+.env
+.env.local
+*.local.php
+
+# Directorios de dependencias (si decides usarlos en el futuro)
+/node_modules/
+/vendor/
+
+# Archivos de IDE y editores
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*~
+
+# Archivos de caché
+.cache/
+*.cache
+
+# Archivos de prueba o desarrollo
+*-test.*
+*-dev.*
+
+# Directorio de respaldo que podría crearse
+/backup/
+
+# Archivos comprimidos que podrían generarse para respaldos
+*.zip
+*.rar
+*.gz
+*.tar
+
+# Archivos comentados o con extensiones alternativas
+*-UNUSED.*
+*-OLD.*
+*.__
+*.disabled
+
+# Comentado temporalmente en index.html
+# js/player-info.js
+
+# Archivos temporales de PHP
+*.php~
+
+
+# Archivos o Directorios puestos manualmente
+# /node_modules
+/data/ciudades.xml
+/data/status-json.json
+/data/data.md
+/data/index.html
+/data/stations copy.json
+/test.php
+/test_write.php
+/server_log.txt
+/php_server_log.txt
+/package.json
+/package-lock.json
+/save_log.txt
+/view_log.txt
+/view_stations copy.bat

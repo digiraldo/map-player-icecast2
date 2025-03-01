@@ -169,8 +169,12 @@ echo │ %WHITE%Directorio: %CYAN%%CD%%RESET%
 echo │ %WHITE%PHP: %CYAN%%PHP_PATH%%RESET%
 echo │
 echo │ %YELLOW%El servidor está funcionando. Pulse CTRL+C para detenerlo.%RESET%
+echo │ %GREEN%Abriendo navegador con la aplicación...%RESET%
 echo %GREEN%└───────────────────────────────────────────────────────────────────────────┘%RESET%
 echo.
+
+REM Abrir el navegador automáticamente
+start "" "http://localhost:8000"
 
 REM Iniciar el servidor PHP
 echo [%date% %time%] Iniciando servidor PHP en puerto 8000 >> %logfile%
