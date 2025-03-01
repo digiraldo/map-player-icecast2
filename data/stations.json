@@ -1,6 +1,6 @@
 {
     "reproductor": {
-        "estacion": "Radio Policía Nacional de",
+        "estacion": "",
         "hostUrl": "https://radio.policia.gov.co:8080",
         "url_logo": "",
         "statusUrl": "status-json.xsl",
