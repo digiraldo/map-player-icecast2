@@ -200,9 +200,9 @@ function createModals() {
                         </div>
                         <div class="mb-3">
                             <label for="configRadius" class="form-label">Radio (r): <span id="radiusValue">7</span></label>
-                            <input type="range" class="form-range" id="configRadius" min="4" max="10" step="0.5" value="7" required>
+                            <input type="range" class="form-range" id="configRadius" min="5" max="10" step="0.5" value="7" required>
                             <div class="d-flex justify-content-between">
-                                <small>Min: 4</small>
+                                <small>Min: 5</small>
                                 <small>Max: 10</small>
                             </div>
                             <div class="form-text">El radio determina el tamaño de los círculos de las estaciones</div>
@@ -533,9 +533,6 @@ function saveStation() {
         showToast('Estación actualizada correctamente', 'success');
     }
     
-    // Actualizar la cuenta total de estaciones
-    stationsData.reproductor.total_estaciones = stationsData.reproductor.ciudades.length;
-    
     // Cerrar el modal y actualizar la tabla
     const formModal = bootstrap.Modal.getInstance(document.getElementById('stationFormModal'));
     formModal.hide();
@@ -557,9 +554,6 @@ function saveStation() {
 function deleteStation(index) {
     if (confirm('¿Está seguro de que desea eliminar esta estación?')) {
         stationsData.reproductor.ciudades.splice(index, 1);
-        
-        // Actualizar la cuenta total de estaciones
-        stationsData.reproductor.total_estaciones = stationsData.reproductor.ciudades.length;
         
         showToast('Estación eliminada correctamente', 'success');
         
@@ -779,9 +773,6 @@ function saveAllChanges() {
             ciudad.serverUrl = normalizeServerUrl(ciudad.serverUrl);
         }
     });
-    
-    // Actualizar el número total de estaciones
-    stationsData.reproductor.total_estaciones = stationsData.reproductor.ciudades.length;
     
     const jsonData = JSON.stringify(stationsData, null, 4);
     console.log('Longitud de datos JSON:', jsonData.length);

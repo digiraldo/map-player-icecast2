@@ -155,10 +155,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Crear círculos para cada ciudad
+            // Crear círculos para cada ciudad - Modificar el orden de creación de elementos
             reproductor.ciudades.forEach(ciudad => {
                 if (ciudad.serverUrl) {
                     const ciudadServerUrl = `${reproductor.hostUrl}/${ciudad.serverUrl}`;
+                    
+                    // Crear un grupo SVG para mantener todos los elementos de la estación juntos
+                    const stationGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+                    stationGroup.setAttribute('class', 'station-group');
+                    stationGroup.setAttribute('data-station-name', ciudad.name);
+                    stationGroup.setAttribute('data-server-url', ciudad.serverUrl);
+                    
+                    // Crear círculo de la estación
                     const circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
                     circle.setAttribute('cx', ciudad.cx);
                     circle.setAttribute('cy', ciudad.cy);
@@ -168,32 +176,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     circle.setAttribute('data-station-name', ciudad.name);
                     circle.setAttribute('data-station-frecuencia', ciudad.frecuencia);
                     circle.setAttribute('data-audio-url', ciudadServerUrl);
-                    circle.setAttribute('data-server-url', ciudad.serverUrl); // Añadir atributo para identificación directa
-                    map.appendChild(circle);
+                    circle.setAttribute('data-server-url', ciudad.serverUrl);
+                    stationGroup.appendChild(circle);
 
-                    // Crear tooltip para mostrar información de la ciudad
-                    const tooltip = document.createElement('div');
-                    tooltip.classList.add('tooltip');
-                    tooltip.innerHTML = `${ciudad.name} ${ciudad.frecuencia}`;
-                    document.body.appendChild(tooltip);
-
-                    circle.addEventListener('mousemove', (event) => {
-                        tooltip.style.left = `${event.pageX + 10}px`;
-                        tooltip.style.top = `${event.pageY + 10}px`;
-                    });
-
-                    circle.addEventListener('mouseover', () => {
-                        tooltip.classList.add('show');
-                    });
-
-                    circle.addEventListener('mouseout', () => {
-                        tooltip.classList.remove('show');
-                    });
-
+                    // Crear texto para mostrar el número de oyentes - Modificar para usar tamaño dinámico
+                    const listenersText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                    listenersText.setAttribute('x', ciudad.cx);
+                    listenersText.setAttribute('y', ciudad.cy);
+                    listenersText.setAttribute('text-anchor', 'middle');
+                    listenersText.setAttribute('dominant-baseline', 'central');
+                    listenersText.setAttribute('class', 'listeners-text');
+                    
+                    // Calcular el tamaño de la fuente basado en el radio (r * 2)
+                    const fontSize = parseFloat(reproductor.r) * 0.065; // r*2 / 10 para tener una escala razonable (r*2 sería demasiado grande)
+                    listenersText.style.fontSize = `${fontSize}em`; // Usando em para mejor escalabilidad
+                    
+                    listenersText.textContent = '0';
+                    listenersText.style.pointerEvents = 'none';
+                    stationGroup.appendChild(listenersText);
+                    
                     // Crear icono de reproducción/pausa
                     const icon = document.createElementNS("http://www.w3.org/2000/svg", 'foreignObject');
-                    icon.setAttribute('x', ciudad.cx - reproductor.r / 2);
-                    icon.setAttribute('y', ciudad.cy - reproductor.r / 2);
+                    icon.setAttribute('x', parseFloat(ciudad.cx) - parseFloat(reproductor.r) / 2);
+                    icon.setAttribute('y', parseFloat(ciudad.cy) - parseFloat(reproductor.r) / 2);
                     icon.setAttribute('width', reproductor.r);
                     icon.setAttribute('height', reproductor.r);
                     icon.setAttribute('class', 'station-icon');
@@ -201,59 +206,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const iconInner = document.createElement('i');
                     iconInner.setAttribute('class', 'fas fa-play');
-                    iconInner.style.fontSize = `${reproductor.r}px`;
+                    iconInner.style.fontSize = `${reproductor.r * 1.2}px`; // AQUÍ se establece el tamaño del icono
                     iconInner.style.textAlign = 'center';
                     iconInner.style.lineHeight = `${reproductor.r}px`;
                     icon.appendChild(iconInner);
-                    map.appendChild(icon);
+                    stationGroup.appendChild(icon);
                     iconInner.style.display = 'none';
 
+                    // Crear texto para mostrar el nombre de la estación
+                    const stationNameText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                    stationNameText.setAttribute('x', ciudad.cx);
+                    stationNameText.setAttribute('y', parseFloat(ciudad.cy) + parseFloat(reproductor.r) + 5);
+                    stationNameText.setAttribute('text-anchor', 'middle');
+                    stationNameText.setAttribute('class', 'station-name');
+                    stationNameText.textContent = ciudad.name;
+                    stationGroup.appendChild(stationNameText);
+                    
+                    // Agregar el grupo al mapa
+                    map.appendChild(stationGroup);
+
+                    // Crear tooltip para mostrar información de la ciudad
+                    const tooltip = document.createElement('div');
+                    tooltip.classList.add('tooltip');
+                    tooltip.innerHTML = `${ciudad.name} ${ciudad.frecuencia}`;
+                    document.body.appendChild(tooltip);
+
+                    // Mejorar eventos del mouse para mostrar/ocultar elementos
+                    circle.addEventListener('mousemove', (event) => {
+                        tooltip.style.left = `${event.pageX + 10}px`;
+                        tooltip.style.top = `${event.pageY + 10}px`;
+                    });
+
                     circle.addEventListener('mouseover', () => {
+                        tooltip.classList.add('show');
                         iconInner.style.display = 'block';
-                        listenersText.style.display = 'none';
+                        listenersText.style.visibility = 'hidden'; // Usar visibility en lugar de display
                         iconInner.className = currentAudio && !currentAudio.paused && currentCircle === circle ? 'fas fa-pause' : 'fas fa-play';
                     });
 
                     circle.addEventListener('mouseout', () => {
+                        tooltip.classList.remove('show');
                         iconInner.style.display = 'none';
-                        listenersText.style.display = 'block';
+                        listenersText.style.visibility = 'visible'; // Usar visibility en lugar de display
                     });
 
-                    // Crear texto para mostrar el número de oyentes
-                    const listenersText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-                    listenersText.setAttribute('x', ciudad.cx);
-                    listenersText.setAttribute('y', ciudad.cy + 5);
-                    listenersText.setAttribute('text-anchor', 'middle');
-                    listenersText.setAttribute('class', 'listeners-text');
-                    listenersText.textContent = '0';
-                    map.appendChild(listenersText);
-
-                    // Crear texto para mostrar el nombre de la estación
-                    const text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-                    text.setAttribute('x', ciudad.cx);
-                    text.setAttribute('y', parseFloat(ciudad.cy) + parseFloat(reproductor.r) + 5);
-                    text.setAttribute('text-anchor', 'middle');
-                    text.setAttribute('class', 'station-name');
-                    text.textContent = ciudad.name;
-                    map.appendChild(text);
-
                     // Modificar cómo se almacena la referencia en el mapa de círculos
-                    // Usar el nombre del stream (sin host) como clave principal para mayor robustez
-                    circles.set(ciudad.serverUrl, { circle, listenersText, iconInner });
-                    
-                    // Ya no necesitamos almacenar referencias alternativas
-                    // Eliminar el siguiente bloque:
-                    /*
-                    if (ciudad.name) {
-                        circles.set(`name:${ciudad.name.toLowerCase()}`, { circle, listenersText, iconInner });
-                    }
-                    */
+                    circles.set(ciudad.serverUrl, { 
+                        circle, 
+                        listenersText, 
+                        iconInner,
+                        stationGroup,
+                        serverUrl: ciudad.serverUrl,
+                        name: ciudad.name
+                    });
                 }
             });
 
+            // Función para actualizar la información de los oyentes - optimizada
+            function updateListeners() {
+                fetch(statusUrlCompleta)
+                    .then(response => response.json())
+                    .then(data => {
+                        let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
+                        
+                        // Crear un mapa de fuentes para búsqueda rápida
+                        const sourcesMap = new Map();
+                        sources.forEach(source => {
+                            sourcesMap.set(source.server_url, source);
+                        });
+                        
+                        // Primero marcar todas las estaciones como offline
+                        circles.forEach(({ circle, listenersText }, serverUrl) => {
+                            if (circle !== currentCircle) {
+                                circle.setAttribute('fill', 'var(--player-offline)');
+                                listenersText.textContent = '0';
+                            }
+                        });
+                        
+                        // Debug - registrar información sobre estaciones
+                        // console.group("Actualización de oyentes");
+                        // console.log("Estaciones configuradas:", Array.from(circles.keys()));
+                        // console.log("Fuentes disponibles:", Array.from(sourcesMap.keys()));
+                        
+                        // Actualizar cada estación según coincidencia exacta
+                        circles.forEach(({ circle, listenersText, serverUrl, name }, key) => {
+                            const source = sourcesMap.get(serverUrl);
+                            
+                            if (source) {
+                                if (circle !== currentCircle) {
+                                    circle.setAttribute('fill', 'var(--player-online)');
+                                }
+                                
+                                // Actualizar el número de oyentes y asegurar su visibilidad
+                                listenersText.textContent = source.listeners;
+                                listenersText.style.visibility = 'visible';
+                                
+                                // console.log(`Estación "${name}" (${serverUrl}): ${source.listeners} oyentes - ONLINE`);
+                            } else {
+                                // console.log(`Estación "${name}" (${serverUrl}): sin datos - OFFLINE`);
+                            }
+                        });
+                        
+                        console.groupEnd();
+                    })
+                    .catch(error => {
+                        console.error('Error al actualizar oyentes:', error);
+                        circles.forEach(({ circle }) => {
+                            if (circle !== currentCircle) {
+                                circle.setAttribute('fill', 'var(--player-offline)');
+                            }
+                        });
+                    });
+            }
+
             // Manejar el evento de clic en el mapa
             map.addEventListener('click', (event) => {
-                const target = event.target;
+                let target = event.target;
+                
+                // Si el clic no fue directamente en un círculo, verificar si fue en otro elemento de la estación
+                if (target.tagName !== 'circle' && target.closest('.station-group')) {
+                    const group = target.closest('.station-group');
+                    target = group.querySelector('circle');
+                    if (!target) return;
+                }
+                
                 if (target.tagName === 'circle') {
                     const playerName = target.getAttribute('data-station-name');
                     const playerFrecuencia = target.getAttribute('data-station-frecuencia');
@@ -352,12 +428,53 @@ document.addEventListener('DOMContentLoaded', () => {
                         let sources = Array.isArray(data.icestats.source) ? data.icestats.source : [data.icestats.source];
                         const totalListeners = sources.reduce((acc, source) => acc + parseInt(source.listeners), 0);
                         const totalSources = sources.length;
-
+                        
+                        // Calcular el número real de estaciones configuradas
+                        const totalConfiguredStations = reproductor.ciudades.length;
+                        
+                        // Contar estaciones online (círculos verdes)
+                        let onlineStationsCount = 0;
+                        circles.forEach(({ circle }) => {
+                            if (circle !== currentCircle && circle.getAttribute('fill') === 'var(--player-online)') {
+                                onlineStationsCount++;
+                            }
+                        });
+                        
+                        // Calcular la diferencia entre fuentes disponibles y círculos verdes
+                        const unmappedSources = totalSources - onlineStationsCount;
+                        
                         totalListenersElement.innerHTML = `<i class="fas fa-headphones"></i>  Total Oyentes: <span class="total-listeners">${totalListeners}</span>`;
-                        totalSourcesElement.innerHTML = `<i class="fas fa-broadcast-tower"></i>  <span class="total-sources">${totalSources}</span> Emisoras de  <span class="total-estaciones">${reproductor.total_estaciones}</span>`;
-
+                        
+                        // Crear wrapper con tooltip para fuentes sin mapear
+                        const sourcesSpan = document.createElement('span');
+                        sourcesSpan.classList.add('total-sources');
+                        sourcesSpan.textContent = totalSources;
+                        sourcesSpan.setAttribute('data-bs-toggle', 'tooltip');
+                        sourcesSpan.setAttribute('data-bs-placement', 'top');
+                        sourcesSpan.setAttribute('title', `${unmappedSources} fuentes sin mapear`);
+                        
+                        // Actualizar el contenedor de fuentes
+                        totalSourcesElement.innerHTML = '';
+                        const towerIcon = document.createElement('i');
+                        towerIcon.className = 'fas fa-broadcast-tower';
+                        totalSourcesElement.appendChild(towerIcon);
+                        totalSourcesElement.appendChild(document.createTextNode('  '));
+                        totalSourcesElement.appendChild(sourcesSpan);
+                        totalSourcesElement.appendChild(document.createTextNode(` Emisoras de `));
+                        
+                        const stationsSpan = document.createElement('span');
+                        stationsSpan.classList.add('total-estaciones');
+                        stationsSpan.textContent = totalConfiguredStations;
+                        totalSourcesElement.appendChild(stationsSpan);
+                        
                         infoCard.querySelector('.card-body').innerHTML = '';
                         infoCard.querySelector('.card-body').append(stationName, stationInfoElement, totalListenersElement, totalSourcesElement);
+                        
+                        // Inicializar los tooltips de Bootstrap
+                        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                        tooltipTriggerList.map(function (tooltipTriggerEl) {
+                            return new bootstrap.Tooltip(tooltipTriggerEl);
+                        });
                     })
                     .catch(console.error);
             }

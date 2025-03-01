@@ -333,3 +333,38 @@
         "hostUrl": "https://ra...
 [2025-02-28 06:00:56] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
 [2025-02-28 06:00:56] Éxito: Se escribieron 12354 bytes en el archivo
+[2025-02-28 23:23:36] Iniciando proceso de guardado
+[2025-02-28 23:23:36] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-02-28 23:23:36] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-02-28 23:23:36] Éxito: Se escribieron 12354 bytes en el archivo
+[2025-02-28 23:26:27] Iniciando proceso de guardado
+[2025-02-28 23:26:27] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-02-28 23:26:27] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-02-28 23:26:27] Éxito: Se escribieron 12356 bytes en el archivo
+[2025-02-28 23:26:40] Iniciando proceso de guardado
+[2025-02-28 23:26:40] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-02-28 23:26:40] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-02-28 23:26:40] Éxito: Se escribieron 12354 bytes en el archivo
+[2025-03-01 00:11:10] Iniciando proceso de guardado
+[2025-03-01 00:11:10] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-03-01 00:11:10] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-03-01 00:11:10] Éxito: Se escribieron 12354 bytes en el archivo
+[2025-03-01 00:34:08] Iniciando proceso de guardado
+[2025-03-01 00:34:08] Contenido de data: {
+    "reproductor": {
+        "estacion": "Radio Policía Nacional",
+        "hostUrl": "https://ra...
+[2025-03-01 00:34:08] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-03-01 00:34:08] Éxito: Se escribieron 12324 bytes en el archivo

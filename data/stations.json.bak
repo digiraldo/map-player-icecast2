@@ -3,7 +3,6 @@
         "estacion": "Radio Policía Nacional",
         "hostUrl": "https://radio.policia.gov.co:8080",
         "statusUrl": "status-json.xsl",
-        "total_estaciones": 41,
         "genero": "Tropical",
         "r": "8",
         "url_logo": "https://www.policia.gov.co/sites/default/files/2025-02/radio-policia-bogota.png",
@@ -188,7 +187,7 @@
                 "frecuencia": "97.3 FM",
                 "serverUrl": "neiva",
                 "cx": "135.5",
-                "cy": "310"
+                "cy": "311"
             },
             {
                 "cx": "55.749088",
