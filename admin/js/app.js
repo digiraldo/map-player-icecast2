@@ -1,0 +1,249 @@
+/**
+ * Script principal del panel de administración
+ */
+
+// Configuración global
+const Config = {
+    updateInterval: 5000,  // 5 segundos para actualización
+    apiBase: './api/',
+    currentSection: 'dashboard'
+};
+
+// Variable para el intervalo de actualización
+let updateTimer = null;
+
+// Cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    // Iniciar el panel
+    initializeAdmin();
+    
+    // Configurar navegación
+    setupNavigation();
+    
+    // Botón de actualizar
+    document.getElementById('refreshBtn').addEventListener('click', function() {
+        refreshCurrentSection();
+        
+        // Indicación visual de actualización
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Actualizando...';
+        
+        setTimeout(() => {
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Actualizar';
+        }, 1000);
+    });
+    
+    // Toggle de tema oscuro/claro
+    document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+    
+    // Cargar tema guardado
+    loadSavedTheme();
+});
+
+/**
+ * Inicializa el panel de administración
+ */
+function initializeAdmin() {
+    // Cargar dashboard por defecto
+    loadSection('dashboard');
+}
+
+/**
+ * Configura los eventos de navegación
+ */
+function setupNavigation() {
+    // Enlaces del sidebar
+    const navLinks = document.querySelectorAll('.nav-link[data-section]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Obtener la sección a cargar
+            const section = this.getAttribute('data-section');
+            
+            // Actualizar navegación
+            navLinks.forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Cargar la sección
+            loadSection(section);
+        });
+    });
+}
+
+/**
+ * Carga una sección específica
+ * @param {string} section - Nombre de la sección a cargar
+ */
+function loadSection(section) {
+    // Detener actualizaciones anteriores
+    if (updateTimer) {
+        clearInterval(updateTimer);
+        updateTimer = null;
+    }
+    
+    // Actualizar sección actual
+    Config.currentSection = section;
+    
+    // Actualizar título
+    updatePageTitle(section);
+    
+    // Mostrar loader
+    showLoader();
+    
+    // Cargar contenido según la sección
+    switch (section) {
+        case 'dashboard':
+            loadDashboard();
+            break;
+        case 'stations':
+            loadStations();
+            break;
+        case 'config':
+            loadConfig();
+            break;
+        default:
+            document.getElementById('content').innerHTML = '<div class="alert alert-danger">Sección no encontrada</div>';
+    }
+}
+
+/**
+ * Actualiza el título de la página según la sección
+ * @param {string} section - Nombre de la sección
+ */
+function updatePageTitle(section) {
+    const titleEl = document.getElementById('page-title');
+    let icon = 'fa-tachometer-alt';
+    let title = 'Dashboard';
+    
+    switch (section) {
+        case 'dashboard':
+            icon = 'fa-tachometer-alt';
+            title = 'Dashboard';
+            break;
+        case 'stations':
+            icon = 'fa-broadcast-tower';
+            title = 'Gestión de Estaciones';
+            break;
+        case 'config':
+            icon = 'fa-cogs';
+            title = 'Configuración';
+            break;
+    }
+    
+    titleEl.innerHTML = `<i class="fas ${icon} me-2"></i>${title}`;
+}
+
+/**
+ * Muestra un loader en el contenido
+ */
+function showLoader() {
+    document.getElementById('content').innerHTML = `
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    `;
+}
+
+/**
+ * Refresca la sección actual
+ */
+function refreshCurrentSection() {
+    loadSection(Config.currentSection);
+}
+
+/**
+ * Carga la sección de Dashboard
+ */
+function loadDashboard() {
+    fetchData('get-listeners.php').then(data => {
+        if (data.error) {
+            showError(data.message || 'Error al cargar los datos');
+            return;
+        }
+        
+        renderDashboard(data);
+        
+        // Configurar actualización automática
+        if (updateTimer) clearInterval(updateTimer);
+        updateTimer = setInterval(() => {
+            updateDashboardData();
+        }, Config.updateInterval);
+    }).catch(error => {
+        showError('Error al cargar el dashboard: ' + error.message);
+    });
+}
+
+/**
+ * Realiza petición para obtener datos de la API
+ * @param {string} endpoint - Endpoint de la API a consultar
+ * @returns {Promise<Object>} - Datos de la respuesta
+ */
+async function fetchData(endpoint, options = {}) {
+    try {
+        const response = await fetch(Config.apiBase + endpoint, options);
+        
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Error en la petición:', error);
+        throw error;
+    }
+}
+
+/**
+ * Muestra un mensaje de error
+ * @param {string} message - Mensaje de error
+ */
+function showError(message) {
+    const contentEl = document.getElementById('content');
+    contentEl.innerHTML = `
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            ${message}
+        </div>
+    `;
+}
+
+/**
+ * Alterna entre tema claro y oscuro
+ */
+function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    if (body.classList.contains('dark-mode')) {
+        // Cambiar a modo claro
+        body.classList.remove('dark-mode');
+        themeIcon.className = 'fas fa-moon me-1';
+        themeText.textContent = 'Modo Oscuro';
+        localStorage.setItem('admin_theme', 'light');
+    } else {
+        // Cambiar a modo oscuro
+        body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun me-1';
+        themeText.textContent = 'Modo Claro';
+        localStorage.setItem('admin_theme', 'dark');
+    }
+}
+
+/**
+ * Carga el tema guardado
+ */
+function loadSavedTheme() {
+    const savedTheme = localStorage.getItem('admin_theme');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun me-1';
+        themeText.textContent = 'Modo Claro';
+    }
+}

@@ -1,0 +1,209 @@
+:root {
+    --sidebar-width: 240px;
+}
+
+/* Estilos globales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9rem;
+    background-color: #f8f9fa;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+    background-color: #212529;
+    color: #f8f9fa;
+}
+
+body.dark-mode .card, 
+body.dark-mode .sidebar,
+body.dark-mode .navbar,
+body.dark-mode .modal-content {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+body.dark-mode .card-header,
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+    background-color: #2c3034;
+    border-color: #444;
+}
+
+body.dark-mode .table {
+    color: #f8f9fa;
+}
+
+body.dark-mode .table-bordered {
+    border-color: #444;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    transition: all 0.3s;
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Estilos de tarjetas */
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+
+/* Efecto de actualización */
+@keyframes highlight-pulse {
+    0% { background-color: rgba(40, 167, 69, 0.1); }
+    50% { background-color: rgba(40, 167, 69, 0.3); }
+    100% { background-color: rgba(40, 167, 69, 0); }
+}
+
+.bg-highlight {
+    animation: highlight-pulse 1.5s ease-in-out;
+}
+
+@keyframes badge-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.badge-pulse {
+    animation: badge-pulse 1s ease-in-out;
+}
+
+/* Contador de oyentes */
+.counter-value {
+    transition: all 0.5s ease;
+}
+
+/* Estaciones */
+.station-offline td {
+    opacity: 0.7;
+}
+
+.station-action-buttons .btn {
+    padding: 0.2rem 0.5rem;
+}
+
+/* Mejoras para la tabla */
+.table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+
+body.dark-mode .table th {
+    background-color: #343a40;
+}
+
+/* Loader */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ddd;
+    border-bottom-color: #4e73df;
+    border-radius: 50%;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilos para el reproductor y controles */
+.playing {
+    animation: pulse-button 2s infinite;
+}
+
+@keyframes pulse-button {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Indicador visual de estación reproduciendo */
+tr.table-active {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode tr.table-active {
+    background-color: rgba(13, 110, 253, 0.2) !important;
+}
+
+/* Mejoras visuales para los botones de reproducción */
+.play-pause-btn {
+    min-width: 38px;
+}
+
+/* Indicador de audio */
+.audio-playing-indicator {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    height: 16px;
+}
+
+.audio-playing-indicator span {
+    display: inline-block;
+    width: 3px;
+    height: 8px;
+    margin-right: 2px;
+    background-color: #0d6efd; /* Color azul primario de Bootstrap */
+    animation: audio-wave 1.2s infinite ease-in-out;
+}
+
+.audio-playing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.audio-playing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes audio-wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+}
+
+/* Estilos adicionales para el botón de reproducción */
+button.play-pause-btn {
+    transition: all 0.2s ease;
+}
+
+button.play-pause-btn:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
