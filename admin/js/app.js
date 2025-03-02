@@ -6,7 +6,11 @@
 const Config = {
     updateInterval: 5000,  // 5 segundos para actualización
     apiBase: './api/',
-    currentSection: 'dashboard'
+    currentSection: 'dashboard',
+    stationInfo: {
+        logo: '',
+        name: ''
+    }
 };
 
 // Variable para el intervalo de actualización
@@ -14,6 +18,9 @@ let updateTimer = null;
 
 // Cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
+    // Cargar información de la estación
+    loadStationInfo();
+    
     // Iniciar el panel
     initializeAdmin();
     
@@ -39,6 +46,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Cargar tema guardado
     loadSavedTheme();
+    
+    // Confirmar antes de cerrar sesión
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('¿Está seguro de que desea cerrar sesión?')) {
+            window.location.href = 'logout.php';
+        }
+    });
 });
 
 /**
@@ -223,21 +238,24 @@ function toggleTheme() {
         body.classList.remove('dark-mode');
         themeIcon.className = 'fas fa-moon me-1';
         themeText.textContent = 'Modo Oscuro';
-        localStorage.setItem('admin_theme', 'light');
+        localStorage.setItem('theme', 'light'); // Usar la misma clave 'theme' que el mapa
     } else {
         // Cambiar a modo oscuro
         body.classList.add('dark-mode');
         themeIcon.className = 'fas fa-sun me-1';
         themeText.textContent = 'Modo Claro';
-        localStorage.setItem('admin_theme', 'dark');
+        localStorage.setItem('theme', 'dark'); // Usar la misma clave 'theme' que el mapa
     }
+    
+    // Emitir evento de cambio de tema para actualizar componentes
+    document.dispatchEvent(new CustomEvent('themeChanged'));
 }
 
 /**
  * Carga el tema guardado
  */
 function loadSavedTheme() {
-    const savedTheme = localStorage.getItem('admin_theme');
+    const savedTheme = localStorage.getItem('theme'); // Usar la misma clave 'theme' que el mapa
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
     
@@ -245,5 +263,61 @@ function loadSavedTheme() {
         document.body.classList.add('dark-mode');
         themeIcon.className = 'fas fa-sun me-1';
         themeText.textContent = 'Modo Claro';
+    } else if (savedTheme === 'light') {
+        document.body.classList.remove('dark-mode');
+        themeIcon.className = 'fas fa-moon me-1';
+        themeText.textContent = 'Modo Oscuro';
+    }
+    // Si no hay tema guardado, usar el tema predeterminado (claro)
+}
+
+/**
+ * Carga la información de la estación para el sidebar
+ */
+function loadStationInfo() {
+    fetch(Config.apiBase + 'get-config.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                // Guardar la información en el objeto de configuración
+                Config.stationInfo.logo = data.reproductor.url_logo || '';
+                Config.stationInfo.name = data.reproductor.estacion || '';
+                
+                // Actualizar el sidebar
+                updateSidebarInfo();
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar la información de la estación:', error);
+        });
+}
+
+/**
+ * Actualiza el sidebar con la información de la estación
+ */
+function updateSidebarInfo() {
+    const sidebarLogo = document.getElementById('sidebar-logo');
+    const sidebarTitle = document.getElementById('sidebar-title');
+    
+    if (sidebarLogo) {
+        // Si hay una URL de logo, usarla; de lo contrario, usar el logo predeterminado
+        if (Config.stationInfo.logo && Config.stationInfo.logo.trim() !== '') {
+            sidebarLogo.src = Config.stationInfo.logo;
+        } else {
+            sidebarLogo.src = '../img/DiGiraldo-Logo.png';
+        }
+        
+        // Actualizar el atributo alt
+        sidebarLogo.alt = Config.stationInfo.name || 'Logo DiGiraldo';
+        
+        // Asegurarse de que mantiene el tamaño correcto
+        sidebarLogo.style.maxWidth = '60px';
+        sidebarLogo.style.maxHeight = '60px';
+        sidebarLogo.style.objectFit = 'contain';
+    }
+    
+    if (sidebarTitle) {
+        // Si hay un nombre de estación, usarlo; de lo contrario, mostrar el texto por defecto
+        sidebarTitle.textContent = Config.stationInfo.name || 'Desarrollado por DiGiraldo';
     }
 }

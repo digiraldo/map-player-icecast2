@@ -2,7 +2,7 @@
     "reproductor": {
         "hostUrl": "https://radio.policia.gov.co:8080",
         "statusUrl": "status-json.xsl",
-        "estacion": "",
+        "estacion": "Radio Policía Nacional",
         "genero": "Tropical",
         "r": "8.5",
         "url_logo": "",

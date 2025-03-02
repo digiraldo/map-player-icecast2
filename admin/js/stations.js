@@ -14,7 +14,10 @@ let audioPlayer = null; // Elemento de audio para reproducción
  * Carga el módulo de estaciones
  */
 function loadStations() {
-    console.log('Cargando módulo de estaciones...'); // Para debugging
+    console.log('Cargando módulo de estaciones...');
+    
+    // Mostrar loader mientras se cargan los datos
+    showLoader();
     
     // Obtener los datos de las estaciones
     fetchData('get-listeners.php').then(data => {
@@ -31,6 +34,9 @@ function loadStations() {
         
         // Configurar eventos y funcionalidades adicionales
         setupStationsEvents();
+        
+        // Inicializar tooltips
+        initializeTooltips();
         
         // Configurar actualización automática
         if (updateTimer) clearInterval(updateTimer);
@@ -105,15 +111,15 @@ function renderStationsModule(data) {
                 <div class="d-flex justify-content-end gap-2">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-secondary filter-btn ${currentFilter === '' ? 'active' : ''}" 
-                          data-filter="">
+                          data-filter="" data-bs-toggle="tooltip" data-bs-title="Ver todas las estaciones">
                             <i class="fas fa-list me-1"></i> Todas
                         </button>
                         <button type="button" class="btn btn-outline-success filter-btn ${currentFilter === 'online' ? 'active' : ''}" 
-                          data-filter="online">
+                          data-filter="online" data-bs-toggle="tooltip" data-bs-title="Ver solo estaciones activas">
                             <i class="fas fa-signal me-1"></i> Online
                         </button>
                         <button type="button" class="btn btn-outline-danger filter-btn ${currentFilter === 'offline' ? 'active' : ''}" 
-                          data-filter="offline">
+                          data-filter="offline" data-bs-toggle="tooltip" data-bs-title="Ver solo estaciones inactivas">
                             <i class="fas fa-times-circle me-1"></i> Offline
                         </button>
                     </div>
@@ -159,7 +165,8 @@ function renderStationsModule(data) {
                     <span class="input-group-text">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="text" class="form-control" id="stationSearchInput" placeholder="Buscar estación...">
+                    <input type="text" class="form-control" id="stationSearchInput" placeholder="Buscar estación..." 
+                          data-bs-toggle="tooltip" data-bs-title="Buscar por nombre, frecuencia o mount point">
                 </div>
             </div>
             <div class="card-body">
@@ -206,9 +213,6 @@ function renderStationsModule(data) {
     
     // Asegurarnos de tener un reproductor de audio
     createAudioPlayer();
-    
-    // Configurar eventos después de renderizar el contenido
-    setupStationsEvents();
 }
 
 /**
@@ -252,21 +256,31 @@ function renderStationRows(stations) {
             <td><code>${station.serverUrl || 'N/A'}</code></td>
             <td>
                 <div class="btn-group btn-group-sm station-action-buttons">
-                    <button type="button" class="btn btn-info station-info-btn" data-station="${station.serverUrl}">
+                    <button type="button" class="btn btn-info station-info-btn" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-title="Ver detalles de la estación" 
+                        data-station="${station.serverUrl}">
                         <i class="fas fa-info-circle"></i>
                     </button>
                     ${station.online && listenUrl ? 
                         `<button type="button" class="btn ${isPlaying ? 'btn-primary play-pause-btn playing' : 'btn-success play-pause-btn'}" 
                              data-station="${station.serverUrl}" 
-                             data-url="${listenUrl}" 
-                             title="${isPlaying ? 'Detener' : 'Escuchar'}">
+                             data-url="${listenUrl}"
+                             data-bs-toggle="tooltip" 
+                             data-bs-title="${isPlaying ? 'Detener reproducción' : 'Escuchar estación'}">
                             <i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>
                         </button>` : 
-                        `<button type="button" class="btn btn-secondary" disabled>
+                        `<button type="button" class="btn btn-secondary" 
+                             data-bs-toggle="tooltip" 
+                             data-bs-title="Estación no disponible" 
+                             disabled>
                             <i class="fas fa-play"></i>
                         </button>`
                     }
-                    <button type="button" class="btn btn-primary station-diag-btn" data-station="${station.serverUrl}">
+                    <button type="button" class="btn btn-primary station-diag-btn" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-title="Diagnosticar conectividad" 
+                        data-station="${station.serverUrl}">
                         <i class="fas fa-stethoscope"></i>
                     </button>
                 </div>
@@ -274,6 +288,26 @@ function renderStationRows(stations) {
         </tr>
         `;
     }).join('');
+}
+
+/**
+ * Inicializa todos los tooltips de la página
+ */
+function initializeTooltips() {
+    // Eliminar tooltips existentes para evitar duplicados
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+        const tooltip = bootstrap.Tooltip.getInstance(el);
+        if (tooltip) {
+            tooltip.dispose();
+        }
+    });
+    
+    // Inicializar nuevos tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl, {
+        trigger: 'hover',
+        delay: { show: 500, hide: 100 }
+    }));
 }
 
 /**
@@ -285,7 +319,7 @@ function createAudioPlayer() {
     
     // Si no existe, creamos uno nuevo
     if (!audioPlayer) {
-        console.log('Creando reproductor de audio...'); // Para debugging
+        console.log('Creando reproductor de audio...');
         audioPlayer = document.createElement('audio');
         audioPlayer.id = 'station-audio-player';
         audioPlayer.style.display = 'none'; // Oculto, solo para reproducción
@@ -352,6 +386,12 @@ function setupStationsEvents() {
             const station = stationsData.stations.find(s => s.serverUrl === stationId);
             
             if (station) {
+                // Destruir tooltip antes de mostrar el modal
+                const tooltip = bootstrap.Tooltip.getInstance(this);
+                if (tooltip) {
+                    tooltip.dispose();
+                }
+                
                 showStationDetails(station);
             }
         });
@@ -387,7 +427,7 @@ function handlePlayPause(event) {
     const stationId = button.getAttribute('data-station');
     const audioUrl = button.getAttribute('data-url');
     
-    console.log('Play/Pause clicked:', stationId, audioUrl); // Para debugging
+    console.log('Play/Pause clicked:', stationId, audioUrl);
     
     // Si ya está reproduciendo esta estación, pausar
     if (currentlyPlaying === stationId) {
@@ -470,7 +510,7 @@ function updateButtonState(stationId, isPlaying) {
     if (isPlaying) {
         button.classList.remove('btn-success');
         button.classList.add('btn-primary', 'playing');
-        button.setAttribute('title', 'Detener');
+        button.setAttribute('data-bs-title', 'Detener reproducción');
         button.querySelector('i').className = 'fas fa-pause';
         
         const row = button.closest('tr');
@@ -480,12 +520,44 @@ function updateButtonState(stationId, isPlaying) {
     } else {
         button.classList.remove('btn-primary', 'playing');
         button.classList.add('btn-success');
-        button.setAttribute('title', 'Escuchar');
+        button.setAttribute('data-bs-title', 'Escuchar estación');
         button.querySelector('i').className = 'fas fa-play';
         
         const row = button.closest('tr');
         if (row) {
             row.classList.remove('table-active');
+        }
+    }
+    
+    // Actualizar tooltip
+    const tooltip = bootstrap.Tooltip.getInstance(button);
+    if (tooltip) {
+        tooltip.dispose();
+        new bootstrap.Tooltip(button, {
+            trigger: 'hover',
+            delay: { show: 500, hide: 100 }
+        });
+    }
+    
+    // También actualizar el botón en el modal si está abierto
+    const modalButton = document.querySelector('.play-pause-modal-btn[data-station="' + stationId + '"]');
+    if (modalButton) {
+        modalButton.classList.toggle('btn-success', !isPlaying);
+        modalButton.classList.toggle('btn-primary', isPlaying);
+        modalButton.innerHTML = `
+            <i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'} me-1"></i> 
+            ${isPlaying ? 'Detener' : 'Escuchar'}
+        `;
+        modalButton.setAttribute('data-bs-title', isPlaying ? 'Detener reproducción' : 'Escuchar estación');
+        
+        // Actualizar tooltip del modal
+        const tooltipModal = bootstrap.Tooltip.getInstance(modalButton);
+        if (tooltipModal) {
+            tooltipModal.dispose();
+            new bootstrap.Tooltip(modalButton, {
+                trigger: 'hover',
+                delay: { show: 500, hide: 100 }
+            });
         }
     }
 }
@@ -713,8 +785,8 @@ function showStationDetails(station) {
                 ${station.listenurl ? 
                     `<div class="mb-3">
                         <button type="button" class="btn ${isPlaying ? 'btn-primary' : 'btn-success'} play-pause-modal-btn" 
-                             data-station="${station.serverUrl}" 
-                             data-url="${station.listenurl}">
+                              data-station="${station.serverUrl}" 
+                              data-url="${station.listenurl}">
                             <i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'} me-1"></i> 
                             ${isPlaying ? 'Detener' : 'Escuchar'}
                         </button>
@@ -731,8 +803,8 @@ function showStationDetails(station) {
         <div class="card mt-3">
             <div class="card-header bg-light">Detalles técnicos</div>
             <div class="card-body">
-                <table class="table table-sm">
-                    <tr><th>Mount Point:</th><td><code>${station.serverUrl || 'N/A'}</code></td></tr>
+                <table class="table table-sm table-bordered table-station-details">
+                    <tr><th style="width: 30%">Mount Point:</th><td><code>${station.serverUrl || 'N/A'}</code></td></tr>
                     ${station.description ? `<tr><th>Descripción:</th><td>${station.description}</td></tr>` : ''}
                     ${station.genre ? `<tr><th>Género:</th><td>${station.genre}</td></tr>` : ''}
                 </table>

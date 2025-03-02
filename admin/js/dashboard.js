@@ -25,6 +25,11 @@ function renderDashboard(data) {
     // Información del servidor
     const server = data.server || {};
     
+    // Determinar si estamos en modo oscuro para ajustar ciertos estilos
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const cardTextClass = isDarkMode ? 'text-light' : 'text-gray-800';
+    const mutedTextClass = isDarkMode ? 'text-light-50' : 'text-muted';
+    
     // Construir la estructura del dashboard
     let html = `
         <!-- Tarjetas de información -->
@@ -37,11 +42,11 @@ function renderDashboard(data) {
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Estaciones Online</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 font-weight-bold ${cardTextClass}">
                                     <span id="online-stations-count">${onlineStations}</span>
                                 </div>
                                 
-                                <div class="text-xs text-muted mt-2">
+                                <div class="text-xs ${mutedTextClass} mt-2">
                                     <div class="mb-1">
                                         <i class="fas fa-times-circle text-danger me-1"></i>
                                         <span class="font-weight-bold">Offline:</span> 
@@ -54,7 +59,7 @@ function renderDashboard(data) {
                                     </div>
                                 </div>
                                 
-                                <div class="text-xs text-muted mt-2">
+                                <div class="text-xs ${mutedTextClass} mt-2">
                                     <span id="last-update-time">Actualizado: ${new Date().toLocaleTimeString()}</span>
                                 </div>
                             </div>
@@ -79,15 +84,15 @@ function renderDashboard(data) {
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Total Oyentes</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 font-weight-bold ${cardTextClass}">
                                     <span id="total-listeners-count" class="counter-value">${totalListeners}</span>
                                 </div>
-                                <div class="text-xs text-muted mt-2">
+                                <div class="text-xs ${mutedTextClass} mt-2">
                                     <span class="font-weight-bold">En todas las emisoras</span>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-headphones fa-2x text-info"></i>
+                                <i class="fas fa-headphones fa-2x text-info theme-light-card-icons"></i>
                             </div>
                         </div>
                     </div>
@@ -102,7 +107,7 @@ function renderDashboard(data) {
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Total Estaciones</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">${totalStations}</div>
+                                <div class="h5 mb-0 font-weight-bold ${cardTextClass}">${totalStations}</div>
                                 
                                 <div class="row no-gutters align-items-center mt-2">
                                     <div class="col">
@@ -114,14 +119,14 @@ function renderDashboard(data) {
                                         </div>
                                     </div>
                                     <div class="col-auto ms-2">
-                                        <div class="text-xs text-muted">
+                                        <div class="text-xs ${mutedTextClass}">
                                             <span id="availability-percentage">${availabilityPercentage}%</span> disponibles
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-broadcast-tower fa-2x text-warning"></i>
+                                <i class="fas fa-broadcast-tower fa-2x text-warning theme-light-card-icons"></i>
                             </div>
                         </div>
                     </div>
@@ -136,10 +141,10 @@ function renderDashboard(data) {
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Estado del Servidor</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 font-weight-bold ${cardTextClass}">
                                     <span class="badge bg-success">Conectado</span>
                                 </div>
-                                <div class="text-xs text-muted mt-2">
+                                <div class="text-xs ${mutedTextClass} mt-2">
                                     <div>
                                         <span class="font-weight-bold">Versión:</span> 
                                         <span>${data.server?.version || 'No disponible'}</span>
@@ -151,7 +156,7 @@ function renderDashboard(data) {
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-server fa-2x text-primary"></i>
+                                <i class="fas fa-server fa-2x text-primary theme-light-card-icons"></i>
                             </div>
                         </div>
                     </div>
@@ -188,14 +193,14 @@ function renderDashboard(data) {
                             <i class="fas fa-chart-line me-1"></i> Estaciones Más Populares
                         </h6>
                         <div>
-                            <small class="text-muted" id="top-stations-update-indicator">
+                            <small class="${mutedTextClass}" id="top-stations-update-indicator">
                                 <i class="fas fa-sync-alt me-1"></i>
                             </small>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-hover table-top-stations">
                                 <thead>
                                     <tr>
                                         <th>Estación</th>
@@ -250,10 +255,12 @@ function renderServerInfo(server) {
     // Obtener la URL correcta del servidor desde los datos del dashboard
     // Usar la URL base configurada en el hostUrl del archivo stations.json
     const serverHostUrl = dashboardData.hostUrl || server.host || '#';
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const tableClass = isDarkMode ? 'table-dark' : '';
     
     return `
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered ${tableClass} table-server-info">
                 <tr>
                     <th style="width: 30%">Versión:</th>
                     <td id="server-version">${server.version || 'No disponible'}</td>
@@ -482,6 +489,33 @@ function updateDashboardUI(data) {
     // Actualizar información del servidor
     if (data.server) {
         updateServerInfo(data.server);
+    }
+
+    // Considerar el tema actual al aplicar estilos de actualización
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const highlightBgColor = isDarkMode ? 'rgba(40, 167, 69, 0.3)' : 'rgba(40, 167, 69, 0.1)';
+    
+    // Aplicar efectos de highlight con color apropiado según tema
+    const highlight = (element) => {
+        if (element) {
+            element.style.transition = 'background-color 1.5s ease-in-out';
+            element.style.backgroundColor = highlightBgColor;
+            setTimeout(() => {
+                element.style.backgroundColor = '';
+            }, 1500);
+        }
+    };
+    
+    // Actualizar elementos con posible efecto de highlight
+    const totalListenersEl = document.getElementById('total-listeners-count');
+    if (totalListenersEl) {
+        const totalListeners = stats.totalListeners || 0;
+        const oldValue = parseInt(totalListenersEl.textContent);
+        
+        if (oldValue !== totalListeners) {
+            totalListenersEl.textContent = totalListeners;
+            highlight(totalListenersEl.parentNode);
+        }
     }
 }
 

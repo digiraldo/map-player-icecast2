@@ -6,6 +6,7 @@
         "genero": "Tropical",
         "r": "8.5",
         "url_logo": "",
+        "desarrollador": "digiraldo",
         "infoCard": {
             "left": "20px",
             "top": "20px"
@@ -298,7 +299,6 @@
                 "name": "Yopal",
                 "frecuencia": "91.7 FM"
             }
-        ],
-        "desarrollador": "digiraldo"
+        ]
     }
 }

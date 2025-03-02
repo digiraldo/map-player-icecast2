@@ -1,11 +1,12 @@
 {
     "reproductor": {
-        "hostUrl": "https://radio.policia.gov.co:8080",
-        "statusUrl": "status-json.xsl",
         "estacion": "",
+        "hostUrl": "https://radio.policia.gov.co:8080",
+        "url_logo": "",
+        "statusUrl": "status-json.xsl",
         "genero": "Tropical",
         "r": "8.5",
-        "url_logo": "",
+        "desarrollador": "digiraldo",
         "infoCard": {
             "left": "20px",
             "top": "20px"
@@ -298,7 +299,6 @@
                 "name": "Yopal",
                 "frecuencia": "91.7 FM"
             }
-        ],
-        "desarrollador": "digiraldo"
+        ]
     }
 }
