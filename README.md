@@ -1,164 +1,180 @@
-<div align="center">
-  <img src="img/radio-ico.ico" alt="Map Player Icecast2" width="120" />
-  <h1>Map Player Icecast2</h1>
-  <p><strong>Visualizador geográfico de emisoras con servidor Icecast2</strong></p>
-  <p>
-    <a href="#características">Características</a> •
-    <a href="#instalación">Instalación</a> •
-    <a href="#uso">Uso</a> •
-    <a href="#panel-de-administración">Administración</a> •
-    <a href="#capturas">Capturas</a>
-  </p>
-</div>
+#### FILE: README.md
+# Webplayer Radio Colombia
 
-## 📋 Descripción
+Este proyecto es un webplayer de radio de Colombia que muestra un mapa de Colombia con estaciones de radio ubicadas en diferentes ciudades.
 
-**Map Player Icecast2** es una aplicación web interactiva que visualiza estaciones de radio que utilizan el servidor Icecast2 en un mapa geográfico de Colombia. Los usuarios pueden explorar emisoras por ubicación geográfica y reproducir transmisiones en vivo directamente desde el navegador.
+## Características
 
-## ✨ Características
+*   **Mapa de Colombia:** Muestra un mapa de Colombia en formato SVG.
+*   **Estaciones de radio:** Permite ubicar estaciones de radio en diferentes ciudades del mapa.
+*   **Reproducción de audio:** Permite reproducir audio de las estaciones de radio.
+*   **Diseño adaptable:** Se adapta a diferentes tamaños de pantalla, incluyendo dispositivos móviles.
+*   **Modo oscuro/claro:** Permite cambiar entre el modo oscuro y claro.
+*   **Información de la estación:** Muestra información de la estación de radio en una tarjeta.
+*   **Pantalla completa:** Permite ver el mapa en pantalla completa.
 
-- **Mapa interactivo**: Visualización geoespacial de estaciones de radio en un mapa SVG de Colombia
-- **Reproductor integrado**: Reproducción directa de streams de audio Icecast2
-- **Diseño adaptable**: Interfaz responsiva para diferentes dispositivos
-- **Modo claro/oscuro**: Cambia entre temas visuales para mejor experiencia
-- **Visualización de audio**: Representación gráfica de la señal de audio en tiempo real
-- **Monitoreo de oyentes**: Visualización del número de oyentes activos por estación
-- **Panel de administración**: Gestión completa de estaciones y configuración del sistema
+## Tecnologías utilizadas
 
-## 🚀 Instalación
+*   HTML
+*   CSS
+*   JavaScript
+*   Bootstrap
+*   Font Awesome
 
-### Requisitos previos
+## Estructura de archivos
 
-- Servidor web (Apache, Nginx) o entorno de desarrollo local (Laragon, XAMPP)
-- PHP 7.4 o superior
-- Navegador web moderno
+*   `index.html`: Archivo principal que contiene la estructura HTML de la página.
+*   `css/style.css`: Archivo que contiene los estilos CSS de la página.
+*   `js/theme.js`: Archivo que contiene la lógica de JavaScript para el cambio de tema y la ubicación de la tarjeta de información.
+*   `js/fullscreen.js`: Archivo que contiene la lógica de JavaScript para la pantalla completa.
+*   `data/stations.json`: Archivo que contiene la información de las estaciones de radio.
+*   `img/`: Carpeta que contiene las imágenes utilizadas en la página.
 
-### Pasos de instalación
+## Configuración
 
-1. Clone el repositorio en su directorio web:
-   ```bash
-   git clone https://github.com/yourusername/map-player-icecast2.git
-   ```
+1.  Clonar el repositorio.
+2.  Abrir el archivo `index.html` en un navegador web.
 
-2. Configure su servidor web para apuntar al directorio del proyecto
-   
-3. Asegúrese de que los archivos JSON en `/data/` tengan permisos de escritura
+## Configuración del servidor backend con Node.js y Express
 
-## 🖥️ Uso
+### Requisitos
 
-### Método 1: Acceso directo vía URL
+- Node.js y npm (Node Package Manager)
 
-Simplemente abra un navegador y vaya a la URL donde está instalada la aplicación:
+### Instalación
 
-```
-http://localhost/map-player-icecast2/
-```
+1.  Descarga e instala Node.js desde [nodejs.org](https://nodejs.org/).
 
-### Método 2: Ejecución con archivos Batch
+2.  Abre una terminal y navega a la carpeta de tu proyecto.
 
-El proyecto incluye archivos batch para facilitar su ejecución en Windows:
+3.  Ejecuta el siguiente comando para inicializar un nuevo proyecto Node.js:
 
-#### Iniciar servidor local
+    ```bash
+    npm init -y
+    ```
 
-Ejecute el archivo `start_server.bat` para iniciar un servidor PHP local:
+4.  Ejecuta el siguiente comando para instalar Express, body-parser, cors y fs:
 
-1. Haga doble clic en el archivo `start_server.bat` en el directorio raíz del proyecto
-2. Se abrirá una ventana de comando que iniciará un servidor PHP en `localhost:8000`
-3. El navegador se abrirá automáticamente con la aplicación
+    ```bash
+    npm install express body-parser cors fs
+    ```
 
-```cmd
-REM Este comando inicia un servidor PHP local en el puerto 8000
-php -S localhost:8000
-```
+### Configuración
 
-#### Visualizar estaciones
+1.  Crea un archivo llamado `update_stations.js` en la carpeta `js` de tu proyecto y agrega el siguiente código:
 
-Ejecute el archivo `view_stations.bat` para ver la lista completa de estaciones en formato JSON:
+    ```javascript
+    const express = require('express');
+    const bodyParser = require('body-parser');
+    const cors = require('cors');
+    const fs = require('fs');
 
-1. Haga doble clic en el archivo `view_stations.bat`
-2. Se mostrará el contenido del archivo `data/stations.json` en una ventana de comando
+    const app = express();
+    const port = 3000;
 
-## ⚙️ Panel de Administración
+    // Configurar CORS para permitir solicitudes desde cualquier origen
+    app.use(cors());
 
-El proyecto cuenta con un panel de administración accesible en:
+    // Configurar body-parser para analizar solicitudes JSON
+    app.use(bodyParser.json());
 
-```
-http://localhost/map-player-icecast2/admin/
-```
+    app.post('/update_stations', (req, res) => {
+        const data = req.body;
 
-### Funcionalidades del panel:
+        // Ruta al archivo stations.json
+        const file = 'data/stations.json';
 
-- **Dashboard**: Estadísticas generales y monitoreo
-- **Gestión de estaciones**: Agregar, editar y eliminar emisoras
-- **Configuración**: Ajustes generales del reproductor
-- **Respaldos**: Sistema de copias de seguridad automáticas
-- **Estadísticas**: Reportes de uso y audiencia
+        // Leer el contenido actual del archivo
+        fs.readFile(file, 'utf8', (err, fileData) => {
+            if (err) {
+                console.error('Error al leer el archivo stations.json:', err);
+                return res.status(500).send('Error al leer el archivo stations.json');
+            }
 
-### Acceso:
+            try {
+                // Convertir los datos del archivo a un objeto JSON
+                const stations = JSON.parse(fileData);
 
-- **Usuario**: admin
-- **Contraseña**: admin123
+                // Actualizar la información de las ciudades
+                stations.reproductor.ciudades = data.reproductor.ciudades;
 
-## 📷 Capturas
+                // Convertir los datos actualizados a una cadena JSON
+                const updatedData = JSON.stringify(stations, null, 4);
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <p><strong>Vista del mapa</strong></p>
-        <img src="img/screenshots/map-view.jpg" alt="Vista del mapa" width="400"/>
-      </td>
-      <td align="center">
-        <p><strong>Reproductor activo</strong></p>
-        <img src="img/screenshots/player-active.jpg" alt="Reproductor activo" width="400"/>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <p><strong>Modo oscuro</strong></p>
-        <img src="img/screenshots/dark-mode.jpg" alt="Modo oscuro" width="400"/>
-      </td>
-      <td align="center">
-        <p><strong>Panel de administración</strong></p>
-        <img src="img/screenshots/admin-panel.jpg" alt="Panel de administración" width="400"/>
-      </td>
-    </tr>
-  </table>
-</div>
+                // Escribir los datos actualizados en el archivo
+                fs.writeFile(file, updatedData, 'utf8', (err) => {
+                    if (err) {
+                        console.error('Error al actualizar el archivo stations.json:', err);
+                        return res.status(500).send('Error al actualizar el archivo stations.json');
+                    }
 
-## 🔧 Personalización
+                    console.log('Archivo stations.json actualizado correctamente');
+                    res.send('Archivo stations.json actualizado correctamente');
+                });
+            } catch (err) {
+                console.error('Error al analizar o escribir el archivo stations.json:', err);
+                return res.status(500).send('Error al analizar o escribir el archivo stations.json');
+            }
+        });
+    });
 
-El sistema es altamente personalizable:
+    app.listen(port, () => {
+        console.log(`Servidor escuchando en el puerto ${port}`);
+    });
+    ```
 
-- **Agregar departamentos**: Edite el archivo SVG para agregar nuevas regiones
-- **Estilos visuales**: Modifique las variables CSS en `css/style.css`
-- **Configuraciones del player**: Ajuste parámetros en `data/stations.json`
+2.  Modifica la función `saveCiudades()` en `js/crud.js` para que apunte al script del lado del servidor:
 
-## 📡 Tecnologías utilizadas
+    ```javascript
+    function saveCiudades() {
+        $.ajax({
+            url: 'http://localhost:3000/update_stations', // Cambiar la URL al script del lado del servidor
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ "reproductor": { "ciudades": ciudades } }), // Enviar los datos como una cadena JSON
+            success: function(response) {
+                console.log('Archivo stations.json actualizado correctamente');
+                // Mostrar un mensaje de éxito al usuario
+                alert('Cambios guardados correctamente');
 
-- HTML5, CSS3, JavaScript
-- Bootstrap 5
-- SVG interactivo
-- Web Audio API
-- PHP (backend para administración)
-- Almacenamiento en archivos JSON
+                // Actualizar el localStorage
+                updateLocalStorage();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al actualizar el archivo stations.json:', error);
+                // Mostrar un mensaje de error al usuario
+                alert('Error al guardar los cambios: ' + error);
+                // Imprimir información detallada sobre el error
+                console.log('Código de estado:', xhr.status);
+                console.log('Respuesta del servidor:', xhr.responseText);
+            }
+        });
+    }
+    ```
 
-## 👥 Colaboradores
+3.  En la terminal, ejecuta el siguiente comando para iniciar el servidor:
 
-- Di Giraldo - Desarrollador principal
+    ```bash
+    node js/update_stations.js
+    ```
 
-## 📄 Licencia
+El servidor ahora debería estar ejecutándose en `http://localhost:3000`.
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+### Uso
 
----
+*   Para guardar los cambios de las ciudades, asegúrate de que el servidor esté ejecutándose y que las solicitudes se envíen a `http://localhost:3000/update_stations`.
 
-<div align="center">
-  <p>
-    Desarrollado con ❤️ por <a href="https://github.com/digiraldo">Di Giraldo</a>
-  </p>
-  <p>
-    <a href="https://github.com/digiraldo/map-player-icecast2">GitHub</a> •
-    <a href="mailto:contact@example.com">Contacto</a>
-  </p>
-</div>
+## Personalización
+
+*   Para agregar o modificar estaciones de radio, editar el archivo `data/stations.json`.
+*   Para modificar los estilos de la página, editar el archivo `css/style.css`.
+*   Para modificar la lógica de JavaScript, editar los archivos `js/theme.js` y `js/fullscreen.js`.
+
+## Créditos
+
+*   Este proyecto fue creado por [DiGiraldo].
+*   Se utilizaron recursos de Bootstrap y Font Awesome.
+
+## Licencia
+
+Este proyecto está licenciado bajo la licencia [MIT License](LICENSE).
