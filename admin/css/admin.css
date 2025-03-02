@@ -112,6 +112,20 @@ body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
     border-left: 0.25rem solid #36b9cc !important;
 }
 
+/* Mejoras para tarjetas de dashboard */
+.card .text-xs {
+    font-size: 0.75rem;
+}
+
+.card .text-xs i {
+    width: 14px;
+    text-align: center;
+}
+
+.card .progress {
+    height: 6px;
+}
+
 /* Animación para las estaciones en línea */
 @keyframes pulse {
     0% { opacity: 1; }
@@ -127,4 +141,36 @@ body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
     border-radius: 50%;
     background-color: #1cc88a;
     margin-right: 5px;
+}
+
+/* Estilos para actualización en tiempo real */
+@keyframes highlight-pulse {
+    0% { background-color: rgba(40, 167, 69, 0.1); }
+    50% { background-color: rgba(40, 167, 69, 0.3); }
+    100% { background-color: rgba(40, 167, 69, 0); }
+}
+
+.bg-highlight {
+    animation: highlight-pulse 1.5s ease-in-out;
+}
+
+@keyframes badge-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.badge-pulse {
+    animation: badge-pulse 1s ease-in-out;
+}
+
+/* Números con efecto de transición */
+#total-listeners-count {
+    transition: all 0.5s ease;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+}
+
+#total-listeners-count.bg-highlight {
+    background-color: rgba(23, 162, 184, 0.2);
 }

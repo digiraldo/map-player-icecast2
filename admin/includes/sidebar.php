@@ -8,13 +8,13 @@
         
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link <?php echo $module === 'dashboard' ? 'active' : ''; ?>" href="index.php?module=dashboard">
+                <a class="nav-link <?php echo $module === 'dashboard' ? 'active' : ''; ?>" href="./index.php?module=dashboard">
                     <i class="fas fa-tachometer-alt me-2"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo $module === 'stations' ? 'active' : ''; ?>" href="index.php?module=stations">
+                <a class="nav-link <?php echo $module === 'stations' ? 'active' : ''; ?>" href="./index.php?module=stations">
                     <i class="fas fa-broadcast-tower me-2"></i>
                     Estaciones
                 </a>

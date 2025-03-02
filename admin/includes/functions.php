@@ -360,6 +360,19 @@ function getAllStationsStatus() {
         ];
     }
     
+    // Contar el número total de sources en el servidor Icecast
+    $totalSources = 0;
+    $sources = [];
+    if (isset($serverInfo['icestats']['source'])) {
+        if (isset($serverInfo['icestats']['source']['listenurl'])) {
+            $sources = [$serverInfo['icestats']['source']];
+            $totalSources = 1;
+        } else {
+            $sources = $serverInfo['icestats']['source'];
+            $totalSources = count($sources);
+        }
+    }
+    
     // Procesar cada estación
     foreach ($stations['reproductor']['ciudades'] as $index => $station) {
         $serverUrl = $station['serverUrl'] ?? '';
@@ -369,15 +382,19 @@ function getAllStationsStatus() {
             $stationInfo = ['online' => false, 'name' => $station['name'] ?? '', 'serverUrl' => $serverUrl];
             
             if (isset($serverInfo['icestats']['source'])) {
-                $sources = $serverInfo['icestats']['source'];
-                
-                // Asegurar que sources sea un array de arrays
-                if (isset($sources['listenurl'])) {
-                    $sources = [$sources];
-                }
-                
                 foreach ($sources as $source) {
-                    if (isset($source['mount']) && $source['mount'] === $mountPoint) {
+                    // Normalizar valores para comparación
+                    $sourceMount = isset($source['mount']) ? strtolower(trim($source['mount'])) : '';
+                    $sourceServerUrl = isset($source['server_url']) ? strtolower(trim($source['server_url'])) : '';
+                    $normalizedMountPoint = strtolower(trim($mountPoint));
+                    $normalizedServerUrl = strtolower(trim($serverUrl));
+                    
+                    // Comparación más robusta: verificar mount, server_url y listenurl
+                    if (
+                        $sourceMount === $normalizedMountPoint || 
+                        $sourceServerUrl === $normalizedServerUrl || 
+                        (isset($source['listenurl']) && strpos(strtolower($source['listenurl']), $normalizedServerUrl) !== false)
+                    ) {
                         $stationInfo = [
                             'online' => true,
                             'name' => $station['name'] ?? '',
@@ -388,6 +405,14 @@ function getAllStationsStatus() {
                             'bitrate' => $source['bitrate'] ?? '',
                             'genre' => $source['genre'] ?? '',
                             'listenurl' => $source['listenurl'] ?? '',
+                            // Añadir los valores exactos para depuración
+                            'debug' => [
+                                'source_mount' => $source['mount'] ?? null,
+                                'source_server_url' => $source['server_url'] ?? null,
+                                'mount_point' => $mountPoint,
+                                'normalized_mount_point' => $normalizedMountPoint,
+                                'normalized_server_url' => $normalizedServerUrl
+                            ]
                         ];
                         break;
                     }
@@ -403,6 +428,7 @@ function getAllStationsStatus() {
         'total' => count($results),
         'online' => count(array_filter($results, function($station) { return $station['online'] ?? false; })),
         'offline' => count(array_filter($results, function($station) { return !($station['online'] ?? false); })),
+        'totalSources' => $totalSources, // Nuevo campo con el número total de fuentes
         'stations' => $results,
         'server' => [
             'version' => $serverInfo['icestats']['server_id'] ?? 'Desconocido',

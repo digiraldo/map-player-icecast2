@@ -12,9 +12,11 @@ if (!isAuthenticated()) {
 
 // Determinar qué módulo mostrar
 $module = isset($_GET['module']) ? $_GET['module'] : 'dashboard';
-$validModules = ['dashboard', 'stations', 'config', 'backup', 'stats'];
+$validModules = ['dashboard', 'stations', 'station-debug', 'config', 'backup', 'stats'];
 
-if (!in_array($module, $validModules)) {
+// Asegurarse de que el módulo existe
+if (!in_array($module, $validModules) || !file_exists("modules/{$module}.php")) {
+    // Si no existe, redirigir al dashboard
     $module = 'dashboard';
 }
 
@@ -22,6 +24,7 @@ if (!in_array($module, $validModules)) {
 $moduleTitles = [
     'dashboard' => 'Dashboard',
     'stations' => 'Gestión de Estaciones',
+    'station-debug' => 'Diagnóstico de Estación',
     'config' => 'Configuración',
     'backup' => 'Respaldos',
     'stats' => 'Estadísticas'
@@ -114,7 +117,9 @@ $pageTitle = $moduleTitles[$module] ?? 'Panel de Administración';
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/admin.js"></script>
 
-    <?php if ($module === 'stations'): ?>
+    <?php if ($module === 'dashboard'): ?>
+    <script src="js/dashboard.js"></script>
+    <?php elseif ($module === 'stations'): ?>
     <script src="js/stations.js"></script>
     <?php elseif ($module === 'config'): ?>
     <script src="js/config.js"></script>
