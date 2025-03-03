@@ -5,3 +5,10 @@
         "hostUrl": "https:/...
 [2025-03-01 17:15:53] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
 [2025-03-01 17:15:53] Éxito: Se escribieron 9196 bytes en el archivo
+[2025-03-02 22:18:07] Iniciando proceso de guardado
+[2025-03-02 22:18:07] Contenido de data: {
+    "reproductor": {
+        "hostUrl": "https://radio.policia.gov.co:8080",
+        "statusUrl": ...
+[2025-03-02 22:18:07] Ruta del archivo: C:\laragon\www\map-player-icecast2/data/stations.json
+[2025-03-02 22:18:07] Éxito: Se escribieron 9171 bytes en el archivo

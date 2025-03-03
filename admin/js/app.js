@@ -5,7 +5,7 @@
 // Configuración global
 const Config = {
     updateInterval: 5000,  // 5 segundos para actualización
-    apiBase: './api/',
+    apiBase: './api/',     // Asegurarse de que termina con barra, pero no empiece con ella
     currentSection: 'dashboard',
     stationInfo: {
         logo: '',
@@ -119,6 +119,9 @@ function loadSection(section) {
         case 'config':
             loadConfig();
             break;
+        case 'statistics':
+            loadStatistics();
+            break;
         default:
             document.getElementById('content').innerHTML = '<div class="alert alert-danger">Sección no encontrada</div>';
     }
@@ -145,6 +148,10 @@ function updatePageTitle(section) {
         case 'config':
             icon = 'fa-cogs';
             title = 'Configuración';
+            break;
+        case 'statistics':
+            icon = 'fa-chart-bar';
+            title = 'Estadísticas';
             break;
     }
     
@@ -320,4 +327,58 @@ function updateSidebarInfo() {
         // Si hay un nombre de estación, usarlo; de lo contrario, mostrar el texto por defecto
         sidebarTitle.textContent = Config.stationInfo.name || 'Desarrollado por DiGiraldo';
     }
+}
+
+/**
+ * Carga la sección de estadísticas
+ */
+function loadStatistics() {
+    fetchData('get-statistics.php').then(data => {
+        if (data.error) {
+            showError(data.message || 'Error al cargar los datos');
+            return;
+        }
+        
+        renderStatistics(data);
+        
+        // Configurar actualización automática
+        if (updateTimer) clearInterval(updateTimer);
+        updateTimer = setInterval(() => {
+            updateStatisticsData();
+        }, Config.updateInterval);
+    }).catch(error => {
+        showError('Error al cargar las estadísticas: ' + error.message);
+    });
+}
+
+/**
+ * Renderiza los datos de estadísticas en la interfaz
+ * @param {Object} data - Datos de estadísticas
+ */
+function renderStatistics(data) {
+    const contentEl = document.getElementById('content');
+    contentEl.innerHTML = `
+        <div class="statistics-container">
+            <h2>Estadísticas</h2>
+            <p>Usuarios activos: ${data.activeUsers}</p>
+            <p>Sesiones iniciadas: ${data.sessions}</p>
+            <p>Tiempo promedio de sesión: ${data.avgSessionTime} minutos</p>
+        </div>
+    `;
+}
+
+/**
+ * Actualiza los datos de estadísticas
+ */
+function updateStatisticsData() {
+    fetchData('get-statistics.php').then(data => {
+        if (data.error) {
+            showError(data.message || 'Error al cargar los datos');
+            return;
+        }
+        
+        renderStatistics(data);
+    }).catch(error => {
+        showError('Error al actualizar las estadísticas: ' + error.message);
+    });
 }

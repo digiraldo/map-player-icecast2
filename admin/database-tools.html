@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas de Base de Datos - Mapa Emisoras Icecast2</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+    <!-- Favicon -->
+    <link rel="icon" href="../img/radio-ico.ico" type="image/x-icon">
+    <style>
+        .tool-card {
+            transition: transform 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        .result-container {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0"><i class="fas fa-database me-2"></i>Herramientas de Base de Datos</h4>
+                        <a href="index.html" class="btn btn-light btn-sm"><i class="fas fa-arrow-left me-1"></i> Volver al Panel</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Esta página proporciona herramientas para gestionar la base de datos de estadísticas y solucionar problemas comunes.
+                        </div>
+                        
+                        <!-- Herramientas de diagnóstico -->
+                        <h5 class="mt-4 mb-3">Diagnóstico y Configuración</h5>
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <!-- Verificación de requisitos -->
+                            <div class="col">
+                                <div class="card h-100 tool-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-clipboard-check text-primary me-2"></i>Verificar Requisitos</h5>
+                                        <p class="card-text">Comprueba si el servidor cumple con todos los requisitos necesarios para el módulo de estadísticas.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="check-requirements.php" class="btn btn-outline-primary btn-sm w-100" target="_blank">
+                                            <i class="fas fa-external-link-alt me-1"></i> Ejecutar Verificación
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Diagnóstico de SQLite -->
+                            <div class="col">
+                                <div class="card h-100 tool-card border-info">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-stethoscope text-info me-2"></i>Diagnóstico SQLite</h5>
+                                        <p class="card-text">Verifica y soluciona problemas específicos con la extensión PDO_SQLite necesaria para estadísticas.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="fix-sqlite.php" class="btn btn-outline-info btn-sm w-100">
+                                            <i class="fas fa-wrench me-1"></i> Diagnóstico SQLite
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- PHP Info -->
+                            <div class="col">
+                                <div class="card h-100 tool-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fab fa-php text-secondary me-2"></i>PHP Info</h5>
+                                        <p class="card-text">Muestra información detallada sobre la configuración de PHP en su servidor.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="phpinfo.php" class="btn btn-outline-secondary btn-sm w-100" target="_blank">
+                                            <i class="fas fa-info-circle me-1"></i> Ver PHP Info
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Inicializar Base de Datos -->
+                            <div class="col">
+                                <div class="card h-100 tool-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-database text-success me-2"></i>Inicializar BD</h5>
+                                        <p class="card-text">Crea o reinicia la base de datos con la estructura correcta y datos de ejemplo.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-outline-success btn-sm w-100" id="initDatabaseBtn">
+                                            <i class="fas fa-play me-1"></i> Inicializar Base de Datos
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Herramientas de gestión de datos -->
+                        <h5 class="mt-4 mb-3">Gestión de Datos</h5>
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <!-- Crear estructura -->
+                            <div class="col">
+                                <div class="card h-100 tool-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-folder-plus text-success me-2"></i>Crear Estructura</h5>
+                                        <p class="card-text">Crea los directorios y archivos necesarios para las estadísticas si no existen.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-outline-success btn-sm w-100" id="createStructureBtn">
+                                            <i class="fas fa-cogs me-1"></i> Crear Estructura
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Limpieza selectiva -->
+                            <div class="col">
+                                <div class="card h-100 tool-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-broom text-warning me-2"></i>Limpieza de Datos</h5>
+                                        <p class="card-text">Borra datos antiguos o reinicia completamente la base de datos de estadísticas.</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-outline-warning btn-sm flex-grow-1" id="cleanOldDataBtn">
+                                                <i class="fas fa-filter me-1"></i> Limpiar Antiguos
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm flex-grow-1" id="resetDatabaseBtn">
+                                                <i class="fas fa-trash me-1"></i> Reiniciar Todo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resultados -->
+                        <div class="mt-4" id="resultContainer" style="display: none;">
+                            <div class="card">
+                                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0" id="resultTitle">Resultados</h5>
+                                    <button class="btn btn-sm btn-outline-secondary" id="closeResultBtn">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="result-container">
+                                        <pre id="resultContent" class="mb-0"></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmación Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmTitle">Confirmación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">¿Está seguro de que desea realizar esta acción?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmActionBtn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Variables globales
+        let currentAction = '';
+        let confirmationCallback = null;
+        const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        
+        // Función para mostrar resultados
+        function showResult(title, content, type = 'success') {
+            const resultContainer = document.getElementById('resultContainer');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultContent = document.getElementById('resultContent');
+            
+            // Establecer título y contenido
+            resultTitle.textContent = title;
+            
+            // Si el contenido es un objeto, convertirlo a formato legible
+            if (typeof content === 'object') {
+                content = JSON.stringify(content, null, 2);
+            }
+            
+            resultContent.textContent = content;
+            
+            // Establecer color según el tipo
+            resultTitle.className = `mb-0 text-${type}`;
+            
+            // Mostrar el contenedor
+            resultContainer.style.display = 'block';
+            
+            // Desplazar la página para mostrar los resultados
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Función para ocultar resultados
+        function hideResult() {
+            document.getElementById('resultContainer').style.display = 'none';
+        }
+        
+        // Función para mostrar diálogo de confirmación
+        function showConfirmation(title, message, callback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            
+            confirmationCallback = callback;
+            confirmationModal.show();
+        }
+        
+        // Función para inicializar la base de datos
+        function initializeDatabase() {
+            // Mostrar loader en el botón
+            const btn = document.getElementById('initDatabaseBtn');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Inicializando...';
+            
+            // Realizar la petición
+            fetch('api/init-database.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showResult('Base de datos inicializada', data.details.join('\n'), 'success');
+                    } else {
+                        showResult('Error al inicializar la base de datos', data.message, 'danger');
+                    }
+                })
+                .catch(error => {
+                    showResult('Error', 'Ha ocurrido un error: ' + error.message, 'danger');
+                })
+                .finally(() => {
+                    // Restaurar el botón
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                });
+        }
+        
+        // Función para crear la estructura de directorios
+        function createStructure() {
+            // Mostrar loader en el botón
+            const btn = document.getElementById('createStructureBtn');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Creando...';
+            
+            // Realizar la petición
+            fetch('api/create-data-structure.php?key=f8b4j9v2m3n7k8l1')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.error) {
+                        showResult('Estructura creada', 'Se ha creado la estructura de datos: ' + data.created.join(', '), 'success');
+                    } else {
+                        showResult('Error al crear la estructura', data.message, 'danger');
+                    }
+                })
+                .catch(error => {
+                    showResult('Error', 'Ha ocurrido un error: ' + error.message, 'danger');
+                })
+                .finally(() => {
+                    // Restaurar el botón
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                });
+        }
+        
+        // Función para limpiar datos antiguos
+        function cleanOldData() {
+            // Pedir confirmación
+            showConfirmation(
+                'Limpiar datos antiguos',
+                '¿Está seguro de que desea eliminar los datos de más de 90 días de antigüedad? Esta acción no se puede deshacer.',
+                () => {
+                    // Mostrar loader en el botón
+                    const btn = document.getElementById('cleanOldDataBtn');
+                    const originalHtml = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Limpiando...';
+                    
+                    // Realizar la petición
+                    fetch('api/clear-statistics.php?key=f8b4j9v2m3n7k8l1&type=older_than&days=90')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.error) {
+                                showResult('Datos antiguos eliminados', data.message, 'success');
+                            } else {
+                                showResult('Error al eliminar datos', data.message, 'danger');
+                            }
+                        })
+                        .catch(error => {
+                            showResult('Error', 'Ha ocurrido un error: ' + error.message, 'danger');
+                        })
+                        .finally(() => {
+                            // Restaurar el botón
+                            btn.disabled = false;
+                            btn.innerHTML = originalHtml;
+                        });
+                }
+            );
+        }
+        
+        // Función para reiniciar la base de datos
+        function resetDatabase() {
+            // Pedir confirmación
+            showConfirmation(
+                'Reiniciar base de datos',
+                '¿Está seguro de que desea eliminar TODOS los datos de estadísticas? Esta acción no se puede deshacer.',
+                () => {
+                    // Mostrar loader en el botón
+                    const btn = document.getElementById('resetDatabaseBtn');
+                    const originalHtml = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Reiniciando...';
+                    
+                    // Realizar la petición
+                    fetch('api/clear-statistics.php?key=f8b4j9v2m3n7k8l1&type=all')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.error) {
+                                showResult('Base de datos reiniciada', data.message, 'success');
+                            } else {
+                                showResult('Error al reiniciar la base de datos', data.message, 'danger');
+                            }
+                        })
+                        .catch(error => {
+                            showResult('Error', 'Ha ocurrido un error: ' + error.message, 'danger');
+                        })
+                        .finally(() => {
+                            // Restaurar el botón
+                            btn.disabled = false;
+                            btn.innerHTML = originalHtml;
+                        });
+                }
+            );
+        }
+        
+        // Configurar eventos cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar eventos para los botones
+            document.getElementById('initDatabaseBtn').addEventListener('click', initializeDatabase);
+            document.getElementById('createStructureBtn').addEventListener('click', createStructure);
+            document.getElementById('cleanOldDataBtn').addEventListener('click', cleanOldData);
+            document.getElementById('resetDatabaseBtn').addEventListener('click', resetDatabase);
+            document.getElementById('closeResultBtn').addEventListener('click', hideResult);
+            
+            // Configurar evento para el botón de confirmación
+            document.getElementById('confirmActionBtn').addEventListener('click', function() {
+                confirmationModal.hide();
+                if (typeof confirmationCallback === 'function') {
+                    confirmationCallback();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

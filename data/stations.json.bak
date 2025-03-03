@@ -1,12 +1,11 @@
 {
     "reproductor": {
-        "estacion": "Radio Policía Nacional de",
         "hostUrl": "https://radio.policia.gov.co:8080",
-        "url_logo": "",
         "statusUrl": "status-json.xsl",
+        "estacion": "",
         "genero": "Tropical",
         "r": "8.5",
-        "desarrollador": "digiraldo",
+        "url_logo": "",
         "infoCard": {
             "left": "20px",
             "top": "20px"
@@ -299,6 +298,7 @@
                 "name": "Yopal",
                 "frecuencia": "91.7 FM"
             }
-        ]
+        ],
+        "desarrollador": "digiraldo"
     }
 }
