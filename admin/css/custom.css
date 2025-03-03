@@ -1,0 +1,42 @@
+/* Estilos para el modo oscuro en modales */
+
+.dark-mode .modal-content {
+    background-color: #212529;
+    color: #fff;
+    border-color: #495057;
+}
+
+.dark-mode .modal-header,
+.dark-mode .modal-footer {
+    border-color: #495057;
+}
+
+.dark-mode .modal .close {
+    color: #fff;
+}
+
+.dark-mode .table-station-details {
+    color: #f8f9fa;
+}
+
+.dark-mode .table-station-details th,
+.dark-mode .table-station-details td {
+    border-color: #495057;
+}
+
+.dark-mode code {
+    color: #fd7e14;
+    background-color: #2b3035;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+/* Mejora para los badges de bitrate en modo oscuro */
+.dark-mode .bitrate-badge {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Transiciones suaves en cambios de modo */
+.modal-content, .table, .card {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

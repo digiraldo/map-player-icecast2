@@ -178,6 +178,7 @@ function renderStationsModule(data) {
                                 <th>Nombre</th>
                                 <th>Frecuencia</th>
                                 <th style="width: 100px;">Oyentes</th>
+                                <th style="width: 100px;">Bitrate</th>
                                 <th>Mount Point</th>
                                 <th style="width: 120px;">Acciones</th>
                             </tr>
@@ -224,15 +225,48 @@ function renderStationRows(stations) {
     if (!stations || stations.length === 0) {
         return `
             <tr>
-                <td colspan="6" class="text-center">No hay estaciones disponibles que coincidan con los criterios.</td>
+                <td colspan="7" class="text-center">No hay estaciones disponibles que coincidan con los criterios.</td>
             </tr>
         `;
+    }
+    
+    // Analizar la estructura de datos para encontrar ice-bitrate
+    const onlineStation = stations.find(s => s.online);
+    if (onlineStation) {
+        console.log('ESTRUCTURA COMPLETA DE STATION:', JSON.stringify(onlineStation, null, 2));
+        
+        // Verificar todas las propiedades disponibles
+        console.log('PROPIEDADES DISPONIBLES:');
+        Object.keys(onlineStation).forEach(key => {
+            console.log(`- ${key}: ${typeof onlineStation[key]} = ${onlineStation[key]}`);
+        });
+        
+        // Buscar propiedades relacionadas con bitrate
+        console.log('BUSQUEDA DE PROPIEDADES DE BITRATE:');
+        Object.keys(onlineStation).forEach(key => {
+            if (key.toLowerCase().includes('bit')) {
+                console.log(`- ${key}: ${onlineStation[key]}`);
+            }
+        });
+        
+        // Intentar acceder específicamente al "ice-bitrate"
+        console.log('ACCESO A ICE-BITRATE:');
+        console.log('station["ice-bitrate"]:', onlineStation['ice-bitrate']);
+        console.log('station.bitrate:', onlineStation.bitrate);
     }
     
     return stations.map(station => {
         // Asegurar que la URL de escucha es correcta
         const listenUrl = station.listenurl || '';
         const isPlaying = currentlyPlaying === station.serverUrl;
+        
+        // Obtener el bitrate de forma más robusta
+        let bitrateValue = getBitrateValue(station);
+        console.log(`Estación: ${station.name}, bitrate obtenido: ${bitrateValue}`);
+        
+        // Extraer información de audio para el tooltip
+        const audioInfo = getAudioInfoDetails(station);
+        const audioInfoTooltip = `${audioInfo.channelsText}, Tasa Muestreo: ${audioInfo.samplerate} Hz`;
         
         return `
         <tr class="${station.online ? 'station-online' : 'station-offline'} ${isPlaying ? 'table-active' : ''}" data-station="${station.serverUrl}">
@@ -250,6 +284,16 @@ function renderStationRows(stations) {
             <td class="text-center station-listeners">
                 ${station.online ? 
                     `<span class="badge bg-info">${station.listeners || 0}</span>` : 
+                    '<span class="text-muted">-</span>'
+                }
+            </td>
+            <td class="text-center">
+                ${station.online ? 
+                    `<span class="${getBitrateBadgeClass(bitrateValue)} bitrate-badge" 
+                           data-bs-toggle="tooltip" 
+                           data-bs-html="true"
+                           data-bs-placement="top"
+                           title="${audioInfoTooltip}">${bitrateValue} kbps</span>` : 
                     '<span class="text-muted">-</span>'
                 }
             </td>
@@ -308,6 +352,15 @@ function initializeTooltips() {
         trigger: 'hover',
         delay: { show: 500, hide: 100 }
     }));
+    
+    // Específicamente para las insignias de bitrate
+    document.querySelectorAll('.bitrate-badge').forEach(badge => {
+        new bootstrap.Tooltip(badge, {
+            trigger: 'hover',
+            placement: 'top',
+            delay: { show: 200, hide: 100 }
+        });
+    });
 }
 
 /**
@@ -698,7 +751,7 @@ function filterStationsBySearch(query) {
     rows.forEach(row => {
         const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
         const freq = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-        const mount = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+        const mount = row.querySelector('td:nth-child(6)').textContent.toLowerCase(); // Actualizado debido a la nueva columna
         
         if (name.includes(query) || freq.includes(query) || mount.includes(query)) {
             row.style.display = '';
@@ -768,6 +821,16 @@ function showStationDetails(station) {
     const modalContent = document.getElementById('stationModalContent');
     const isPlaying = currentlyPlaying === station.serverUrl;
     
+    // Obtener el bitrate de forma más robusta
+    const bitrateValue = getBitrateValue(station);
+    
+    // Extraer información de audio para el tooltip
+    const audioInfo = getAudioInfoDetails(station);
+    
+    // Determinar si estamos en modo oscuro
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const tableClass = isDarkMode ? 'table-dark' : '';
+    
     let html = `
         <div class="text-center mb-3">
             ${station.online ? 
@@ -780,7 +843,10 @@ function showStationDetails(station) {
             ${station.online ? 
                 `<div class="mb-3">
                     <span class="badge bg-info me-2">Oyentes: ${station.listeners || 0}</span>
-                    <span class="badge bg-warning">Bitrate: ${station.bitrate || 'N/A'} kbps</span>
+                    <span class="${getBitrateBadgeClass(bitrateValue)} bitrate-badge"
+                          data-bs-toggle="tooltip" 
+                          data-bs-placement="top"
+                          title="${audioInfo.channelsText}, Tasa Muestreo: ${audioInfo.samplerate} Hz">Bitrate: ${bitrateValue} kbps</span>
                 </div>
                 ${station.listenurl ? 
                     `<div class="mb-3">
@@ -800,19 +866,36 @@ function showStationDetails(station) {
                 </div>`
             }
         </div>
-        <div class="card mt-3">
-            <div class="card-header bg-light">Detalles técnicos</div>
+        <div class="card ${isDarkMode ? 'text-white bg-dark' : ''} mt-3">
+            <div class="card-header ${isDarkMode ? 'border-secondary' : 'bg-light'}">Detalles técnicos</div>
             <div class="card-body">
-                <table class="table table-sm table-bordered table-station-details">
+                <table class="table table-sm table-bordered ${tableClass} table-station-details">
                     <tr><th style="width: 30%">Mount Point:</th><td><code>${station.serverUrl || 'N/A'}</code></td></tr>
                     ${station.description ? `<tr><th>Descripción:</th><td>${station.description}</td></tr>` : ''}
                     ${station.genre ? `<tr><th>Género:</th><td>${station.genre}</td></tr>` : ''}
+                    <tr><th>Bitrate:</th><td>${bitrateValue} kbps</td></tr>
+                    <tr><th>Canales:</th><td>${audioInfo.channelsText} (${audioInfo.channels})</td></tr>
+                    <tr><th>Tasa de Muestreo:</th><td>${audioInfo.samplerate} Hz</td></tr>
                 </table>
             </div>
         </div>
     `;
     
     modalContent.innerHTML = html;
+    
+    // Estilizar el modal según el modo
+    const stationModal = document.getElementById('stationModal');
+    const modalDialog = stationModal.querySelector('.modal-content');
+    
+    if (isDarkMode) {
+        modalDialog.classList.add('bg-dark', 'text-white', 'border-secondary');
+        modalDialog.querySelector('.modal-header').classList.add('border-secondary');
+        modalDialog.querySelector('.modal-footer').classList.add('border-secondary');
+    } else {
+        modalDialog.classList.remove('bg-dark', 'text-white', 'border-secondary');
+        modalDialog.querySelector('.modal-header').classList.remove('border-secondary');
+        modalDialog.querySelector('.modal-footer').classList.remove('border-secondary');
+    }
     
     // Añadir evento al botón de reproducción en el modal
     setTimeout(() => {
@@ -822,10 +905,19 @@ function showStationDetails(station) {
                 playBtn.addEventListener('click', handlePlayPause);
             }
         }
+        
+        // Inicializar tooltips dentro del modal
+        const modalTooltips = modalContent.querySelectorAll('[data-bs-toggle="tooltip"]');
+        modalTooltips.forEach(el => {
+            new bootstrap.Tooltip(el, {
+                trigger: 'hover',
+                placement: 'top',
+                delay: { show: 200, hide: 100 }
+            });
+        });
     }, 100);
     
     // CORRECCIÓN: Mostrar el modal después de configurar su contenido
-    const stationModal = document.getElementById('stationModal');
     const modal = new bootstrap.Modal(stationModal);
     modal.show();
 }
@@ -838,5 +930,165 @@ function showStationDiagnostics(station) {
     alert(`Diagnóstico de estación "${station.name}" en desarrollo`);
     // Por ahora, solo mostramos un mensaje
     // En una implementación real, aquí se cargaría información de diagnóstico
+}
+
+/**
+ * Obtiene el valor del bitrate de forma robusta probando diferentes posibles propiedades
+ * @param {Object} station - Objeto de estación
+ * @returns {string|number} Valor del bitrate o 'N/A' si no se encuentra
+ */
+function getBitrateValue(station) {
+    if (!station || !station.online) return 'N/A';
+    
+    // Log completo de depuración para esta estación
+    console.log(`Buscando bitrate para estación: ${station.name}`);
+    console.log('Propiedades disponibles:', Object.keys(station));
+    
+    // Verificar primero 'ice-bitrate' ya que es nuestra principal propiedad objetivo
+    if (station['ice-bitrate'] !== undefined) {
+        console.log(`Encontrado ice-bitrate: ${station['ice-bitrate']}`);
+        return station['ice-bitrate'];
+    }
+    
+    // Verificar bitrate regular
+    if (station.bitrate !== undefined) {
+        console.log(`Usando bitrate estándar: ${station.bitrate}`);
+        return station.bitrate;
+    }
+    
+    // Verificar audio_info
+    if (station.audio_info) {
+        console.log('Encontrado audio_info:', station.audio_info);
+        
+        // El audio_info puede ser un objeto o una cadena con formato "clave=valor;clave=valor"
+        if (typeof station.audio_info === 'string') {
+            const bitrateMatch = station.audio_info.match(/bitrate=(\d+)/i);
+            if (bitrateMatch && bitrateMatch[1]) {
+                console.log(`Extraído bitrate de audio_info string: ${bitrateMatch[1]}`);
+                return bitrateMatch[1];
+            }
+        } else if (typeof station.audio_info === 'object') {
+            if (station.audio_info.bitrate !== undefined) {
+                console.log(`Encontrado bitrate en audio_info: ${station.audio_info.bitrate}`);
+                return station.audio_info.bitrate;
+            }
+            if (station.audio_info['ice-bitrate'] !== undefined) {
+                console.log(`Encontrado ice-bitrate en audio_info: ${station.audio_info['ice-bitrate']}`);
+                return station.audio_info['ice-bitrate'];
+            }
+        }
+    }
+    
+    // Buscar cualquier propiedad que contenga 'bit' en su nombre
+    for (const key in station) {
+        if (key.toLowerCase().includes('bit') && station[key] !== undefined) {
+            console.log(`Encontrada propiedad alternativa de bitrate: ${key} = ${station[key]}`);
+            return station[key];
+        }
+    }
+    
+    // Si no se encuentra ninguna propiedad, buscar en el servidor original si existe
+    if (station.server && typeof station.server === 'object') {
+        console.log('Buscando en objeto server...');
+        for (const key in station.server) {
+            if (key.toLowerCase().includes('bit') && station.server[key] !== undefined) {
+                console.log(`Encontrado bitrate en server.${key}: ${station.server[key]}`);
+                return station.server[key];
+            }
+        }
+    }
+    
+    console.log('No se encontró ningún valor de bitrate para esta estación');
+    return 'N/A';
+}
+
+/**
+ * Determina la clase CSS para el badge del bitrate según su valor
+ * @param {number|string} bitrate - Valor del bitrate
+ * @returns {string} Clase CSS para el badge
+ */
+function getBitrateBadgeClass(bitrate) {
+    console.log('Clasificando bitrate:', bitrate);
+    
+    // Convertir a número si es string
+    const rate = parseInt(bitrate) || 0;
+    
+    if (rate < 64) {
+        return 'badge text-bg-secondary';
+    } else if (rate === 64) {
+        return 'badge text-bg-success';
+    } else if (rate === 96) {
+        return 'badge text-bg-primary';
+    } else if (rate === 128) {
+        return 'badge text-bg-warning';
+    } else if (rate > 128) {
+        return 'badge text-bg-danger';
+    } else {
+        return 'badge text-bg-secondary';
+    }
+}
+
+/**
+ * Extrae información de audio_info de una estación
+ * @param {Object} station - Objeto de estación
+ * @returns {Object} Objeto con información de audio
+ */
+function getAudioInfoDetails(station) {
+    // Valores por defecto
+    let channels = 'N/A';
+    let channelsText = 'N/A';
+    let samplerate = 'N/A';
+    
+    if (!station || !station.online) return { channels, channelsText, samplerate };
+    
+    // Si tenemos audio_info como objeto
+    if (station.audio_info && typeof station.audio_info === 'object') {
+        channels = station.audio_info['ice-channels'] || station.audio_info.channels || channels;
+        samplerate = station.audio_info['ice-samplerate'] || station.audio_info.samplerate || samplerate;
+    } 
+    // Si tenemos audio_info como cadena
+    else if (station.audio_info && typeof station.audio_info === 'string') {
+        const channelsMatch = station.audio_info.match(/ice-channels=(\d+)/i) || 
+                            station.audio_info.match(/channels=(\d+)/i);
+        const samplerateMatch = station.audio_info.match(/ice-samplerate=(\d+)/i) || 
+                             station.audio_info.match(/samplerate=(\d+)/i);
+        
+        if (channelsMatch && channelsMatch[1]) {
+            channels = channelsMatch[1];
+        }
+        
+        if (samplerateMatch && samplerateMatch[1]) {
+            samplerate = samplerateMatch[1];
+        }
+    }
+    // Buscar propiedades directamente en el objeto estación
+    else {
+        if (station['ice-channels'] !== undefined) {
+            channels = station['ice-channels'];
+        } else if (station.channels !== undefined) {
+            channels = station.channels;
+        }
+        
+        if (station['ice-samplerate'] !== undefined) {
+            samplerate = station['ice-samplerate'];
+        } else if (station.samplerate !== undefined) {
+            samplerate = station.samplerate;
+        }
+    }
+    
+    // Determinar el texto para los canales
+    if (channels === '1' || channels === 1) {
+        channelsText = 'Mono';
+    } else if (channels === '2' || channels === 2) {
+        channelsText = 'Estéreo';
+    } else {
+        channelsText = `${channels} canales`;
+    }
+    
+    return {
+        channels: channels,
+        channelsText: channelsText,
+        samplerate: samplerate
+    };
 }
 

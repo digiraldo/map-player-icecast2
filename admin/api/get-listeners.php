@@ -112,6 +112,9 @@ function getAllStationsStatus() {
     // Obtener información de servidor una sola vez
     $serverInfo = getIcecastServerInfo($baseUrl, $statusPath);
     
+    // Para depuración - guardar la respuesta completa del servidor
+    file_put_contents(DATA_PATH . 'debug_icecast_response.json', json_encode($serverInfo, JSON_PRETTY_PRINT));
+    
     if (isset($serverInfo['error']) && $serverInfo['error']) {
         return [
             'error' => true,
@@ -177,6 +180,24 @@ function getAllStationsStatus() {
                             'genre' => $source['genre'] ?? '',
                             'listenurl' => $correctListenUrl,  // Usamos nuestra URL construida correctamente
                         ];
+                        
+                        // Agregar ice-bitrate si existe
+                        if (isset($source['ice-bitrate'])) {
+                            $stationInfo['ice-bitrate'] = $source['ice-bitrate'];
+                        }
+                        
+                        // Agregar audio_info si existe
+                        if (isset($source['audio_info'])) {
+                            $stationInfo['audio_info'] = $source['audio_info'];
+                        }
+                        
+                        // Agregar cualquier campo relevante con "bit" en su nombre
+                        foreach ($source as $key => $value) {
+                            if (strpos(strtolower($key), 'bit') !== false && !isset($stationInfo[$key])) {
+                                $stationInfo[$key] = $value;
+                            }
+                        }
+                        
                         break;
                     }
                 }
