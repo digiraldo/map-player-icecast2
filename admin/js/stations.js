@@ -268,6 +268,11 @@ function renderStationRows(stations) {
         const audioInfo = getAudioInfoDetails(station);
         const audioInfoTooltip = `${audioInfo.channelsText}, Tasa Muestreo: ${audioInfo.samplerate} Hz`;
         
+        // Determinar si es Mono (M) o Estéreo (S)
+        const channelBadge = audioInfo.channels === '2' || audioInfo.channels === 2 ? 'S' : 'M';
+        // Clase de badge diferente según tipo de canal
+        const badgeClass = channelBadge === 'M' ? 'text-bg-light' : 'text-bg-dark';
+        
         return `
         <tr class="${station.online ? 'station-online' : 'station-offline'} ${isPlaying ? 'table-active' : ''}" data-station="${station.serverUrl}">
             <td class="text-center">
@@ -289,11 +294,14 @@ function renderStationRows(stations) {
             </td>
             <td class="text-center">
                 ${station.online ? 
-                    `<span class="${getBitrateBadgeClass(bitrateValue)} bitrate-badge" 
+                    `<button class="btn ${getBitrateBadgeClass(bitrateValue).replace('badge text-bg', 'btn btn')} btn-sm bitrate-btn" 
                            data-bs-toggle="tooltip" 
                            data-bs-html="true"
                            data-bs-placement="top"
-                           title="${audioInfoTooltip}">${bitrateValue} kbps</span>` : 
+                           title="${audioInfoTooltip}">
+                        ${bitrateValue}k
+                        <span class="badge ${badgeClass}">${channelBadge}</span>
+                    </button>` : 
                     '<span class="text-muted">-</span>'
                 }
             </td>
@@ -356,6 +364,15 @@ function initializeTooltips() {
     // Específicamente para las insignias de bitrate
     document.querySelectorAll('.bitrate-badge').forEach(badge => {
         new bootstrap.Tooltip(badge, {
+            trigger: 'hover',
+            placement: 'top',
+            delay: { show: 200, hide: 100 }
+        });
+    });
+    
+    // Específicamente para los botones de bitrate
+    document.querySelectorAll('.bitrate-btn').forEach(btn => {
+        new bootstrap.Tooltip(btn, {
             trigger: 'hover',
             placement: 'top',
             delay: { show: 200, hide: 100 }
@@ -827,6 +844,11 @@ function showStationDetails(station) {
     // Extraer información de audio para el tooltip
     const audioInfo = getAudioInfoDetails(station);
     
+    // Determinar si es Mono (M) o Estéreo (S)
+    const channelBadge = audioInfo.channels === '2' || audioInfo.channels === 2 ? 'S' : 'M';
+    // Clase de badge diferente según tipo de canal
+    const badgeClass = channelBadge === 'M' ? 'text-bg-light' : 'text-bg-dark';
+    
     // Determinar si estamos en modo oscuro
     const isDarkMode = document.body.classList.contains('dark-mode');
     const tableClass = isDarkMode ? 'table-dark' : '';
@@ -843,10 +865,13 @@ function showStationDetails(station) {
             ${station.online ? 
                 `<div class="mb-3">
                     <span class="badge bg-info me-2">Oyentes: ${station.listeners || 0}</span>
-                    <span class="${getBitrateBadgeClass(bitrateValue)} bitrate-badge"
-                          data-bs-toggle="tooltip" 
-                          data-bs-placement="top"
-                          title="${audioInfo.channelsText}, Tasa Muestreo: ${audioInfo.samplerate} Hz">Bitrate: ${bitrateValue} kbps</span>
+                    <button class="btn ${getBitrateBadgeClass(bitrateValue).replace('badge text-bg', 'btn btn')} btn-sm bitrate-btn"
+                           data-bs-toggle="tooltip" 
+                           data-bs-placement="top"
+                           title="${audioInfo.channelsText}, Tasa Muestreo: ${audioInfo.samplerate} Hz">
+                        ${bitrateValue}k
+                        <span class="badge ${badgeClass}">${channelBadge}</span>
+                    </button>
                 </div>
                 ${station.listenurl ? 
                     `<div class="mb-3">

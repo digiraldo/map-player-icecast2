@@ -40,3 +40,70 @@
 .modal-content, .table, .card {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+/* Estilos para los botones de bitrate */
+.bitrate-btn {
+    min-width: 80px; /* Reducido aún más para hacerlo más pequeño */
+    position: relative;
+    --bs-btn-padding-y: 0.1rem !important; /* Padding exacto solicitado */
+    --bs-btn-padding-x: 0.2rem !important;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x) !important;
+    font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+    line-height: 1.2; /* Altura de línea ajustada */
+    margin: 0; /* Eliminar márgenes */
+}
+
+.bitrate-btn .badge {
+    position: absolute;
+    right: -4px;
+    top: -4px; /* Posicionado en la esquina superior derecha */
+    font-size: 0.65rem;
+    padding: 0.15em 0.4em;
+    border-radius: 50%; /* Badge circular */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Sombra sutil */
+    min-width: 16px; /* Ancho mínimo para asegurar un círculo */
+    height: 16px; /* Altura fija para círculo */
+    line-height: 1; /* Altura de línea ajustada */
+    display: inline-flex; /* Para centrar verticalmente */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    z-index: 2; /* Asegurar que está por encima */
+}
+
+/* Mejoras para el badge de mono/estéreo */
+.bitrate-btn .badge.text-bg-light {
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.dark-mode .bitrate-btn .badge.text-bg-light {
+    color: #212529 !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* Ajustes para modo oscuro */
+.dark-mode .bitrate-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .bitrate-btn .badge {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* En tablas, centramos verticalmente el botón */
+.table td .bitrate-btn {
+    vertical-align: middle;
+    margin-bottom: 0;
+}
+
+/* Animación sutil para indicar interacción */
+.bitrate-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Transición suave para los botones */
+.btn {
+    transition: all 0.2s ease-in-out;
+}
