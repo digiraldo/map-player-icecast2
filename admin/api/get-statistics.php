@@ -1,9 +1,9 @@
 <?php
 /**
- * API para obtener estadísticas históricas de oyentes
+ * API para obtener estadísticas del servidor Icecast
  * 
- * Este script consulta la base de datos para obtener estadísticas
- * según los parámetros de rango de fechas y estación
+ * Este script recopila estadísticas históricas y actuales del servidor Icecast
+ * para mostrarlas en la sección de estadísticas del panel de administración.
  */
 
 // Permitir CORS para peticiones AJAX
@@ -13,475 +13,220 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // Definir constantes
 define('DATA_PATH', '../../data/');
-define('STATS_PATH', DATA_PATH . 'stats/');
-define('CONFIG_FILE', DATA_PATH . 'stations.json');
-define('STATS_DB', DATA_PATH . 'stats.db');
+define('STATS_FILE', DATA_PATH . 'statistics.json');
+define('HISTORY_FILE', DATA_PATH . 'history.json');
 
-// Parámetros de solicitud
-$range = isset($_GET['range']) ? $_GET['range'] : 'week';
-$station = isset($_GET['station']) ? $_GET['station'] : 'all';
-$start = isset($_GET['start']) ? $_GET['start'] : null;
-$end = isset($_GET['end']) ? $_GET['end'] : null;
-
-// Verificar si existe el directorio de estadísticas, si no, crearlo
-if (!file_exists(STATS_PATH)) {
-    mkdir(STATS_PATH, 0755, true);
+/**
+ * Lee el archivo de configuración de estaciones
+ * @return array Datos de configuración
+ */
+function getStationsConfig() {
+    $configFile = DATA_PATH . 'stations.json';
+    
+    if (!file_exists($configFile)) {
+        return ['error' => true, 'message' => 'El archivo de configuración no existe'];
+    }
+    
+    $data = file_get_contents($configFile);
+    $config = json_decode($data, true);
+    
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return ['error' => true, 'message' => 'Error al decodificar el archivo JSON: ' . json_last_error_msg()];
+    }
+    
+    return $config;
 }
 
-// Inicializar respuesta
-$response = [
-    'error' => false,
-    'range' => $range,
-    'data' => [],
-    'stations' => [],
-    'listeners_trend' => [],
-    'distribution' => [],
-    'peak_hours' => [],
-    'summary' => [
-        'total_listeners' => 0,
-        'avg_daily' => 0,
-        'peak_listeners' => 0,
-        'most_popular' => 'N/A'
-    ]
-];
-
-try {
-    // Verificar si la base de datos existe, si no, crearla
-    $dbExists = file_exists(STATS_DB);
-    $pdo = new PDO('sqlite:' . STATS_DB);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+/**
+ * Obtiene las estadísticas actuales desde API de oyentes
+ * @return array Datos de estadísticas actuales
+ */
+function getCurrentStats() {
+    $listenersApiUrl = "./get-listeners.php"; // URL relativa a la API de oyentes
     
-    // Si la base de datos no existía, crear la estructura
-    if (!$dbExists) {
-        $pdo->exec(
-            "CREATE TABLE listener_stats (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                timestamp INTEGER NOT NULL,
-                station_id TEXT NOT NULL,
-                station_name TEXT NOT NULL,
-                listeners INTEGER NOT NULL DEFAULT 0,
-                peak_listeners INTEGER NOT NULL DEFAULT 0,
-                avg_time INTEGER NOT NULL DEFAULT 0,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-            CREATE INDEX idx_timestamp ON listener_stats(timestamp);
-            CREATE INDEX idx_station_id ON listener_stats(station_id);
-            CREATE INDEX idx_listeners ON listener_stats(listeners);"
-        );
-        
-        // Añadir algunos datos de ejemplo si la base de datos es nueva
-        generateSampleData($pdo);
-    }
+    // Usar cURL para hacer la petición
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $listenersApiUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_USERAGENT => 'MapPlayerJS/1.0',
+    ]);
     
-    // Calcular fechas de inicio y fin según el rango
-    $endDate = time();
-    $startDate = calculateStartDate($range, $start, $end);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $error = curl_error($ch);
+    $errno = curl_errno($ch);
     
-    // Consulta base para obtener datos
-    $baseQuery = "SELECT * FROM listener_stats WHERE timestamp BETWEEN :start AND :end";
-    $params = [':start' => $startDate, ':end' => $endDate];
+    curl_close($ch);
     
-    // Filtrar por estación si es necesario
-    if ($station !== 'all') {
-        $baseQuery .= " AND station_id = :station";
-        $params[':station'] = $station;
-    }
-    
-    // Ordenar resultados
-    $baseQuery .= " ORDER BY timestamp DESC";
-    
-    // Ejecutar la consulta principal
-    $stmt = $pdo->prepare($baseQuery);
-    $stmt->execute($params);
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Asignar datos a la respuesta
-    $response['data'] = $data;
-    
-    // Obtener lista de estaciones
-    $stmtStations = $pdo->query("SELECT DISTINCT station_id, station_name FROM listener_stats");
-    $stations = $stmtStations->fetchAll(PDO::FETCH_ASSOC);
-    
-    foreach ($stations as $station) {
-        $response['stations'][] = [
-            'id' => $station['station_id'],
-            'name' => $station['station_name']
+    // Verificar errores
+    if ($errno || $httpCode !== 200) {
+        return [
+            'error' => true,
+            'message' => $error ?: "Error HTTP: {$httpCode}",
+            'code' => $errno ?: $httpCode
         ];
     }
     
-    // Obtener tendencia de oyentes (agrupados por hora o día según el rango)
-    $trendData = getTrendData($pdo, $range, $startDate, $endDate, $station);
-    $response['listeners_trend'] = $trendData;
+    // Decodificar respuesta JSON
+    $data = json_decode($response, true);
     
-    // Obtener distribución por estación
-    $distributionData = getDistributionData($pdo, $startDate, $endDate);
-    $response['distribution'] = $distributionData;
-    
-    // Obtener horas pico
-    $peakHoursData = getPeakHoursData($pdo, $startDate, $endDate, $station);
-    $response['peak_hours'] = $peakHoursData;
-    
-    // Calcular resumen
-    $summaryData = getSummaryData($pdo, $startDate, $endDate, $station);
-    $response['summary'] = $summaryData;
-    
-} catch (Exception $e) {
-    $response['error'] = true;
-    $response['message'] = $e->getMessage();
-}
-
-// Devolver respuesta como JSON
-echo json_encode($response);
-
-/**
- * Calcula la fecha de inicio según el rango seleccionado
- * @param string $range Rango seleccionado
- * @param string $customStart Fecha de inicio personalizada
- * @param string $customEnd Fecha de fin personalizada
- * @return int Timestamp para la fecha de inicio
- */
-function calculateStartDate($range, $customStart, $customEnd) {
-    switch ($range) {
-        case 'day':
-            return strtotime('today');
-        case 'week':
-            return strtotime('-7 days');
-        case 'month':
-            return strtotime('-30 days');
-        case 'custom':
-            if ($customStart) {
-                return strtotime($customStart);
-            }
-            // Si no hay fecha de inicio personalizada, usar 7 días por defecto
-            return strtotime('-7 days');
-        default:
-            return strtotime('-7 days');
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return [
+            'error' => true,
+            'message' => 'Error al decodificar JSON de la API de oyentes: ' . json_last_error_msg(),
+            'response' => substr($response, 0, 255) . (strlen($response) > 255 ? '...' : '')
+        ];
     }
+    
+    return $data;
 }
 
 /**
- * Obtiene datos para la gráfica de tendencia
- * @param PDO $pdo Conexión a la base de datos
- * @param string $range Rango de tiempo
- * @param int $startDate Timestamp de inicio
- * @param int $endDate Timestamp de fin
- * @param string $stationFilter ID de la estación para filtrar
- * @return array Datos formateados para la gráfica
+ * Lee el archivo de estadísticas históricas
+ * @return array Datos históricos
  */
-function getTrendData($pdo, $range, $startDate, $endDate, $stationFilter) {
-    // Determinar el intervalo según el rango
-    $interval = ($range === 'day') ? 'hour' : 'day';
-    $groupBy = ($interval === 'hour') ? '%Y-%m-%d %H:00:00' : '%Y-%m-%d';
-    
-    // Crear la consulta SQL con GROUP BY para el intervalo adecuado
-    $query = "
-        SELECT 
-            station_id,
-            station_name,
-            strftime('$groupBy', datetime(timestamp, 'unixepoch')) as interval_group,
-            AVG(listeners) as avg_listeners,
-            MAX(timestamp) as timestamp
-        FROM 
-            listener_stats 
-        WHERE 
-            timestamp BETWEEN :start AND :end
-    ";
-    
-    // Filtrar por estación si es necesario
-    if ($stationFilter !== 'all') {
-        $query .= " AND station_id = :station";
+function getHistoricalData() {
+    if (!file_exists(HISTORY_FILE)) {
+        // Si no existe, crear un archivo con estructura básica
+        $emptyHistory = [
+            'listeners' => [],
+            'stations' => [],
+            'created' => date('Y-m-d H:i:s'),
+            'updated' => date('Y-m-d H:i:s')
+        ];
+        
+        file_put_contents(HISTORY_FILE, json_encode($emptyHistory, JSON_PRETTY_PRINT));
+        return $emptyHistory;
     }
     
-    $query .= " GROUP BY station_id, interval_group ORDER BY timestamp ASC";
+    $data = file_get_contents(HISTORY_FILE);
+    $history = json_decode($data, true);
     
-    // Ejecutar la consulta
-    $stmt = $pdo->prepare($query);
-    $params = [':start' => $startDate, ':end' => $endDate];
-    
-    if ($stationFilter !== 'all') {
-        $params[':station'] = $stationFilter;
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return [
+            'error' => true,
+            'message' => 'Error al decodificar el archivo de historia: ' . json_last_error_msg()
+        ];
     }
     
-    $stmt->execute($params);
-    $trendData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Procesar datos para el formato que necesita la gráfica
-    $result = [
-        'labels' => [],
-        'stations' => [],
-        'total' => []
+    return $history;
+}
+
+/**
+ * Calcula estadísticas generales
+ * @param array $currentStats Estadísticas actuales
+ * @param array $history Datos históricos
+ * @return array Estadísticas calculadas
+ */
+function calculateStatistics($currentStats, $history) {
+    $stats = [
+        'current' => [
+            'timestamp' => date('Y-m-d H:i:s'),
+            'listeners' => 0,
+            'stations' => [
+                'total' => 0,
+                'online' => 0,
+                'offline' => 0
+            ]
+        ],
+        'historical' => [
+            'listeners' => [
+                'average' => 0,
+                'max' => 0,
+                'min' => 0
+            ],
+            'stations' => [
+                'availability' => 0
+            ]
+        ],
+        'trends' => [
+            'listeners' => [
+                'hourly' => [],
+                'daily' => []
+            ],
+            'stations' => [
+                'top' => []
+            ]
+        ]
     ];
     
-    // Crear una estructura para almacenar los datos por intervalo
-    $intervalData = [];
-    
-    // Procesar cada registro
-    foreach ($trendData as $row) {
-        $timestamp = strtotime($row['interval_group']);
+    // Datos actuales
+    if (!isset($currentStats['error']) || !$currentStats['error']) {
+        $stats['current']['listeners'] = $currentStats['stats']['totalListeners'] ?? 0;
+        $stats['current']['stations']['total'] = $currentStats['stats']['total'] ?? 0;
+        $stats['current']['stations']['online'] = $currentStats['stats']['online'] ?? 0;
+        $stats['current']['stations']['offline'] = $currentStats['stats']['offline'] ?? 0;
         
-        // Añadir etiqueta si no existe
-        if (!in_array($timestamp, $result['labels'])) {
-            $intervalData[$timestamp] = ['total' => 0];
-            $result['labels'][] = $timestamp;
+        // Top estaciones
+        $stats['trends']['stations']['top'] = array_map(function($station) {
+            return [
+                'name' => $station['name'] ?? 'Desconocido',
+                'frecuencia' => $station['frecuencia'] ?? 'N/A',
+                'listeners' => $station['listeners'] ?? 0
+            ];
+        }, $currentStats['top'] ?? []);
+    }
+    
+    // Datos históricos
+    if (!isset($history['error']) && isset($history['listeners']) && count($history['listeners']) > 0) {
+        $listeners = array_column($history['listeners'], 'count');
+        
+        $stats['historical']['listeners']['average'] = count($listeners) > 0 
+            ? round(array_sum($listeners) / count($listeners)) : 0;
+        $stats['historical']['listeners']['max'] = count($listeners) > 0 
+            ? max($listeners) : 0;
+        $stats['historical']['listeners']['min'] = count($listeners) > 0 
+            ? min($listeners) : 0;
+        
+        // Últimos datos para tendencias
+        $lastEntries = array_slice($history['listeners'], -24);
+        $stats['trends']['listeners']['hourly'] = array_map(function($entry) {
+            return [
+                'time' => date('H:i', strtotime($entry['timestamp'])),
+                'count' => $entry['count']
+            ];
+        }, $lastEntries);
+        
+        // Agrupar por día
+        $dailyData = [];
+        foreach ($history['listeners'] as $entry) {
+            $day = date('Y-m-d', strtotime($entry['timestamp']));
+            if (!isset($dailyData[$day])) {
+                $dailyData[$day] = [];
+            }
+            $dailyData[$day][] = $entry['count'];
         }
         
-        // Si es la primera vez que vemos esta estación, inicializar
-        if (!isset($result['stations'][$row['station_id']])) {
-            $result['stations'][$row['station_id']] = [
-                'name' => $row['station_name'],
-                'data' => array_fill(0, count($result['labels']), 0)
+        foreach ($dailyData as $day => $counts) {
+            $stats['trends']['listeners']['daily'][] = [
+                'date' => $day,
+                'count' => round(array_sum($counts) / count($counts))
             ];
         }
         
-        // Buscar el índice correspondiente
-        $index = array_search($timestamp, $result['labels']);
-        
-        // Actualizar el valor para esta estación y este intervalo
-        $result['stations'][$row['station_id']]['data'][$index] = round($row['avg_listeners']);
-        
-        // Actualizar el total para este intervalo
-        $intervalData[$timestamp]['total'] += round($row['avg_listeners']);
+        // Limitar a últimos 30 días
+        $stats['trends']['listeners']['daily'] = array_slice(
+            $stats['trends']['listeners']['daily'], 
+            -30
+        );
     }
     
-    // Asegurar que todas las estaciones tengan valores para todos los intervalos
-    foreach ($result['stations'] as $stationId => $stationData) {
-        // Si hay menos datos que etiquetas, rellenar con ceros
-        if (count($stationData['data']) < count($result['labels'])) {
-            $result['stations'][$stationId]['data'] = array_pad(
-                $stationData['data'], 
-                count($result['labels']), 
-                0
-            );
-        }
-    }
-    
-    // Ordenar las etiquetas cronológicamente
-    sort($result['labels']);
-    
-    // Actualizar los totales
-    $result['total'] = array_map(function($t) use ($intervalData) {
-        return $intervalData[$t]['total'];
-    }, $result['labels']);
-    
-    return $result;
+    return $stats;
 }
 
-/**
- * Obtiene datos de distribución de oyentes por estación
- * @param PDO $pdo Conexión a la base de datos
- * @param int $startDate Timestamp de inicio
- * @param int $endDate Timestamp de fin
- * @return array Datos de distribución por estación
- */
-function getDistributionData($pdo, $startDate, $endDate) {
-    $query = "
-        SELECT 
-            station_id,
-            station_name,
-            AVG(listeners) as avg_listeners
-        FROM 
-            listener_stats 
-        WHERE 
-            timestamp BETWEEN :start AND :end
-        GROUP BY 
-            station_id
-        ORDER BY 
-            avg_listeners DESC
-    ";
-    
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([':start' => $startDate, ':end' => $endDate]);
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Formatear los datos para el gráfico
-    $result = [];
-    foreach ($data as $row) {
-        $result[] = [
-            'name' => $row['station_name'],
-            'value' => round($row['avg_listeners'])
-        ];
-    }
-    
-    return $result;
-}
+// Obtener datos y calcular estadísticas
+$currentStats = getCurrentStats();
+$history = getHistoricalData();
+$stats = calculateStatistics($currentStats, $history);
 
-/**
- * Obtiene datos de horas pico
- * @param PDO $pdo Conexión a la base de datos
- * @param int $startDate Timestamp de inicio
- * @param int $endDate Timestamp de fin
- * @param string $stationFilter ID de la estación para filtrar
- * @return array Datos de horas pico
- */
-function getPeakHoursData($pdo, $startDate, $endDate, $stationFilter) {
-    $query = "
-        SELECT 
-            strftime('%H', datetime(timestamp, 'unixepoch')) as hour,
-            AVG(listeners) as avg_listeners
-        FROM 
-            listener_stats 
-        WHERE 
-            timestamp BETWEEN :start AND :end
-    ";
-    
-    // Filtrar por estación si es necesario
-    if ($stationFilter !== 'all') {
-        $query .= " AND station_id = :station";
-    }
-    
-    $query .= " GROUP BY hour ORDER BY hour";
-    
-    $stmt = $pdo->prepare($query);
-    $params = [':start' => $startDate, ':end' => $endDate];
-    
-    if ($stationFilter !== 'all') {
-        $params[':station'] = $stationFilter;
-    }
-    
-    $stmt->execute($params);
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Formatear los datos para el gráfico
-    $result = [];
-    foreach ($data as $row) {
-        $result[$row['hour']] = round($row['avg_listeners']);
-    }
-    
-    return $result;
-}
-
-/**
- * Calcula datos de resumen
- * @param PDO $pdo Conexión a la base de datos
- * @param int $startDate Timestamp de inicio
- * @param int $endDate Timestamp de fin
- * @param string $stationFilter ID de la estación para filtrar
- * @return array Datos de resumen
- */
-function getSummaryData($pdo, $startDate, $endDate, $stationFilter) {
-    // Consulta para obtener total de oyentes (el último registro disponible)
-    $queryTotal = "
-        SELECT SUM(listeners) as total_listeners
-        FROM listener_stats 
-        WHERE timestamp = (
-            SELECT MAX(timestamp) 
-            FROM listener_stats 
-            WHERE timestamp BETWEEN :start AND :end
-        )
-    ";
-    
-    // Consulta para obtener promedio diario
-    $queryAvg = "
-        SELECT AVG(daily_avg) as avg_daily
-        FROM (
-            SELECT 
-                strftime('%Y-%m-%d', datetime(timestamp, 'unixepoch')) as day,
-                AVG(listeners) as daily_avg
-            FROM listener_stats 
-            WHERE timestamp BETWEEN :start AND :end
-    ";
-    
-    // Consulta para obtener pico máximo
-    $queryPeak = "
-        SELECT MAX(listeners) as peak_listeners
-        FROM listener_stats 
-        WHERE timestamp BETWEEN :start AND :end
-    ";
-    
-    // Consulta para obtener estación más popular
-    $queryPopular = "
-        SELECT station_name, AVG(listeners) as avg_listeners
-        FROM listener_stats 
-        WHERE timestamp BETWEEN :start AND :end
-    ";
-    
-    // Filtrar por estación si es necesario
-    if ($stationFilter !== 'all') {
-        $queryTotal .= " AND station_id = :station";
-        $queryAvg .= " AND station_id = :station";
-        $queryPeak .= " AND station_id = :station";
-        $queryPopular .= " AND station_id = :station";
-    }
-    
-    $queryAvg .= " GROUP BY day) subquery";
-    $queryPopular .= " GROUP BY station_id ORDER BY avg_listeners DESC LIMIT 1";
-    
-    // Parámetros comunes
-    $params = [':start' => $startDate, ':end' => $endDate];
-    if ($stationFilter !== 'all') {
-        $params[':station'] = $stationFilter;
-    }
-    
-    // Ejecutar consultas
-    $stmtTotal = $pdo->prepare($queryTotal);
-    $stmtTotal->execute($params);
-    $totalData = $stmtTotal->fetch(PDO::FETCH_ASSOC);
-    
-    $stmtAvg = $pdo->prepare($queryAvg);
-    $stmtAvg->execute($params);
-    $avgData = $stmtAvg->fetch(PDO::FETCH_ASSOC);
-    
-    $stmtPeak = $pdo->prepare($queryPeak);
-    $stmtPeak->execute($params);
-    $peakData = $stmtPeak->fetch(PDO::FETCH_ASSOC);
-    
-    $stmtPopular = $pdo->prepare($queryPopular);
-    $stmtPopular->execute($params);
-    $popularData = $stmtPopular->fetch(PDO::FETCH_ASSOC);
-    
-    // Construir resultado
-    return [
-        'total_listeners' => $totalData ? intval($totalData['total_listeners']) : 0,
-        'avg_daily' => $avgData ? round($avgData['avg_daily']) : 0,
-        'peak_listeners' => $peakData ? intval($peakData['peak_listeners']) : 0,
-        'most_popular' => $popularData ? $popularData['station_name'] : 'N/A'
-    ];
-}
-
-/**
- * Genera datos de ejemplo para las estadísticas
- * @param PDO $pdo Conexión a la base de datos
- */
-function generateSampleData($pdo) {
-    // Cargar configuración de estaciones
-    if (!file_exists(CONFIG_FILE)) {
-        return; // No hay configuración, no podemos generar datos
-    }
-    
-    $config = json_decode(file_get_contents(CONFIG_FILE), true);
-    if (!$config || !isset($config['reproductor']['ciudades'])) {
-        return;
-    }
-    
-    $stations = $config['reproductor']['ciudades'];
-    $endDate = time();
-    $startDate = strtotime('-30 days');
-    
-    // Preparar consulta de inserción
-    $stmt = $pdo->prepare(
-        "INSERT INTO listener_stats 
-         (timestamp, station_id, station_name, listeners, peak_listeners, avg_time) 
-         VALUES (?, ?, ?, ?, ?, ?)"
-    );
-    
-    // Generar datos para cada día entre las fechas
-    for ($date = $startDate; $date <= $endDate; $date += 3600) { // Cada hora
-        foreach ($stations as $station) {
-            // Solo generar datos para algunas estaciones aleatoriamente
-            if (rand(0, 10) > 7) continue;
-            
-            $listeners = rand(5, 100);
-            $peakListeners = $listeners + rand(0, 50);
-            $avgTime = rand(5, 60);
-            
-            $stmt->execute([
-                $date,
-                $station['serverUrl'],
-                $station['name'],
-                $listeners,
-                $peakListeners,
-                $avgTime
-            ]);
-        }
-    }
-}
+// Devolver resultados
+echo json_encode([
+    'error' => false,
+    'stats' => $stats
+]);

@@ -19,51 +19,65 @@ let realTimeInterval = null;
 function loadStatistics() {
     console.log('Cargando módulo de estadísticas...');
     
-    // Depuración: mostrar la URL base de la API
-    console.log('Config.apiBase:', Config.apiBase);
-    
     // Mostrar loader mientras se cargan los datos
-    showLoader();
+    document.getElementById('content').innerHTML = getLoaderHTML();
     
-    // Inicializar fechas para rango personalizado
-    const today = new Date();
-    const lastWeek = new Date();
-    lastWeek.setDate(lastWeek.getDate() - 7);
-    
-    customStartDate = formatDate(lastWeek);
-    customEndDate = formatDate(today);
-    
-    // Añadir opción Estadísticas al menú si no existe
-    addStatisticsMenuItem();
-    
-    // Obtener los datos de estadísticas según el rango actual
-    fetchStatsData(dateRange)
-        .then(data => {
-            if (data.error) {
-                showError(data.message || 'Error al cargar las estadísticas');
-                return;
+    try {
+        // Inicializar con datos de ejemplo
+        statsData = prepareInitialData();
+        
+        // Renderizar el módulo con datos iniciales
+        renderStatisticsModule();
+        
+        // Variable para rastrear si DataTable ya está inicializado
+        let dataTableInitialized = false;
+        
+        // Establecer un evento personalizado para detectar cuando DataTable está listo
+        $(document).one('datatableInitialized', function() {
+            dataTableInitialized = true;
+            console.log('DataTable ahora está listo para actualizaciones');
+            
+            // Si ya tenemos datos reales, actualizar la tabla
+            if (statsData && statsData.data && statsData.data.length > 0) {
+                updateStatsTableRows();
             }
-            
-            console.log('Estadísticas cargadas:', data);
-            
-            // Almacenar datos
-            statsData = data;
-            
-            // Renderizar el módulo
-            renderStatisticsModule();
-            
-            // Configurar eventos
-            setupStatisticsEvents();
-            
-            // Iniciar actualización en tiempo real si está habilitada
-            if (realTimeUpdate) {
-                startRealTimeUpdates();
-            }
-        })
-        .catch(error => {
-            console.error('Error al cargar estadísticas:', error);
-            showError('Error al cargar el módulo de estadísticas: ' + error.message);
         });
+        
+        // URL correcta para la API de estadísticas
+        const apiUrl = Config.apiBase + 'get-statistics.php';
+        console.log('Config.apiBase:', Config.apiBase);
+        
+        // Obtener datos reales
+        fetchStatsData(apiUrl)
+            .then(data => {
+                if (data.error) {
+                    showError(data.message || 'Error al cargar los datos de estadísticas');
+                    console.error('Error en datos de estadísticas:', data.message);
+                    return;
+                }
+                
+                // Almacenar datos
+                statsData = data.stats;
+                
+                // Actualizar tarjetas inmediatamente
+                updateStatsCards();
+                
+                // Actualizar la tabla solo si DataTable ya está inicializado
+                if (dataTableInitialized) {
+                    updateStatsTableRows();
+                }
+                
+                // Actualizar gráficos
+                initializeCharts();
+            })
+            .catch(error => {
+                console.error('Error al cargar estadísticas:', error);
+                showError('Error al cargar estadísticas: ' + error.message);
+            });
+    } catch (e) {
+        console.error('Error general en loadStatistics:', e);
+        showError('Error inesperado: ' + e.message);
+    }
 }
 
 /**
@@ -212,6 +226,18 @@ function fetchStatsData(range) {
  */
 function renderStatisticsModule() {
     const contentEl = document.getElementById('content');
+    
+    // Inicializar fechas para el selector personalizado
+    // Corregir el problema de fechas nulas
+    if (!customStartDate) {
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 7); // Por defecto una semana atrás
+        customStartDate = formatDate(startDate);
+    }
+    
+    if (!customEndDate) {
+        customEndDate = formatDate(new Date()); // Hoy
+    }
     
     // Construir HTML del módulo
     let html = `
@@ -483,21 +509,17 @@ function renderStatisticsModule() {
     
     contentEl.innerHTML = html;
     
-    // Inicializar gráficos después de renderizar el HTML
-    initializeCharts();
-    
-    // Inicializar DataTable para la tabla de estadísticas
-    $('#stats-table').DataTable({
-        order: [[0, 'desc']],
-        pageLength: 10,
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-        },
-        responsive: true
-    });
-    
-    // Inicializar tooltips
-    initializeTooltips();
+    try {
+        // Inicializar DataTable después de renderizar el HTML pero con cierto retraso
+        // para asegurarse de que el DOM esté completamente listo
+        setTimeout(() => {
+            initializeDataTable();
+            initializeTooltips();
+            setupStatisticsEvents();
+        }, 200); 
+    } catch (e) {
+        console.error('Error después de renderizar módulo de estadísticas:', e);
+    }
 }
 
 /**
@@ -542,47 +564,98 @@ function renderStationOptions() {
  */
 function renderStatsTableRows() {
     if (!statsData || !statsData.data || !statsData.data.length) {
-        return '<tr><td colspan="5" class="text-center">No hay datos disponibles</td></tr>';
+        // Generar explícitamente una fila con 5 celdas separadas para evitar problemas con colspan
+        return `
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        `;
     }
     
-    return statsData.data.map(item => `
-        <tr>
-            <td>${formatDateTime(item.timestamp)}</td>
-            <td>${item.station_name}</td>
-            <td>${item.listeners}</td>
-            <td>${item.avg_time} minutos</td>
-            <td>${item.peak_listeners}</td>
-        </tr>
-    `).join('');
+    try {
+        return statsData.data.map(item => {
+            // Asegurar que todos los valores existan para evitar errores
+            const timestamp = item.timestamp ? formatDateTime(item.timestamp) : '-';
+            const stationName = item.station_name || 'Desconocido';
+            const listeners = typeof item.listeners === 'number' ? item.listeners : 0;
+            const avgTime = item.avg_time ? `${item.avg_time} minutos` : '-';
+            const peakListeners = typeof item.peak_listeners === 'number' ? item.peak_listeners : 0;
+            
+            // Asegurar exactamente 5 columnas (mismo número que en el thead)
+            return `
+                <tr>
+                    <td>${timestamp}</td>
+                    <td>${stationName}</td>
+                    <td>${listeners}</td>
+                    <td>${avgTime}</td>
+                    <td>${peakListeners}</td>
+                </tr>
+            `;
+        }).join('');
+    } catch (e) {
+        console.error('Error al renderizar filas de estadísticas:', e);
+        // En caso de error, retornar una fila con celdas separadas
+        return `
+            <tr>
+                <td>Error</td>
+                <td>Error</td>
+                <td>Error</td>
+                <td>Error</td>
+                <td>Error</td>
+            </tr>
+        `;
+    }
 }
 
 /**
  * Actualiza los datos de la tabla de estadísticas
  */
 function updateStatsTable() {
-    const table = $('#stats-table').DataTable();
-    
-    // Limpiar la tabla
-    table.clear();
-    
-    // Añadir nuevos datos
-    if (statsData && statsData.data && statsData.data.length > 0) {
-        statsData.data.forEach(item => {
-            table.row.add([
-                formatDateTime(item.timestamp),
-                item.station_name,
-                item.listeners,
-                item.peak_listeners,
-                item.avg_time + ' minutos'
-            ]);
-        });
+    try {
+        // Verificar si DataTable existe
+        let table;
+        if ($.fn.dataTable.isDataTable('#stats-table')) {
+            table = $('#stats-table').DataTable();
+            // Limpiar la tabla de manera segura
+            table.clear();
+            
+            // Añadir nuevos datos asegurando siempre 5 columnas
+            if (statsData && statsData.data && statsData.data.length > 0) {
+                statsData.data.forEach(item => {
+                    // Crear un array con exactamente 5 elementos
+                    const rowData = [
+                        item.timestamp ? formatDateTime(item.timestamp) : 'N/A',
+                        item.station_name || 'Desconocido',
+                        typeof item.listeners === 'number' ? item.listeners : 0,
+                        item.avg_time ? `${item.avg_time} minutos` : 'N/A',
+                        typeof item.peak_listeners === 'number' ? item.peak_listeners : 0
+                    ];
+                    
+                    // Añadir fila a la tabla
+                    table.row.add(rowData);
+                });
+            }
+            
+            // Redibujar la tabla
+            table.draw();
+        } else {
+            // Si no existe la DataTable, renderizar normalmente e inicializar después
+            const tableBody = document.querySelector('#stats-table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = renderStatsTableRows();
+            }
+            initializeDataTable();
+        }
+        
+        // Actualizar tarjetas de resumen
+        updateSummaryCards();
+    } catch (e) {
+        console.error('Error al actualizar tabla de estadísticas:', e);
     }
-    
-    // Redibujar la tabla
-    table.draw();
-    
-    // Actualizar tarjetas de resumen
-    updateSummaryCards();
 }
 
 /**
@@ -1321,6 +1394,9 @@ function formatDateTime(timestamp) {
  * @returns {string} - Fecha formateada como YYYY-MM-DD
  */
 function formatDate(date) {
+    if (!date || !(date instanceof Date) || isNaN(date)) {
+        return '';
+    }
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -1448,10 +1524,10 @@ function showError(message) {
 
 /**
  * Muestra un loader mientras se cargan los datos
+ * @returns {string} HTML del loader
  */
-function showLoader() {
-    const contentEl = document.getElementById('content');
-    contentEl.innerHTML = `
+function getLoaderHTML() {
+    return `
         <div class="d-flex justify-content-center my-5">
             <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
                 <span class="visually-hidden">Cargando...</span>
@@ -1492,3 +1568,335 @@ document.addEventListener('DOMContentLoaded', function() {
         loadStatistics();
     }
 });
+
+/**
+ * Prepara datos iniciales si no hay datos reales disponibles
+ */
+function prepareInitialData() {
+    const timestamp = Math.floor(Date.now() / 1000);
+    // Datos de ejemplo mejorados para asegurar estructura correcta
+    return {
+        summary: {
+            total_listeners: 0,
+            avg_daily: 0,
+            peak_listeners: 0,
+            most_popular: 'Cargando...'
+        },
+        data: [
+            // Asegurarnos de tener al menos una fila con datos válidos en cada columna
+            {
+                timestamp: timestamp, 
+                station_name: 'Cargando datos...',
+                listeners: 0,
+                avg_time: 0,
+                peak_listeners: 0
+            },
+            // Segunda fila para evitar problemas de inicialización
+            {
+                timestamp: timestamp - 3600, 
+                station_name: 'Inicializando...',
+                listeners: 0,
+                avg_time: 0,
+                peak_listeners: 0
+            }
+        ],
+        stations: [],
+        listeners_trend: {
+            labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+            total: [0, 0, 0, 0, 0, 0, 0],
+            stations: {}
+        },
+        distribution: [
+            { name: 'Cargando datos...', value: 1 }
+        ],
+        peak_hours: {
+            '6': 0, '8': 0, '10': 0, '12': 0, '14': 0, 
+            '16': 0, '18': 0, '20': 0, '22': 0, '0': 0
+        }
+    };
+}
+
+/**
+ * Inicializa la tabla de datos
+ */
+function initializeDataTable() {
+    try {
+        // Verificar si la tabla existe antes de intentar inicializar DataTable
+        const table = document.getElementById('stats-table');
+        if (!table) {
+            console.error('Tabla no encontrada en el DOM');
+            return;
+        }
+        
+        // Verificar que la tabla tenga todas las columnas requeridas
+        const theadCells = table.querySelectorAll('thead th').length;
+        const tbodyRows = table.querySelectorAll('tbody tr');
+        
+        if (tbodyRows.length === 0) {
+            // Si no hay filas, agregar una fila con 5 celdas vacías
+            const tbody = table.querySelector('tbody') || document.createElement('tbody');
+            if (tbody.parentNode !== table) {
+                table.appendChild(tbody);
+            }
+            
+            const emptyRow = document.createElement('tr');
+            for (let i = 0; i < theadCells; i++) {
+                const cell = document.createElement('td');
+                cell.textContent = '-';
+                emptyRow.appendChild(cell);
+            }
+            tbody.appendChild(emptyRow);
+            console.log('Se agregó una fila vacía a la tabla');
+        } else {
+            // Verificar cada fila por posibles desajustes
+            tbodyRows.forEach((row, rowIndex) => {
+                const cells = row.querySelectorAll('td');
+                const cellCount = cells.length;
+                
+                if (cellCount !== theadCells) {
+                    console.warn(`Fila ${rowIndex + 1}: Desajuste de columnas (${cellCount} vs ${theadCells} esperadas)`);
+                    
+                    // Si hay un colspan, reemplazar la fila completa
+                    if (cells.length === 1 && cells[0].getAttribute('colspan')) {
+                        // Reemplazar esta fila con celdas individuales
+                        const newRow = document.createElement('tr');
+                        for (let i = 0; i < theadCells; i++) {
+                            const cell = document.createElement('td');
+                            cell.textContent = '-';
+                            newRow.appendChild(cell);
+                        }
+                        row.parentNode.replaceChild(newRow, row);
+                    } else {
+                        // Ajustar el número de celdas
+                        if (cellCount < theadCells) {
+                            // Agregar celdas faltantes
+                            for (let i = cellCount; i < theadCells; i++) {
+                                const cell = document.createElement('td');
+                                cell.textContent = '-';
+                                row.appendChild(cell);
+                            }
+                        } else {
+                            // Eliminar celdas sobrantes
+                            for (let i = theadCells; i < cellCount; i++) {
+                                row.removeChild(cells[theadCells]);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Destruir DataTable existente de manera segura
+        try {
+            var existingTable = $('#stats-table').DataTable();
+            if (existingTable) {
+                existingTable.destroy();
+            }
+        } catch (e) {
+            console.warn('No se pudo destruir la instancia anterior de DataTable:', e);
+            // Continuar de todos modos
+        }
+        
+        // Inicializar DataTable con un timeout para asegurar que el DOM esté listo
+        setTimeout(() => {
+            try {
+                $('#stats-table').DataTable({
+                    destroy: true,
+                    retrieve: true, // Para obtener la instancia si ya existe
+                    order: [[0, 'desc']],
+                    pageLength: 10,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                    },
+                    responsive: true,
+                    columnDefs: [
+                        { targets: 0, name: 'fecha' },
+                        { targets: 1, name: 'estacion' },
+                        { targets: 2, name: 'oyentes' },
+                        { targets: 3, name: 'duracion' },
+                        { targets: 4, name: 'pico' }
+                    ],
+                    // Evita errores si DataTables encuentra problemas
+                    drawCallback: function() {
+                        console.log('Tabla dibujada correctamente');
+                    },
+                    initComplete: function() {
+                        console.log('DataTable inicializada correctamente');
+                        
+                        // Verificar nuevamente después de inicializar
+                        const dtRows = $('#stats-table tbody tr').length;
+                        console.log(`Filas en la tabla después de inicializar: ${dtRows}`);
+                        
+                        // Disparar evento personalizado para indicar que DataTable está listo
+                        $(document).trigger('datatableInitialized');
+                    }
+                });
+            } catch (err) {
+                console.error('Error al inicializar DataTable:', err);
+            }
+        }, 300);
+    } catch (e) {
+        console.error('Error general al inicializar DataTable:', e);
+    }
+}
+
+/**
+ * Actualiza solo las filas de la tabla sin reinicializar DataTable
+ */
+function updateStatsTableRows() {
+    try {
+        if (!$.fn.dataTable.isDataTable('#stats-table')) {
+            console.warn('DataTable no inicializada al intentar actualizar filas');
+            
+            // Si la tabla aún no está inicializada, intentarlo en un momento
+            setTimeout(() => {
+                if ($.fn.dataTable.isDataTable('#stats-table')) {
+                    updateStatsTableRows();
+                }
+            }, 500);
+            
+            return;
+        }
+        
+        const table = $('#stats-table').DataTable();
+        
+        // Limpiar datos existentes
+        table.clear();
+        
+        // Agregar nuevos datos
+        if (statsData && statsData.data && statsData.data.length > 0) {
+            statsData.data.forEach(item => {
+                table.row.add([
+                    item.timestamp ? formatDateTime(item.timestamp) : '-',
+                    item.station_name || 'Desconocido',
+                    typeof item.listeners === 'number' ? item.listeners : 0,
+                    item.avg_time ? `${item.avg_time} minutos` : '-',
+                    typeof item.peak_listeners === 'number' ? item.peak_listeners : 0
+                ]);
+            });
+        } else {
+            // Agregar al menos una fila vacía
+            table.row.add(['-', '-', '-', '-', '-']);
+        }
+        
+        // Redibujar tabla
+        table.draw();
+        console.log('Tabla actualizada correctamente con nuevos datos');
+    } catch (e) {
+        console.error('Error al actualizar filas de la tabla:', e);
+    }
+}
+
+/**
+ * Actualiza la interfaz con los datos obtenidos
+ */
+function updateStatsInterface() {
+    // Actualizar tabla de datos
+    updateStatsTable();
+    
+    // Actualizar opciones de estación en el selector
+    const stationFilter = document.getElementById('station-filter');
+    if (stationFilter && statsData.stations) {
+        // Mantener la selección actual
+        const currentSelection = stationFilter.value;
+        
+        // Limpiar opciones existentes excepto "Todas las estaciones"
+        while (stationFilter.options.length > 1) {
+            stationFilter.remove(1);
+        }
+        
+        // Agregar nuevas opciones
+        statsData.stations.forEach(station => {
+            const option = document.createElement('option');
+            option.value = station.id;
+            option.text = station.name;
+            stationFilter.add(option);
+        });
+        
+        // Restaurar selección si existía
+        if (currentSelection && currentSelection !== 'all') {
+            stationFilter.value = currentSelection;
+        }
+    }
+    
+    // Configurar eventos
+    setupStatisticsEvents();
+}
+
+/**
+ * Oculta el indicador de carga
+ * Esta función es necesaria y fue referenciada pero no estaba definida
+ */
+function hideLoader() {
+    // No necesitamos hacer nada específico aquí, ya que la interfaz se actualiza 
+    // a través de otras funciones que reemplazan el contenido
+    console.log('Carga de datos completada');
+}
+
+/**
+ * Actualiza solo las filas de la tabla sin reinicializar DataTable
+ */
+function updateStatsTableRows() {
+    try {
+        if ($.fn.DataTable.isDataTable('#stats-table')) {
+            const table = $('#stats-table').DataTable();
+            
+            // Limpiar datos existentes
+            table.clear();
+            
+            // Agregar nuevos datos
+            if (statsData && statsData.data && statsData.data.length > 0) {
+                statsData.data.forEach(item => {
+                    table.row.add([
+                        item.timestamp ? formatDateTime(item.timestamp) : '-',
+                        item.station_name || 'Desconocido',
+                        typeof item.listeners === 'number' ? item.listeners : 0,
+                        item.avg_time ? `${item.avg_time} minutos` : '-',
+                        typeof item.peak_listeners === 'number' ? item.peak_listeners : 0
+                    ]);
+                });
+            } else {
+                // Agregar al menos una fila vacía
+                table.row.add(['-', '-', '-', '-', '-']);
+            }
+            
+            // Redibujar tabla
+            table.draw();
+        } else {
+            console.warn('DataTable no inicializada al intentar actualizar filas');
+        }
+    } catch (e) {
+        console.error('Error al actualizar filas de la tabla:', e);
+    }
+}
+
+/**
+ * Actualiza solo las tarjetas de resumen
+ */
+function updateStatsCards() {
+    if (!statsData || !statsData.summary) return;
+    
+    // Actualizar total de oyentes
+    const totalListenersEl = document.getElementById('total-listeners-count');
+    if (totalListenersEl) {
+        totalListenersEl.textContent = statsData.summary.total_listeners || 0;
+    }
+    
+    // Actualizar promedio diario
+    const avgDailyEl = document.getElementById('avg-daily-listeners');
+    if (avgDailyEl) {
+        avgDailyEl.textContent = statsData.summary.avg_daily || 0;
+    }
+    
+    // Actualizar pico máximo
+    const peakListenersEl = document.getElementById('peak-listeners');
+    if (peakListenersEl) {
+        peakListenersEl.textContent = statsData.summary.peak_listeners || 0;
+    }
+    
+    // Actualizar estación más popular
+    const popularStationEl = document.getElementById('most-popular-station');
+    if (popularStationEl) {
+        popularStationEl.textContent = statsData.summary.most_popular || 'N/A';
+    }
+}

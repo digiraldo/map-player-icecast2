@@ -174,3 +174,97 @@ body.dark-mode .stats-table-fullscreen .table {
 body.dark-mode #stats-table thead th {
     background-color: #343a40;
 }
+
+/* Estilos para DataTables */
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_paginate {
+    margin-bottom: 10px;
+}
+
+/* Arreglo para cuando DataTables inicializa incorrectamente */
+table.dataTable {
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Prevenir saltos en la tabla */
+.table-responsive {
+    overflow-x: auto;
+    min-height: 300px;
+}
+
+/* Mejora para visualización de filas vacías */
+table.dataTable tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode table.dataTable tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Tooltip de mensaje de error */
+.dataTables_wrapper:after {
+    content: attr(data-error);
+    display: none;
+    color: #dc3545;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.dataTables_wrapper.has-error:after {
+    display: block;
+}
+
+/* Tarjetas de resumen */
+.card.border-left-primary {
+    border-left: .25rem solid #4e73df !important;
+}
+
+.card.border-left-success {
+    border-left: .25rem solid #1cc88a !important;
+}
+
+.card.border-left-info {
+    border-left: .25rem solid #36b9cc !important;
+}
+
+.card.border-left-warning {
+    border-left: .25rem solid #f6c23e !important;
+}
+
+/* Mejorar la visualización de tablas en modo oscuro */
+.dark-mode table.dataTable {
+    color: #e9ecef;
+}
+
+.dark-mode table.dataTable thead th, 
+.dark-mode table.dataTable tfoot th {
+    color: #e9ecef;
+    border-color: #495057;
+}
+
+.dark-mode table.dataTable tbody td {
+    border-color: #495057;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_length, 
+.dark-mode .dataTables_wrapper .dataTables_filter, 
+.dark-mode .dataTables_wrapper .dataTables_info, 
+.dark-mode .dataTables_wrapper .dataTables_processing, 
+.dark-mode .dataTables_wrapper .dataTables_paginate {
+    color: #e9ecef;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #e9ecef !important;
+}
+
+.dark-mode .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #2c3135;
+    border: 1px solid #495057;
+    color: white !important;
+}
