@@ -3,168 +3,662 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuración de Estadísticas - Mapa Emisoras Icecast2</title>
+    <title>Configuración de Estadísticas - Map Player Icecast2</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/statistics.css">
+    <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon -->
     <link rel="icon" href="../img/radio-ico.ico" type="image/x-icon">
+    <style>
+        /* Estilos específicos para la configuración de estadísticas */
+        .config-section {
+            margin-bottom: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .config-section .card {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .config-header {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.25rem;
+            border-left: 5px solid #4e73df;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .dark-mode .config-header {
+            background-color: #2c3034;
+            border-left-color: #375edd;
+        }
+        
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .toggle-group label {
+            margin-right: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .save-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1030;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Animación para actualización */
+        @keyframes saved-notification {
+            0% { transform: translateY(100px); opacity: 0; }
+            10% { transform: translateY(0); opacity: 1; }
+            90% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+        
+        .save-notification {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1040;
+            animation: saved-notification 3s ease-in-out forwards;
+        }
+        
+        /* Mejoras para modo oscuro */
+        .dark-mode .form-select,
+        .dark-mode .form-control,
+        .dark-mode .input-group-text {
+            background-color: #2c3034;
+            color: #e9ecef;
+            border-color: #495057;
+        }
+        
+        .dark-mode .form-select:focus,
+        .dark-mode .form-control:focus {
+            background-color: #2c3034;
+            color: #e9ecef;
+            border-color: #6c757d;
+        }
+        
+        .dark-mode .text-muted {
+            color: #adb5bd !important;
+        }
+        
+        .dark-mode .card, 
+        .dark-mode .list-group-item {
+            background-color: #343a40;
+            border-color: #495057;
+        }
+        
+        .dark-mode .list-group-item:hover {
+            background-color: #3b4147;
+        }
+        
+        .dark-mode .form-text {
+            color: #adb5bd !important;
+        }
+        
+        .dark-mode .border-bottom {
+            border-color: #495057 !important;
+        }
+        
+        /* Transición suave para todos los elementos */
+        body, .card, input, select, button, .list-group-item, .dropdown-menu, 
+        .btn, .form-check-input, .form-control, .form-select, .input-group-text {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0"><i class="fas fa-cogs me-2"></i>Configuración de Recolección de Estadísticas</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle me-2"></i>
-                            Configure la recolección automática de estadísticas para su servidor Icecast2. Los datos recolectados se utilizarán para generar gráficos y reportes.
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <div class="logo-container mb-3">
+                            <img src="../img/DiGiraldo-Logo.png" alt="Logo" class="img-fluid" style="max-width: 60px; max-height: 60px; object-fit: contain;">
                         </div>
+                        <h5><strong>Map Player Icecast2</strong></h5>
+                        <p class="text-muted small">Panel de Administración</p>
+                    </div>
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html" data-section="dashboard">
+                                <i class="fas fa-tachometer-alt me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html" data-section="stations">
+                                <i class="fas fa-broadcast-tower me-2"></i>
+                                Estaciones
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html" data-section="statistics">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Estadísticas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html" data-section="config">
+                                <i class="fas fa-cogs me-2"></i>
+                                Configuración
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <hr>
+                    
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html" target="_blank">
+                                <i class="fas fa-map-marked-alt me-2"></i>
+                                Ver Mapa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="stats-settings.html">
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Config. Estadísticas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-                        <h5 class="mt-4 mb-3">Configuración del Cron Job</h5>
-                        <div class="card bg-light mb-4">
-                            <div class="card-body">
-                                <h6 class="text-primary">Linux/Unix (Crontab)</h6>
-                                <p>Agregue la siguiente línea a su crontab para recopilar datos cada 15 minutos:</p>
-                                <div class="bg-dark text-light p-3 rounded">
-                                    <code>*/15 * * * * php /ruta/absoluta/a/c:/laragon/www/map-player-icecast2/admin/api/save-statistics.php</code>
+            <!-- Contenido principal -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Configuración de Estadísticas
+                    </h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-sm btn-outline-primary me-2" id="backToStats">
+                            <i class="fas fa-arrow-left me-1"></i> Volver a Estadísticas
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="themeToggleBtn">
+                            <i class="fas fa-moon me-1" id="themeIcon"></i> <span id="themeText">Modo Oscuro</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contenido -->
+                <div class="config-header mb-4">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4 class="m-0">Opciones de Recopilación y Visualización</h4>
+                            <p class="text-muted mt-1 mb-0">Configure cómo se recopilan, almacenan y muestran las estadísticas de oyentes.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- Panel de configuración principal -->
+                    <div class="col-lg-8">
+                        <!-- Recopilación de datos -->
+                        <div class="config-section card shadow-sm mb-4">
+                            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-database me-2"></i> Recopilación de Datos
+                                </h5>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="enableStatsCollection" checked>
+                                    <label class="form-check-label" for="enableStatsCollection">Activado</label>
                                 </div>
-                                <p class="mt-2">Comando para editar crontab:</p>
-                                <div class="bg-dark text-light p-2 rounded">
-                                    <code>crontab -e</code>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="collectionInterval" class="form-label">Intervalo de Recopilación</label>
+                                    <select class="form-select" id="collectionInterval">
+                                        <option value="5">Cada 5 minutos</option>
+                                        <option value="10">Cada 10 minutos</option>
+                                        <option value="15" selected>Cada 15 minutos</option>
+                                        <option value="30">Cada 30 minutos</option>
+                                        <option value="60">Cada hora</option>
+                                    </select>
+                                    <div class="form-text">Define con qué frecuencia se registran los datos de oyentes.</div>
                                 </div>
                                 
-                                <h6 class="text-primary mt-4">Windows (Tareas Programadas)</h6>
-                                <p>Para Windows, cree una tarea programada para ejecutar:</p>
-                                <div class="bg-dark text-light p-3 rounded">
-                                    <code>php.exe C:\laragon\www\map-player-icecast2\admin\api\save-statistics.php</code>
+                                <div class="mb-3">
+                                    <label for="dataRetention" class="form-label">Retención de Datos</label>
+                                    <select class="form-select" id="dataRetention">
+                                        <option value="30">30 días</option>
+                                        <option value="60">60 días</option>
+                                        <option value="90" selected>90 días</option>
+                                        <option value="180">6 meses</option>
+                                        <option value="365">1 año</option>
+                                    </select>
+                                    <div class="form-text">Cuánto tiempo se conservan los datos históricos antes de ser eliminados.</div>
                                 </div>
-                                <p class="mt-2">Configure la tarea para que se ejecute cada 15 minutos.</p>
+                                
+                                <div class="mb-0">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="aggregateData" checked>
+                                        <label class="form-check-label" for="aggregateData">
+                                            Agregar datos antiguos
+                                        </label>
+                                    </div>
+                                    <div class="form-text ms-4">Los datos más antiguos que 7 días se agregarán por hora para ahorrar espacio.</div>
+                                </div>
                             </div>
                         </div>
-
-                        <h5 class="mt-4 mb-3">URL de Recolección Manual</h5>
-                        <div class="card bg-light mb-4">
+                        
+                        <!-- Visualización -->
+                        <div class="config-section card shadow-sm mb-4">
+                            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-pie me-2"></i> Visualización
+                                </h5>
+                            </div>
                             <div class="card-body">
-                                <p>También puede recolectar estadísticas manualmente accediendo a la siguiente URL con su clave secreta:</p>
-                                <div class="bg-dark text-light p-3 rounded">
-                                    <code>https://su-dominio.com/map-player-icecast2/admin/api/save-statistics.php?key=f8b4j9v2m3n7k8l1</code>
+                                <div class="mb-3">
+                                    <label for="defaultDateRange" class="form-label">Rango de Fechas Predeterminado</label>
+                                    <select class="form-select" id="defaultDateRange">
+                                        <option value="day">Hoy</option>
+                                        <option value="week" selected>Últimos 7 días</option>
+                                        <option value="month">Últimos 30 días</option>
+                                    </select>
                                 </div>
-                                <div class="alert alert-warning mt-3">
-                                    <i class="fas fa-exclamation-triangle me-2"></i>
-                                    Mantenga su clave secreta segura. Considera cambiarla en el archivo save-statistics.php.
+                                
+                                <div class="mb-3">
+                                    <label for="defaultChartType" class="form-label">Tipo de Gráfico Predeterminado</label>
+                                    <select class="form-select" id="defaultChartType">
+                                        <option value="line" selected>Línea</option>
+                                        <option value="bar">Barras</option>
+                                        <option value="area">Área</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="showRealTimeUpdates" checked>
+                                        <label class="form-check-label" for="showRealTimeUpdates">
+                                            Actualizar datos en tiempo real
+                                        </label>
+                                    </div>
+                                    <div class="form-text ms-4">Los gráficos y tablas se actualizarán automáticamente cada minuto.</div>
+                                </div>
+                                
+                                <div class="mb-0">
+                                    <label for="colorTheme" class="form-label">Tema de Colores para Gráficos</label>
+                                    <select class="form-select" id="colorTheme">
+                                        <option value="default" selected>Predeterminado</option>
+                                        <option value="pastel">Pastel</option>
+                                        <option value="vibrant">Vibrante</option>
+                                        <option value="monochrome">Monocromático</option>
+                                        <option value="auto">Automático (según tema)</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-
-                        <h5 class="mt-4 mb-3">Prueba de Recolección</h5>
-                        <div class="mb-4">
-                            <button class="btn btn-primary" id="testCollectionBtn">
-                                <i class="fas fa-vial me-2"></i> Probar Recolección
-                            </button>
-                            <div id="testResult" class="mt-3" style="display: none;"></div>
-                        </div>
-
-                        <h5 class="mt-4 mb-3">Limpieza de Datos</h5>
-                        <div class="card bg-light mb-4">
+                        
+                        <!-- Opciones Avanzadas -->
+                        <div class="config-section card shadow-sm">
+                            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-cogs me-2"></i> Opciones Avanzadas
+                                </h5>
+                            </div>
                             <div class="card-body">
-                                <p>Por defecto, los datos más antiguos de 90 días se eliminan automáticamente. Puede borrar todos los datos ahora:</p>
-                                <button class="btn btn-danger" id="clearDataBtn">
-                                    <i class="fas fa-trash-alt me-2"></i> Borrar Todos los Datos
-                                </button>
-                                <p class="text-muted mt-2"><small>Esta acción no se puede deshacer.</small></p>
+                                <div class="mb-3">
+                                    <label for="storageMethod" class="form-label">Método de Almacenamiento</label>
+                                    <select class="form-select" id="storageMethod">
+                                        <option value="json" selected>Archivos JSON</option>
+                                        <option value="sqlite">Base de datos SQLite</option>
+                                        <option value="mysql">MySQL/MariaDB</option>
+                                    </select>
+                                    <div class="form-text">Cómo se almacenarán los datos de estadísticas.</div>
+                                </div>
+                                
+                                <div id="dbSettings" class="mb-3 d-none">
+                                    <label class="form-label">Configuración de Base de Datos</label>
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text">Host</span>
+                                        <input type="text" class="form-control" id="dbHost" placeholder="localhost">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text">Usuario</span>
+                                        <input type="text" class="form-control" id="dbUser" placeholder="root">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text">Contraseña</span>
+                                        <input type="password" class="form-control" id="dbPass">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <span class="input-group-text">Base de Datos</span>
+                                        <input type="text" class="form-control" id="dbName" placeholder="map_player">
+                                    </div>
+                                    <button class="btn btn-outline-secondary btn-sm" id="testDbConnection">
+                                        <i class="fas fa-database me-1"></i> Probar Conexión
+                                    </button>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="statsFilePath" class="form-label">Ruta de Archivos de Estadísticas</label>
+                                    <input type="text" class="form-control" id="statsFilePath" value="../data/statistics/">
+                                    <div class="form-text">Directorio donde se guardarán los archivos de estadísticas (json).</div>
+                                </div>
+                                
+                                <div class="mb-0">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="enableBackups">
+                                        <label class="form-check-label" for="enableBackups">
+                                            Habilitar copias de seguridad automáticas
+                                        </label>
+                                    </div>
+                                    <div class="form-text ms-4">Se realizará una copia de seguridad semanal de los datos de estadísticas.</div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <a href="index.html" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left me-2"></i> Volver al Panel
-                            </a>
                         </div>
                     </div>
+                    
+                    <!-- Panel lateral -->
+                    <div class="col-lg-4">
+                        <!-- Estado Actual -->
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-transparent">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-info-circle me-2"></i> Estado de Estadísticas
+                                </h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>Total de registros</span>
+                                        <span class="badge rounded-pill bg-primary">1,245</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>Espacio utilizado</span>
+                                        <span class="badge rounded-pill bg-info">2.3 MB</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>Última actualización</span>
+                                        <span class="text-muted">Hoy 14:30</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>Estadísticas desde</span>
+                                        <span class="text-muted">01/03/2023</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Acciones -->
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-transparent">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-tasks me-2"></i> Acciones
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-primary" id="manualCollectionBtn">
+                                        <i class="fas fa-sync-alt me-1"></i> Recopilar Datos Ahora
+                                    </button>
+                                    <button class="btn btn-outline-info" id="exportAllStatsBtn">
+                                        <i class="fas fa-file-export me-1"></i> Exportar Todos los Datos
+                                    </button>
+                                    <button class="btn btn-outline-warning" id="purgeOldDataBtn">
+                                        <i class="fas fa-broom me-1"></i> Limpiar Datos Antiguos
+                                    </button>
+                                    <button class="btn btn-outline-danger" id="resetStatsBtn">
+                                        <i class="fas fa-trash-alt me-1"></i> Reiniciar Estadísticas
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ayuda -->
+                        <div class="card shadow-sm mb-4 border-info">
+                            <div class="card-header bg-transparent text-info border-info">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-question-circle me-2"></i> Ayuda
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2">Para recopilar estadísticas, asegúrese de que:</p>
+                                <ul class="mb-0">
+                                    <li>El servidor Icecast2 está accesible</li>
+                                    <li>La carpeta de estadísticas tiene permisos de escritura</li>
+                                    <li>El intervalo de recopilación es adecuado para su tráfico</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-transparent border-info">
+                                <a href="#" class="btn btn-sm btn-info w-100" id="showHelpModal">
+                                    <i class="fas fa-book me-1"></i> Ver Documentación
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Botón guardar fijo -->
+                <button class="btn btn-primary btn-lg save-btn shadow" id="saveSettingsBtn">
+                    <i class="fas fa-save me-2"></i> Guardar Configuración
+                </button>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Modal de Ayuda -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Guía de Configuración de Estadísticas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Recopilación de Datos</h4>
+                    <p>El sistema recopila automáticamente datos sobre oyentes de cada estación a intervalos regulares...</p>
+                    
+                    <!-- Contenido de ayuda adicional... -->
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i> Para preguntas adicionales, consulte la documentación completa o contacte al soporte.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
-
+    
+    <!-- Modal de Confirmación de Reinicio -->
+    <div class="modal fade" id="resetConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Confirmar Reinicio de Estadísticas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>¡Advertencia!</strong> Esta acción eliminará <strong>permanentemente</strong> todos los datos históricos de estadísticas.
+                    </div>
+                    <p>Esta acción no se puede deshacer. ¿Está seguro que desea continuar?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmResetBtn">
+                        <i class="fas fa-trash-alt me-1"></i> Sí, reiniciar estadísticas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/date-utils.js"></script> <!-- Nuevo script de utilidades de fecha -->
+    <script src="js/theme-sync.js"></script>
     
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Botón para probar la recolección de estadísticas
-        document.getElementById('testCollectionBtn').addEventListener('click', function() {
-            this.disabled = true;
-            this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Probando...';
+        // Verificar tema al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener tema del localStorage
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
             
-            const resultDiv = document.getElementById('testResult');
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<div class="alert alert-info">Probando recolección de estadísticas...</div>';
+            // Actualizar el reloj con la hora de Colombia
+            updateColombianClock();
+            setInterval(updateColombianClock, 1000);
             
-            fetch('api/save-statistics.php?key=f8b4j9v2m3n7k8l1')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        resultDiv.innerHTML = '<div class="alert alert-danger">' +
-                            '<i class="fas fa-exclamation-circle me-2"></i>' +
-                            'Error: ' + data.message + '</div>';
-                    } else {
-                        resultDiv.innerHTML = '<div class="alert alert-success">' +
-                            '<i class="fas fa-check-circle me-2"></i>' +
-                            'Estadísticas guardadas correctamente. ' +
-                            'Fecha: ' + data.date + '. ' +
-                            'Estaciones procesadas: ' + data.stations_processed + '</div>';
-                    }
-                })
-                .catch(error => {
-                    resultDiv.innerHTML = '<div class="alert alert-danger">' +
-                        '<i class="fas fa-exclamation-circle me-2"></i>' +
-                        'Error de conexión: ' + error.message + '</div>';
-                })
-                .finally(() => {
-                    this.disabled = false;
-                    this.innerHTML = '<i class="fas fa-vial me-2"></i> Probar Recolección';
-                });
-        });
-        
-        // Botón para borrar todos los datos de estadísticas
-        document.getElementById('clearDataBtn').addEventListener('click', function() {
-            if (confirm('¿Está seguro de que desea borrar TODOS los datos de estadísticas? Esta acción no se puede deshacer.')) {
-                this.disabled = true;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Borrando...';
+            // Aplicar tema a modales (necesario usar clase para modales)
+            document.querySelectorAll('.modal').forEach(modal => {
+                if (savedTheme === 'dark') {
+                    styleDarkModeModal(modal);
+                }
+            });
+            
+            // Evento para toggle de tema
+            document.getElementById('themeToggleBtn').addEventListener('click', function() {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const newTheme = isDarkMode ? 'light' : 'dark';
                 
-                fetch('api/clear-statistics.php?key=f8b4j9v2m3n7k8l1')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert('Error: ' + data.message);
-                        } else {
-                            alert('Datos borrados correctamente');
-                        }
-                    })
-                    .catch(error => {
-                        alert('Error de conexión: ' + error.message);
-                    })
-                    .finally(() => {
+                // Guardar en localStorage
+                localStorage.setItem('theme', newTheme);
+                
+                // Aplicar nuevo tema
+                applyTheme(newTheme);
+                
+                // Actualizar todos los modales
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (newTheme === 'dark') {
+                        styleDarkModeModal(modal);
+                    } else {
+                        removeModalDarkStyles(modal);
+                    }
+                });
+            });
+            
+            // Evento para volver a estadísticas
+            document.getElementById('backToStats').addEventListener('click', function() {
+                window.location.href = 'index.html?section=statistics';
+            });
+            
+            // Cambiar visibilidad de configuración DB
+            document.getElementById('storageMethod').addEventListener('change', function() {
+                const dbSettings = document.getElementById('dbSettings');
+                dbSettings.classList.toggle('d-none', this.value === 'json');
+            });
+            
+            // Botón guardar
+            document.getElementById('saveSettingsBtn').addEventListener('click', function() {
+                // Simular guardado
+                const notification = document.createElement('div');
+                notification.className = 'alert alert-success shadow save-notification';
+                notification.innerHTML = '<i class="fas fa-check-circle me-2"></i> Configuración guardada correctamente';
+                document.body.appendChild(notification);
+                
+                // Eliminar después de la animación
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 3000);
+            });
+            
+            // Modal de reinicio
+            document.getElementById('resetStatsBtn').addEventListener('click', function() {
+                const resetModal = new bootstrap.Modal(document.getElementById('resetConfirmModal'));
+                resetModal.show();
+            });
+            
+            // Modal de ayuda
+            document.getElementById('showHelpModal').addEventListener('click', function(e) {
+                e.preventDefault();
+                const helpModal = new bootstrap.Modal(document.getElementById('helpModal'));
+                helpModal.show();
+            });
+            
+            // Simulación de recopilación manual
+            document.getElementById('manualCollectionBtn').addEventListener('click', function() {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Recopilando...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check me-1"></i> Completado';
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
                         this.disabled = false;
-                        this.innerHTML = '<i class="fas fa-trash-alt me-2"></i> Borrar Todos los Datos';
-                    });
-            }
+                    }, 2000);
+                }, 3000);
+            });
         });
         
-        // Cargar tema guardado
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
+        /**
+         * Actualiza el reloj con la hora actual de Colombia
+         */
+        function updateColombianClock() {
+            const lastUpdateSpan = document.querySelector('.list-group-item:nth-child(3) .text-muted');
+            if (lastUpdateSpan) {
+                lastUpdateSpan.textContent = 'Hoy ' + getCurrentColombiaTime(true);
+            }
         }
-    });
+        
+        // Función para aplicar tema
+        function applyTheme(theme) {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeText.textContent = 'Modo Claro';
+            } else {
+                body.classList.remove('dark-mode');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeText.textContent = 'Modo Oscuro';
+            }
+        }
+        
+        // Función para aplicar estilos de modo oscuro a modales
+        function styleDarkModeModal(modal) {
+            modal.classList.add('bg-dark', 'text-light');
+            modal.querySelectorAll('.modal-content').forEach(content => {
+                content.classList.add('bg-dark', 'text-light');
+            });
+        }
+        
+        // Función para eliminar estilos de modo oscuro de modales
+        function removeModalDarkStyles(modal) {
+            modal.classList.remove('bg-dark', 'text-light');
+            modal.querySelectorAll('.modal-content').forEach(content => {
+                content.classList.remove('bg-dark', 'text-light');
+            });
+        }
     </script>
 </body>
 </html>

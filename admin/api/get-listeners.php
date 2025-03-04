@@ -6,6 +6,9 @@
  * la compara con la configuración y devuelve los datos estructurados.
  */
 
+// Establecer zona horaria a Colombia (UTC-5)
+date_default_timezone_set('America/Bogota');
+
 // Permitir CORS para peticiones AJAX
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
@@ -245,8 +248,8 @@ function getAllStationsStatus() {
             'totalSources' => $totalSources,
             'totalListeners' => $totalListeners,
             'availabilityPercentage' => $availabilityPercentage,
-            'time' => date('H:i:s'),
-            'lastUpdate' => date('Y-m-d H:i:s')
+            'time' => date('H:i:s'),  // Hora de Colombia
+            'lastUpdate' => date('Y-m-d H:i:s')  // Fecha/hora de Colombia
         ],
         'server' => [
             'version' => $serverInfo['icestats']['server_id'] ?? 'Desconocido',

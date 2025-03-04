@@ -56,8 +56,11 @@ function loadStatistics() {
                     return;
                 }
                 
-                // Almacenar datos
-                statsData = data.stats;
+                // Depurar la respuesta para ver su estructura
+                console.log('Respuesta API estadísticas:', data);
+                
+                // Almacenar datos, adaptando a la estructura esperada
+                statsData = adaptApiResponse(data);
                 
                 // Actualizar tarjetas inmediatamente
                 updateStatsCards();
@@ -1899,4 +1902,142 @@ function updateStatsCards() {
     if (popularStationEl) {
         popularStationEl.textContent = statsData.summary.most_popular || 'N/A';
     }
+}
+
+/**
+ * Adapta la respuesta de la API a la estructura esperada por el frontend
+ * @param {Object} apiResponse - Respuesta de la API
+ * @returns {Object} - Datos estructurados para el frontend
+ */
+function adaptApiResponse(apiResponse) {
+    // Crear un objeto con la estructura esperada
+    const adaptedData = {
+        summary: {},
+        data: [],
+        stations: [],
+        listeners_trend: {
+            labels: [],
+            total: [],
+            stations: {}
+        },
+        distribution: [],
+        peak_hours: {}
+    };
+    
+    // Verificar si tenemos la propiedad stats o si los datos están directamente en la raíz
+    const sourceData = apiResponse.stats || apiResponse;
+    
+    console.log('Adaptando datos:', sourceData);
+    
+    // Mapeo de propiedades para el resumen
+    if (sourceData.current) {
+        adaptedData.summary.total_listeners = sourceData.current.listeners || 0;
+    }
+    
+    if (sourceData.historical && sourceData.historical.listeners) {
+        adaptedData.summary.avg_daily = sourceData.historical.listeners.average || 0;
+        adaptedData.summary.peak_listeners = sourceData.historical.listeners.max || 0;
+    }
+    
+    if (sourceData.trends && sourceData.trends.stations && sourceData.trends.stations.top 
+        && sourceData.trends.stations.top.length > 0) {
+        adaptedData.summary.most_popular = sourceData.trends.stations.top[0].name || 'N/A';
+    }
+    
+    // Mapeo para los datos detallados
+    if (sourceData.data) {
+        adaptedData.data = sourceData.data;
+    } else if (sourceData.trends && sourceData.trends.listeners && sourceData.trends.listeners.hourly) {
+        // Crear datos detallados a partir de trends si no hay datos directos
+        adaptedData.data = sourceData.trends.listeners.hourly.map(item => {
+            return {
+                timestamp: Math.floor(new Date(item.time).getTime() / 1000),
+                station_name: 'Todas las estaciones',
+                listeners: item.count,
+                avg_time: '-',
+                peak_listeners: item.count
+            };
+        });
+    }
+    
+    // Mapeo para tendencias
+    if (sourceData.trends && sourceData.trends.listeners) {
+        if (sourceData.trends.listeners.hourly) {
+            adaptedData.listeners_trend.labels = sourceData.trends.listeners.hourly.map(item => 
+                Math.floor(new Date(item.time).getTime() / 1000));
+            adaptedData.listeners_trend.total = sourceData.trends.listeners.hourly.map(item => item.count);
+        }
+    }
+    
+    // Mapeo para distribución
+    if (sourceData.trends && sourceData.trends.stations && sourceData.trends.stations.top) {
+        adaptedData.distribution = sourceData.trends.stations.top.map(station => ({
+            name: station.name,
+            value: station.listeners
+        }));
+    }
+    
+    // Datos para horarios pico (simular si no hay datos)
+    adaptedData.peak_hours = sourceData.peak_hours || {
+        '6': 20, '8': 35, '10': 45, '12': 30, 
+        '14': 25, '16': 35, '18': 55, '20': 75, 
+        '22': 60, '0': 25
+    };
+    
+    console.log('Datos adaptados:', adaptedData);
+    return adaptedData;
+}
+
+/**
+ * Actualiza las tarjetas de resumen con los nuevos datos
+ */
+function updateStatsCards() {
+    // Aunque no tengamos summary, intentamos actualizar las tarjetas con los datos disponibles
+    const summary = statsData && statsData.summary ? statsData.summary : {};
+    
+    console.log('Actualizando tarjetas con:', summary);
+    
+    // Actualizar total de oyentes
+    const totalListenersEl = document.getElementById('total-listeners-count');
+    if (totalListenersEl) {
+        totalListenersEl.textContent = summary.total_listeners || 0;
+    }
+    
+    // Actualizar promedio diario
+    const avgDailyEl = document.getElementById('avg-daily-listeners');
+    if (avgDailyEl) {
+        avgDailyEl.textContent = summary.avg_daily || 0;
+    }
+    
+    // Actualizar pico máximo
+    const peakListenersEl = document.getElementById('peak-listeners');
+    if (peakListenersEl) {
+        peakListenersEl.textContent = summary.peak_listeners || 0;
+    }
+    
+    // Actualizar estación más popular
+    const popularStationEl = document.getElementById('most-popular-station');
+    if (popularStationEl) {
+        popularStationEl.textContent = summary.most_popular || 'N/A';
+    }
+    
+    // Animar las tarjetas para destacar la actualización
+    animateCards();
+}
+
+/**
+ * Anima las tarjetas para resaltar la actualización de datos
+ */
+function animateCards() {
+    const cards = document.querySelectorAll('.card.border-left-primary, .card.border-left-success, .card.border-left-info, .card.border-left-warning');
+    
+    cards.forEach(card => {
+        // Añadir clase para animación
+        card.classList.add('data-updated');
+        
+        // Remover clase después de la animación
+        setTimeout(() => {
+            card.classList.remove('data-updated');
+        }, 1500);
+    });
 }

@@ -43,7 +43,7 @@
 
 /* Estilos para los botones de bitrate */
 .bitrate-btn {
-    min-width: 80px; /* Reducido aún más para hacerlo más pequeño */
+    min-width: 100px; /* Aumentado de 80px a 100px para que sea más ancho */
     position: relative;
     --bs-btn-padding-y: 0.1rem !important; /* Padding exacto solicitado */
     --bs-btn-padding-x: 0.2rem !important;
@@ -106,4 +106,12 @@
 /* Transición suave para los botones */
 .btn {
     transition: all 0.2s ease-in-out;
+}
+
+/* Contenedor de columna de bitrate */
+#stationsTable th:nth-child(5),
+#stationsTable td:nth-child(5) {
+    min-width: 150px;
+    width: 150px;
+    text-align: center;
 }

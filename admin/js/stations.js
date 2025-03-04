@@ -178,7 +178,7 @@ function renderStationsModule(data) {
                                 <th>Nombre</th>
                                 <th>Frecuencia</th>
                                 <th style="width: 100px;">Oyentes</th>
-                                <th style="width: 100px;">Bitrate</th>
+                                <th style="width: 150px;">Bitrate</th>
                                 <th>Mount Point</th>
                                 <th style="width: 120px;">Acciones</th>
                             </tr>

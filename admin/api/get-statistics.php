@@ -6,6 +6,9 @@
  * para mostrarlas en la sección de estadísticas del panel de administración.
  */
 
+// Establecer zona horaria a Colombia (UTC-5)
+date_default_timezone_set('America/Bogota');
+
 // Permitir CORS para peticiones AJAX
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
@@ -127,7 +130,7 @@ function getHistoricalData() {
 function calculateStatistics($currentStats, $history) {
     $stats = [
         'current' => [
-            'timestamp' => date('Y-m-d H:i:s'),
+            'timestamp' => date('Y-m-d H:i:s'),  // Ahora usa zona horaria Colombia
             'listeners' => 0,
             'stations' => [
                 'total' => 0,
@@ -184,16 +187,16 @@ function calculateStatistics($currentStats, $history) {
         $stats['historical']['listeners']['min'] = count($listeners) > 0 
             ? min($listeners) : 0;
         
-        // Últimos datos para tendencias
+        // Últimos datos para tendencias - Ahora usando fechas colombianas
         $lastEntries = array_slice($history['listeners'], -24);
         $stats['trends']['listeners']['hourly'] = array_map(function($entry) {
             return [
-                'time' => date('H:i', strtotime($entry['timestamp'])),
+                'time' => date('H:i', strtotime($entry['timestamp'])),  // Formateado con zona horaria Colombia
                 'count' => $entry['count']
             ];
         }, $lastEntries);
         
-        // Agrupar por día
+        // Agrupar por día - Ahora usando fechas colombianas
         $dailyData = [];
         foreach ($history['listeners'] as $entry) {
             $day = date('Y-m-d', strtotime($entry['timestamp']));
@@ -205,7 +208,7 @@ function calculateStatistics($currentStats, $history) {
         
         foreach ($dailyData as $day => $counts) {
             $stats['trends']['listeners']['daily'][] = [
-                'date' => $day,
+                'date' => $day,  // Fecha en formato Colombia
                 'count' => round(array_sum($counts) / count($counts))
             ];
         }
@@ -228,5 +231,7 @@ $stats = calculateStatistics($currentStats, $history);
 // Devolver resultados
 echo json_encode([
     'error' => false,
+    'timezone' => 'America/Bogota',  // Añadimos la zona horaria a la respuesta
+    'serverTime' => date('Y-m-d H:i:s'),  // Hora actual del servidor en Colombia
     'stats' => $stats
 ]);
