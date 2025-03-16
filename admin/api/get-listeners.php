@@ -17,6 +17,19 @@ header("Content-Type: application/json; charset=UTF-8");
 // Definir constantes
 define('DATA_PATH', '../../data/');
 define('STATIONS_FILE', DATA_PATH . 'stations.json');
+define('CACHE_FILE', DATA_PATH . 'listeners_cache.json');
+define('CACHE_LIFETIME', 1800); // 30 minutos en segundos
+
+// Función para escribir en el log
+function api_log($message) {
+    $dir = __DIR__ . '/../logs';
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
+    $logFile = $dir . '/api_listeners.log';
+    $date = date('Y-m-d H:i:s');
+    file_put_contents($logFile, "[$date] $message\n", FILE_APPEND);
+}
 
 /**
  * Lee el archivo de estaciones JSON
@@ -38,17 +51,59 @@ function getStationsData() {
 }
 
 /**
+ * Guarda una copia en caché de los datos de oyentes
+ * @param array $data Los datos a guardar en caché
+ * @return bool Éxito de la operación
+ */
+function saveListenersCache($data) {
+    if (!is_dir(dirname(CACHE_FILE))) {
+        mkdir(dirname(CACHE_FILE), 0755, true);
+    }
+    
+    $cache = [
+        'timestamp' => time(),
+        'data' => $data
+    ];
+    
+    return file_put_contents(CACHE_FILE, json_encode($cache, JSON_PRETTY_PRINT)) !== false;
+}
+
+/**
+ * Obtiene datos de oyentes desde caché si están disponibles y vigentes
+ * @return array|null Datos de caché o null si no están disponibles
+ */
+function getListenersCache() {
+    if (!file_exists(CACHE_FILE)) {
+        return null;
+    }
+    
+    $cache = json_decode(file_get_contents(CACHE_FILE), true);
+    if (!is_array($cache) || !isset($cache['timestamp']) || !isset($cache['data'])) {
+        return null;
+    }
+    
+    // Verificar si la caché es válida (no ha expirado)
+    if (time() - $cache['timestamp'] > CACHE_LIFETIME) {
+        return null;
+    }
+    
+    return $cache['data'];
+}
+
+/**
  * Obtiene información detallada de un servidor Icecast
  * @param string $baseUrl URL base del servidor Icecast (ej: https://radio.policia.gov.co:8080)
  * @param string $statusPath Ruta al archivo de estado (normalmente status-json.xsl)
  * @param int $timeout Tiempo de espera en segundos
  * @return array|false Datos del servidor o array con error
  */
-function getIcecastServerInfo($baseUrl, $statusPath = 'status-json.xsl', $timeout = 5) {
+function getIcecastServerInfo($baseUrl, $statusPath = 'status-json.xsl', $timeout = 15) {
     // Normalizar URLs
     $baseUrl = rtrim($baseUrl, '/');
     $statusPath = ltrim($statusPath, '/');
     $fullUrl = "{$baseUrl}/{$statusPath}";
+    
+    api_log("Intentando conectar a: " . $fullUrl . " con timeout de " . $timeout . "s");
     
     // Configurar la solicitud curl
     $ch = curl_init();
@@ -73,6 +128,7 @@ function getIcecastServerInfo($baseUrl, $statusPath = 'status-json.xsl', $timeou
     
     // Verificar errores
     if ($errno || $httpCode !== 200) {
+        api_log("Error al conectar con Icecast: $error (código: $errno, HTTP: $httpCode)");
         return [
             'error' => true,
             'message' => $error ?: "Error HTTP: {$httpCode}",
@@ -84,6 +140,7 @@ function getIcecastServerInfo($baseUrl, $statusPath = 'status-json.xsl', $timeou
     $data = json_decode($response, true);
         
     if (json_last_error() !== JSON_ERROR_NONE) {
+        api_log("Error al decodificar respuesta JSON: " . json_last_error_msg());
         return [
             'error' => true,
             'message' => 'Error al decodificar JSON: ' . json_last_error_msg(),
@@ -91,6 +148,7 @@ function getIcecastServerInfo($baseUrl, $statusPath = 'status-json.xsl', $timeou
         ];
     }
     
+    api_log("Conexión exitosa a Icecast, datos obtenidos correctamente");
     return $data;
 }
 
@@ -101,6 +159,7 @@ function getIcecastServerInfo($baseUrl, $statusPath = 'status-json.xsl', $timeou
 function getAllStationsStatus() {
     $stations = getStationsData();
     if (isset($stations['error'])) {
+        api_log("Error al obtener datos de estaciones: " . $stations['message']);
         return $stations;
     }
     
@@ -109,22 +168,40 @@ function getAllStationsStatus() {
     $statusPath = $stations['reproductor']['statusUrl'] ?? 'status-json.xsl';
     
     if (empty($baseUrl)) {
+        api_log("URL base del servidor no configurada");
         return ['error' => true, 'message' => 'URL base del servidor no configurada'];
     }
     
-    // Obtener información de servidor una sola vez
+    // Intentar obtener datos del servidor
+    api_log("Obteniendo información del servidor Icecast: " . $baseUrl);
     $serverInfo = getIcecastServerInfo($baseUrl, $statusPath);
     
-    // Para depuración - guardar la respuesta completa del servidor
-    file_put_contents(DATA_PATH . 'debug_icecast_response.json', json_encode($serverInfo, JSON_PRETTY_PRINT));
-    
+    // Si hay error, intentar usar caché
     if (isset($serverInfo['error']) && $serverInfo['error']) {
+        api_log("Error al obtener datos del servidor, intentando usar caché");
+        $cachedData = getListenersCache();
+        
+        if ($cachedData) {
+            api_log("Usando datos de caché (de hace " . round((time() - $cachedData['cache_timestamp'])/60) . " minutos)");
+            
+            // Marcar que estamos usando caché
+            $cachedData['using_cache'] = true;
+            $cachedData['cache_error'] = $serverInfo['message'] ?? 'Error de conexión con el servidor';
+            
+            return $cachedData;
+        }
+        
+        // No hay caché disponible
+        api_log("No hay caché disponible, devolviendo error");
         return [
             'error' => true,
             'message' => $serverInfo['message'] ?? 'Error al conectar con el servidor',
             'stations' => []
         ];
     }
+    
+    // Para depuración - guardar la respuesta completa del servidor
+    file_put_contents(DATA_PATH . 'debug_icecast_response.json', json_encode($serverInfo, JSON_PRETTY_PRINT));
     
     // Contar el número total de sources en el servidor Icecast
     $totalSources = 0;
@@ -238,7 +315,7 @@ function getAllStationsStatus() {
     $topStations = array_slice($topStations, 0, 5); // Solo las 5 mejores
 
     // Construir respuesta final
-    return [
+    $response = [
         'error' => false,
         'hostUrl' => $baseUrl, // Añadir hostUrl a la respuesta para uso en la interfaz
         'stats' => [
@@ -258,8 +335,14 @@ function getAllStationsStatus() {
             'location' => $serverInfo['icestats']['location'] ?? 'No disponible'
         ],
         'stations' => $results,
-        'top' => $topStations
+        'top' => $topStations,
+        'cache_timestamp' => time() // Marca de tiempo para la caché
     ];
+    
+    // Guardar en caché para uso futuro
+    saveListenersCache($response);
+    
+    return $response;
 }
 
 // Ejecutar y devolver resultados

@@ -267,23 +267,35 @@
                 this.disabled = true;
                 this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Borrando...';
                 
+                const resultDiv = document.getElementById('testResult');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = '<div class="alert alert-info">Procesando solicitud de borrado...</div>';
+                
                 const clearApiUrl = BASE_URL + '/map-player-icecast2/admin/api/clear-statistics.php';
                 fetch(clearApiUrl + '?key=' + API_KEY)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
+                            return response.text().then(text => {
+                                throw new Error(`HTTP error! status: ${response.status}, respuesta: ${text}`);
+                            });
                         }
                         return response.json();
                     })
                     .then(data => {
                         if (data.error) {
-                            alert('Error: ' + data.message);
+                            resultDiv.innerHTML = '<div class="alert alert-danger">' +
+                                '<i class="fas fa-exclamation-circle me-2"></i>' +
+                                'Error: ' + data.message + '</div>';
                         } else {
-                            alert('Datos borrados correctamente');
+                            resultDiv.innerHTML = '<div class="alert alert-success">' +
+                                '<i class="fas fa-check-circle me-2"></i>' +
+                                data.message + ' Fecha: ' + data.date + '</div>';
                         }
                     })
                     .catch(error => {
-                        alert('Error de conexión: ' + error.message);
+                        resultDiv.innerHTML = '<div class="alert alert-danger">' +
+                            '<i class="fas fa-exclamation-circle me-2"></i>' +
+                            'Error de conexión: ' + error.message + '</div>';
                         console.error('Error completo:', error);
                     })
                     .finally(() => {

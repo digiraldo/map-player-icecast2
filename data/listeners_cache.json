@@ -1,0 +1,518 @@
+{
+    "timestamp": 1742097164,
+    "data": {
+        "error": false,
+        "hostUrl": "https:\/\/radio.policia.gov.co:8080",
+        "stats": {
+            "total": 41,
+            "online": 19,
+            "offline": 22,
+            "totalSources": 20,
+            "totalListeners": 75,
+            "availabilityPercentage": 46,
+            "time": "22:52:44",
+            "lastUpdate": "2025-03-15 22:52:44"
+        },
+        "server": {
+            "version": "Icecast 2.4.3",
+            "host": "192.168.2.109",
+            "admin": "coest.gremi@localhost",
+            "location": "Bogota"
+        },
+        "stations": [
+            {
+                "online": false,
+                "name": "Apartad\u00f3",
+                "serverUrl": "apartado",
+                "frecuencia": "99.9 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/apartado"
+            },
+            {
+                "online": false,
+                "name": "Arauca",
+                "serverUrl": "arauca",
+                "frecuencia": "90.3 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/arauca"
+            },
+            {
+                "online": true,
+                "name": "Armenia",
+                "serverUrl": "armenia",
+                "frecuencia": "101.4 FM",
+                "listeners": 1,
+                "description": "radiopolicianacional",
+                "title": "",
+                "bitrate": "",
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/armenia",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": false,
+                "name": "Barranquilla",
+                "serverUrl": "barranquilla",
+                "frecuencia": "102.6 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/barranquilla"
+            },
+            {
+                "online": true,
+                "name": "Bogot\u00e1",
+                "serverUrl": "inhouse",
+                "frecuencia": "92.4 FM",
+                "listeners": 56,
+                "description": "Unspecified description",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crosover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/inhouse",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Bucaramanga",
+                "serverUrl": "bucaramanga",
+                "frecuencia": "91.7 FM",
+                "listeners": 1,
+                "description": "Radio Policia Nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crosover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/bucaramanga",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": false,
+                "name": "Buenaventura",
+                "serverUrl": "buenaventura",
+                "frecuencia": "107.9 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/buenaventura"
+            },
+            {
+                "online": true,
+                "name": "Cali",
+                "serverUrl": "cali",
+                "frecuencia": "102.0 FM",
+                "listeners": 2,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/cali",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": false,
+                "name": "Cartagena",
+                "serverUrl": "cartagena",
+                "frecuencia": "106.0 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/cartagena"
+            },
+            {
+                "online": false,
+                "name": "Caucasia",
+                "serverUrl": "caucasia",
+                "frecuencia": "98.2 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/caucasia"
+            },
+            {
+                "online": true,
+                "name": "C\u00facuta",
+                "serverUrl": "cucuta",
+                "frecuencia": "88.7 FM",
+                "listeners": 0,
+                "description": "Radio Policia Nacional",
+                "title": "",
+                "bitrate": "",
+                "genre": "88.7 fm",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/cucuta",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": true,
+                "name": "Florencia",
+                "serverUrl": "florencia",
+                "frecuencia": "103.1 FM",
+                "listeners": 0,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": "",
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/florencia",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": true,
+                "name": "Ibagu\u00e9",
+                "serverUrl": "ibague",
+                "frecuencia": "100.0 FM",
+                "listeners": 2,
+                "description": "Radio Policia Nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "100.0 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/ibague",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": true,
+                "name": "Leticia",
+                "serverUrl": "leticia",
+                "frecuencia": "98.9 FM",
+                "listeners": 0,
+                "description": "Radio policia nacional",
+                "title": "",
+                "bitrate": "",
+                "genre": "98.9 fm",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/leticia",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Manizales",
+                "serverUrl": "manizales",
+                "frecuencia": "103.7 FM",
+                "listeners": 4,
+                "description": "radio policia manizales",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/manizales",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Medell\u00edn",
+                "serverUrl": "medellin",
+                "frecuencia": "96.4 FM",
+                "listeners": 1,
+                "description": "radio policia nacional",
+                "title": "url_get_listener: failed with error: url_get_listener: failed with error: url_get_listener: failed with error: url_get_listener: failed with error: url_get_listener: failed with error: ",
+                "bitrate": 96,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/medellin",
+                "ice-bitrate": 96,
+                "audio_info": "ice-bitrate=96;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": false,
+                "name": "Mit\u00fa",
+                "serverUrl": "mitu",
+                "frecuencia": "91.3 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/mitu"
+            },
+            {
+                "online": true,
+                "name": "Mocoa",
+                "serverUrl": "mocoa",
+                "frecuencia": "92.3 FM",
+                "listeners": 0,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": "",
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/mocoa",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=1;ice-samplerate=44100"
+            },
+            {
+                "online": false,
+                "name": "Moniquira",
+                "serverUrl": "moniquira",
+                "frecuencia": "92.1 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/moniquira"
+            },
+            {
+                "online": false,
+                "name": "Monter\u00eda",
+                "serverUrl": "monteria",
+                "frecuencia": "95.5 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/monteria"
+            },
+            {
+                "online": true,
+                "name": "Neiva",
+                "serverUrl": "neiva",
+                "frecuencia": "97.3 FM",
+                "listeners": 1,
+                "description": "radio policia nacional ",
+                "title": "",
+                "bitrate": "",
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/neiva",
+                "ice-bitrate": 192,
+                "audio_info": "ice-bitrate=192;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": true,
+                "name": "Pasto",
+                "serverUrl": "pasto",
+                "frecuencia": "89.5 FM",
+                "listeners": 0,
+                "description": "Radio Policia Nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "89.5 fm",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/pasto",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": true,
+                "name": "Pereira",
+                "serverUrl": "pereira",
+                "frecuencia": "99.1 FM",
+                "listeners": 1,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": "",
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/pereira",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Popay\u00e1n",
+                "serverUrl": "popayan",
+                "frecuencia": "94.1 FM",
+                "listeners": 0,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crosover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/popayan",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": false,
+                "name": "Puerto Carre\u00f1o",
+                "serverUrl": "puertocarreno",
+                "frecuencia": "99.3 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/puertocarreno"
+            },
+            {
+                "online": false,
+                "name": "Puerto In\u00edrida",
+                "serverUrl": "puertoinirida",
+                "frecuencia": "95.1 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/puertoinirida"
+            },
+            {
+                "online": true,
+                "name": "Quibd\u00f3",
+                "serverUrl": "quibdo",
+                "frecuencia": "104.3 FM",
+                "listeners": 0,
+                "description": "Radio Policia Quibdo",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/quibdo",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": false,
+                "name": "Riohacha",
+                "serverUrl": "riohacha",
+                "frecuencia": "88.7 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/riohacha"
+            },
+            {
+                "online": false,
+                "name": "San Andr\u00e9s",
+                "serverUrl": "sanandres",
+                "frecuencia": "105.5 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/sanandres"
+            },
+            {
+                "online": false,
+                "name": "San Jos\u00e9 del Guaviare",
+                "serverUrl": "guaviare",
+                "frecuencia": "91.7 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/guaviare"
+            },
+            {
+                "online": false,
+                "name": "San Vicente del Cagu\u00e1n",
+                "serverUrl": "sanvicentedelcaguan",
+                "frecuencia": "97.1 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/sanvicentedelcaguan"
+            },
+            {
+                "online": true,
+                "name": "Santa Marta",
+                "serverUrl": "santamarta",
+                "frecuencia": "105.4 FM",
+                "listeners": 3,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 96,
+                "genre": "Crossover ",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/santamarta",
+                "ice-bitrate": 96,
+                "audio_info": "ice-bitrate=96;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": false,
+                "name": "Santa Rosa de Viterbo",
+                "serverUrl": "santarosadeviterbo",
+                "frecuencia": "98.1 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/santarosadeviterbo"
+            },
+            {
+                "online": false,
+                "name": "Saravena",
+                "serverUrl": "saravena",
+                "frecuencia": "107.9 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/saravena"
+            },
+            {
+                "online": false,
+                "name": "Sincelejo",
+                "serverUrl": "sincelejo",
+                "frecuencia": "95.7 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/sincelejo"
+            },
+            {
+                "online": false,
+                "name": "Socorro",
+                "serverUrl": "socorro",
+                "frecuencia": "Online",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/socorro"
+            },
+            {
+                "online": false,
+                "name": "Tumaco",
+                "serverUrl": "tumaco",
+                "frecuencia": "Online",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/tumaco"
+            },
+            {
+                "online": true,
+                "name": "Tunja",
+                "serverUrl": "tunja",
+                "frecuencia": "93.6 FM",
+                "listeners": 1,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "Crosover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/tunja",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=96000"
+            },
+            {
+                "online": false,
+                "name": "Valledupar",
+                "serverUrl": "valledupar",
+                "frecuencia": "92.7 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/valledupar"
+            },
+            {
+                "online": true,
+                "name": "Villavicencio",
+                "serverUrl": "villavicencio",
+                "frecuencia": "101.8 FM",
+                "listeners": 2,
+                "description": "emisora villavicencio",
+                "title": "",
+                "bitrate": "",
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/villavicencio",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            },
+            {
+                "online": false,
+                "name": "Yopal",
+                "serverUrl": "yopal",
+                "frecuencia": "91.7 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/yopal"
+            }
+        ],
+        "top": [
+            {
+                "online": true,
+                "name": "Bogot\u00e1",
+                "serverUrl": "inhouse",
+                "frecuencia": "92.4 FM",
+                "listeners": 56,
+                "description": "Unspecified description",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crosover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/inhouse",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Manizales",
+                "serverUrl": "manizales",
+                "frecuencia": "103.7 FM",
+                "listeners": 4,
+                "description": "radio policia manizales",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/manizales",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Santa Marta",
+                "serverUrl": "santamarta",
+                "frecuencia": "105.4 FM",
+                "listeners": 3,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 96,
+                "genre": "Crossover ",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/santamarta",
+                "ice-bitrate": 96,
+                "audio_info": "ice-bitrate=96;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Cali",
+                "serverUrl": "cali",
+                "frecuencia": "102.0 FM",
+                "listeners": 2,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/cali",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
+                "name": "Ibagu\u00e9",
+                "serverUrl": "ibague",
+                "frecuencia": "100.0 FM",
+                "listeners": 2,
+                "description": "Radio Policia Nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "100.0 FM",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/ibague",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
+            }
+        ],
+        "cache_timestamp": 1742097164
+    }
+}

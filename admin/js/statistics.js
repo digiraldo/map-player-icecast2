@@ -2041,3 +2041,126 @@ function animateCards() {
         }, 1500);
     });
 }
+
+// Función para actualizar las estadísticas
+function updateStatistics() {
+    // Mostrar indicador de carga
+    $("#refresh-stats-icon").addClass("fa-spin");
+    
+    // Construir la URL correcta usando la configuración global
+    const apiUrl = (Config && Config.apiBase) 
+        ? Config.apiBase + 'get-statistics.php' 
+        : 'api/get-statistics.php';
+    
+    console.log('Obteniendo estadísticas desde:', apiUrl);
+    
+    // Realizar petición AJAX para obtener los datos actualizados
+    $.ajax({
+        url: apiUrl,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Datos de estadísticas recibidos:', data);
+            
+            // Procesar los datos y actualizar la interfaz
+            processStatisticsData(data);
+            
+            // Mostrar notificación de éxito
+            showToast('Éxito', 'Estadísticas actualizadas correctamente', 'success');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al actualizar estadísticas:', error);
+            console.error('Respuesta del servidor:', xhr.responseText);
+            showToast('Error', 'No se pudieron actualizar las estadísticas', 'error');
+        },
+        complete: function() {
+            // Detener el indicador de carga
+            $("#refresh-stats-icon").removeClass("fa-spin");
+        }
+    });
+}
+
+// Función para procesar los datos de estadísticas y actualizar la interfaz
+function processStatisticsData(data) {
+    if (!data) {
+        console.warn('No se recibieron datos de estadísticas');
+        return;
+    }
+    
+    console.log('Procesando datos de estadísticas:', data);
+    
+    // Adaptamos estructura para hacer la función más robusta
+    // Diferentes API pueden devolver diferentes estructuras
+    let totalListeners = 0;
+    let popularStation = {name: 'N/A', listeners: 0};
+    
+    // Intentar diferentes estructuras de datos posibles
+    if (data.totalListeners !== undefined) {
+        totalListeners = data.totalListeners;
+    } else if (data.summary && data.summary.total_listeners !== undefined) {
+        totalListeners = data.summary.total_listeners;
+    } else if (data.current && data.current.listeners !== undefined) {
+        totalListeners = data.current.listeners;
+    }
+    
+    // Buscar estación popular en diferentes estructuras
+    if (data.popularStation) {
+        popularStation = data.popularStation;
+    } else if (data.summary && data.summary.most_popular) {
+        popularStation.name = data.summary.most_popular;
+        // Intentar encontrar número de oyentes para esta estación
+        if (data.distribution) {
+            const station = data.distribution.find(s => s.name === popularStation.name);
+            if (station) popularStation.listeners = station.value;
+        }
+    } else if (data.trends && data.trends.stations && data.trends.stations.top && data.trends.stations.top.length) {
+        popularStation.name = data.trends.stations.top[0].name;
+        popularStation.listeners = data.trends.stations.top[0].listeners;
+    }
+    
+    // Actualizar el contador total de oyentes
+    console.log('Actualizando total de oyentes a:', totalListeners);
+    $("#total-listeners-count").text(totalListeners);
+    
+    // Actualizar la estación más popular
+    console.log('Actualizando estación más popular a:', popularStation.name);
+    $("#most-popular-station").text(popularStation.name);
+    
+    // Actualizar otras estadísticas si es necesario
+    const avgDailyEl = document.getElementById('avg-daily-listeners');
+    if (avgDailyEl) {
+        const avgDaily = data.summary?.avg_daily || data.historical?.listeners?.average || 0;
+        avgDailyEl.textContent = avgDaily;
+    }
+    
+    const peakListenersEl = document.getElementById('peak-listeners');
+    if (peakListenersEl) {
+        const peakListeners = data.summary?.peak_listeners || data.historical?.listeners?.max || 0;
+        peakListenersEl.textContent = peakListeners;
+    }
+    
+    // Animar las tarjetas para destacar la actualización
+    animateCards();
+    
+    // Actualizar gráficos si existen
+    if (typeof updateChartsData === 'function') {
+        updateChartsData();
+    }
+}
+
+// Event listeners
+$(document).ready(function() {
+    // Evento para el botón de actualizar estadísticas
+    $(document).on('click', '#refresh-stats-btn, #refresh-stats-icon', function() {
+        console.log('Botón de actualizar estadísticas clickeado');
+        updateStatistics();
+        return false; // Prevenir comportamiento predeterminado
+    });
+    
+    // Inicializar estadísticas al cargar la página
+    if ($("#statistics-section").length) {
+        updateStatistics();
+    }
+    
+    // ...existing code...
+});

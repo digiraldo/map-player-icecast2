@@ -3,9 +3,24 @@
  * Endpoint API para recolección de estadísticas
  */
 
-// Habilitar visualización de errores para depuración
-ini_set('display_errors', 1);
+// Capturar errores de PHP para evitar que se muestren como HTML
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
+
+// Configurar manejo de errores personalizado
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    $logFile = __DIR__ . '/../logs/api_errors.log';
+    $dir = dirname($logFile);
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
+    
+    $date = date('Y-m-d H:i:s');
+    $message = "[$date] Error $errno: $errstr in $errfile on line $errline\n";
+    file_put_contents($logFile, $message, FILE_APPEND);
+    
+    return true; // Prevenir manejo estándar de errores
+});
 
 // Establecer zona horaria a Colombia
 date_default_timezone_set('America/Bogota');
@@ -34,16 +49,28 @@ function get_listeners_data_for_api() {
         return ['error' => true, 'message' => 'API de oyentes no encontrada en: ' . $apiUrl];
     }
     
-    ob_start();
-    include($apiUrl);
-    $output = ob_get_clean();
-    
-    $data = json_decode($output, true);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        return ['error' => true, 'message' => 'Error al decodificar JSON: ' . json_last_error_msg()];
+    try {
+        // Establecer un límite de tiempo de ejecución más alto para este script
+        set_time_limit(60);
+        
+        ob_start();
+        include($apiUrl);
+        $output = ob_get_clean();
+        
+        $data = json_decode($output, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return ['error' => true, 'message' => 'Error al decodificar JSON: ' . json_last_error_msg()];
+        }
+        
+        // Verificar si los datos provienen de caché
+        if (isset($data['using_cache']) && $data['using_cache']) {
+            debug_log("AVISO: Usando datos de caché. Motivo: " . ($data['cache_error'] ?? 'Desconocido'));
+        }
+        
+        return $data;
+    } catch (Exception $e) {
+        return ['error' => true, 'message' => 'Excepción al obtener datos: ' . $e->getMessage()];
     }
-    
-    return $data;
 }
 
 // Función para log de depuración
@@ -64,6 +91,9 @@ try {
     if (!file_exists($scriptPath)) {
         throw new Exception("El archivo de script no existe en: $scriptPath");
     }
+    
+    // Establecer un límite de tiempo de ejecución más alto para este script
+    set_time_limit(60);
     
     // Obtener los datos de oyentes antes de ejecutar
     debug_log("Obteniendo datos de oyentes iniciales");

@@ -1,9 +1,9 @@
 {
     "listeners": [
         {
-            "timestamp": 1742092501,
-            "formatted_date": "2025-03-15 21:35:01",
-            "count": 78,
+            "timestamp": 1742094002,
+            "formatted_date": "2025-03-15 22:00:02",
+            "count": 70,
             "stations": [
                 {
                     "name": "Armenia",
@@ -13,7 +13,7 @@
                 {
                     "name": "Bogot\u00e1",
                     "url": "inhouse",
-                    "listeners": 54
+                    "listeners": 48
                 },
                 {
                     "name": "Bucaramanga",
@@ -38,7 +38,7 @@
                 {
                     "name": "Ibagu\u00e9",
                     "url": "ibague",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "Leticia",
@@ -93,14 +93,14 @@
                 {
                     "name": "Villavicencio",
                     "url": "villavicencio",
-                    "listeners": 4
+                    "listeners": 3
                 }
             ]
         },
         {
-            "timestamp": 1742092801,
-            "formatted_date": "2025-03-15 21:40:01",
-            "count": 88,
+            "timestamp": 1742094002,
+            "formatted_date": "2025-03-15 22:00:02",
+            "count": 70,
             "stations": [
                 {
                     "name": "Armenia",
@@ -110,7 +110,7 @@
                 {
                     "name": "Bogot\u00e1",
                     "url": "inhouse",
-                    "listeners": 63
+                    "listeners": 48
                 },
                 {
                     "name": "Bucaramanga",
@@ -130,12 +130,1522 @@
                 {
                     "name": "Florencia",
                     "url": "florencia",
-                    "listeners": 1
+                    "listeners": 0
                 },
                 {
                     "name": "Ibagu\u00e9",
                     "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
                     "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094074,
+            "formatted_date": "2025-03-15 22:01:14",
+            "count": 72,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 48
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 5
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094302,
+            "formatted_date": "2025-03-15 22:05:02",
+            "count": 72,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 48
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 4
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094337,
+            "formatted_date": "2025-03-15 22:05:37",
+            "count": 68,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 45
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 4
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094344,
+            "formatted_date": "2025-03-15 22:05:44",
+            "count": 66,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 43
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 4
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094388,
+            "formatted_date": "2025-03-15 22:06:28",
+            "count": 67,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 45
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094397,
+            "formatted_date": "2025-03-15 22:06:37",
+            "count": 67,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 44
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 4
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094421,
+            "formatted_date": "2025-03-15 22:07:01",
+            "count": 67,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 43
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 4
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094431,
+            "formatted_date": "2025-03-15 22:07:11",
+            "count": 71,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 2
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 47
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 4
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094616,
+            "formatted_date": "2025-03-15 22:10:16",
+            "count": 72,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 2
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 48
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 5
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094660,
+            "formatted_date": "2025-03-15 22:11:00",
+            "count": 66,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 2
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 45
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094672,
+            "formatted_date": "2025-03-15 22:11:12",
+            "count": 66,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 2
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 45
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094868,
+            "formatted_date": "2025-03-15 22:14:28",
+            "count": 77,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 55
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Popay\u00e1n",
+                    "url": "popayan",
+                    "listeners": 0
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 4
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094901,
+            "formatted_date": "2025-03-15 22:15:01",
+            "count": 86,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 64
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 4
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742094916,
+            "formatted_date": "2025-03-15 22:15:16",
+            "count": 86,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 64
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 4
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742095205,
+            "formatted_date": "2025-03-15 22:20:05",
+            "count": 75,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 54
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
                 },
                 {
                     "name": "Leticia",
@@ -190,13 +1700,110 @@
                 {
                     "name": "Villavicencio",
                     "url": "villavicencio",
-                    "listeners": 3
+                    "listeners": 2
                 }
             ]
         },
         {
-            "timestamp": 1742092902,
-            "formatted_date": "2025-03-15 21:41:42",
+            "timestamp": 1742095501,
+            "formatted_date": "2025-03-15 22:25:01",
+            "count": 82,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 2
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 58
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 3
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 3
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 2
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742095802,
+            "formatted_date": "2025-03-15 22:30:02",
             "count": 82,
             "stations": [
                 {
@@ -207,7 +1814,7 @@
                 {
                     "name": "Bogot\u00e1",
                     "url": "inhouse",
-                    "listeners": 58
+                    "listeners": 61
                 },
                 {
                     "name": "Bucaramanga",
@@ -217,7 +1824,7 @@
                 {
                     "name": "Cali",
                     "url": "cali",
-                    "listeners": 4
+                    "listeners": 3
                 },
                 {
                     "name": "C\u00facuta",
@@ -232,7 +1839,201 @@
                 {
                     "name": "Ibagu\u00e9",
                     "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
                     "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742095802,
+            "formatted_date": "2025-03-15 22:30:02",
+            "count": 82,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 61
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 3
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 4
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
+                },
+                {
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
+                    "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 2
+                }
+            ]
+        },
+        {
+            "timestamp": 1742096102,
+            "formatted_date": "2025-03-15 22:35:02",
+            "count": 82,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 60
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
                 },
                 {
                     "name": "Leticia",
@@ -270,9 +2071,101 @@
                     "listeners": 1
                 },
                 {
-                    "name": "Popay\u00e1n",
-                    "url": "popayan",
+                    "name": "Quibd\u00f3",
+                    "url": "quibdo",
                     "listeners": 0
+                },
+                {
+                    "name": "Santa Marta",
+                    "url": "santamarta",
+                    "listeners": 3
+                },
+                {
+                    "name": "Tunja",
+                    "url": "tunja",
+                    "listeners": 1
+                },
+                {
+                    "name": "Villavicencio",
+                    "url": "villavicencio",
+                    "listeners": 3
+                }
+            ]
+        },
+        {
+            "timestamp": 1742096402,
+            "formatted_date": "2025-03-15 22:40:02",
+            "count": 89,
+            "stations": [
+                {
+                    "name": "Armenia",
+                    "url": "armenia",
+                    "listeners": 1
+                },
+                {
+                    "name": "Bogot\u00e1",
+                    "url": "inhouse",
+                    "listeners": 67
+                },
+                {
+                    "name": "Bucaramanga",
+                    "url": "bucaramanga",
+                    "listeners": 1
+                },
+                {
+                    "name": "Cali",
+                    "url": "cali",
+                    "listeners": 2
+                },
+                {
+                    "name": "C\u00facuta",
+                    "url": "cucuta",
+                    "listeners": 0
+                },
+                {
+                    "name": "Florencia",
+                    "url": "florencia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Ibagu\u00e9",
+                    "url": "ibague",
+                    "listeners": 2
+                },
+                {
+                    "name": "Leticia",
+                    "url": "leticia",
+                    "listeners": 0
+                },
+                {
+                    "name": "Manizales",
+                    "url": "manizales",
+                    "listeners": 5
+                },
+                {
+                    "name": "Medell\u00edn",
+                    "url": "medellin",
+                    "listeners": 1
+                },
+                {
+                    "name": "Mocoa",
+                    "url": "mocoa",
+                    "listeners": 0
+                },
+                {
+                    "name": "Neiva",
+                    "url": "neiva",
+                    "listeners": 2
+                },
+                {
+                    "name": "Pasto",
+                    "url": "pasto",
+                    "listeners": 0
+                },
+                {
+                    "name": "Pereira",
+                    "url": "pereira",
+                    "listeners": 1
                 },
                 {
                     "name": "Quibd\u00f3",
@@ -292,14 +2185,14 @@
                 {
                     "name": "Villavicencio",
                     "url": "villavicencio",
-                    "listeners": 2
+                    "listeners": 3
                 }
             ]
         },
         {
-            "timestamp": 1742092909,
-            "formatted_date": "2025-03-15 21:41:49",
-            "count": 80,
+            "timestamp": 1742096701,
+            "formatted_date": "2025-03-15 22:45:01",
+            "count": 76,
             "stations": [
                 {
                     "name": "Armenia",
@@ -319,7 +2212,7 @@
                 {
                     "name": "Cali",
                     "url": "cali",
-                    "listeners": 4
+                    "listeners": 2
                 },
                 {
                     "name": "C\u00facuta",
@@ -334,7 +2227,7 @@
                 {
                     "name": "Ibagu\u00e9",
                     "url": "ibague",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "Leticia",
@@ -359,7 +2252,7 @@
                 {
                     "name": "Neiva",
                     "url": "neiva",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "Pasto",
@@ -370,11 +2263,6 @@
                     "name": "Pereira",
                     "url": "pereira",
                     "listeners": 1
-                },
-                {
-                    "name": "Popay\u00e1n",
-                    "url": "popayan",
-                    "listeners": 0
                 },
                 {
                     "name": "Quibd\u00f3",
@@ -399,9 +2287,9 @@
             ]
         },
         {
-            "timestamp": 1742093102,
-            "formatted_date": "2025-03-15 21:45:02",
-            "count": 78,
+            "timestamp": 1742096701,
+            "formatted_date": "2025-03-15 22:45:01",
+            "count": 76,
             "stations": [
                 {
                     "name": "Armenia",
@@ -411,7 +2299,7 @@
                 {
                     "name": "Bogot\u00e1",
                     "url": "inhouse",
-                    "listeners": 55
+                    "listeners": 56
                 },
                 {
                     "name": "Bucaramanga",
@@ -421,7 +2309,7 @@
                 {
                     "name": "Cali",
                     "url": "cali",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "C\u00facuta",
@@ -461,7 +2349,7 @@
                 {
                     "name": "Neiva",
                     "url": "neiva",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "Pasto",
@@ -491,14 +2379,14 @@
                 {
                     "name": "Villavicencio",
                     "url": "villavicencio",
-                    "listeners": 3
+                    "listeners": 2
                 }
             ]
         },
         {
-            "timestamp": 1742093102,
-            "formatted_date": "2025-03-15 21:45:02",
-            "count": 78,
+            "timestamp": 1742097002,
+            "formatted_date": "2025-03-15 22:50:02",
+            "count": 72,
             "stations": [
                 {
                     "name": "Armenia",
@@ -508,7 +2396,7 @@
                 {
                     "name": "Bogot\u00e1",
                     "url": "inhouse",
-                    "listeners": 55
+                    "listeners": 52
                 },
                 {
                     "name": "Bucaramanga",
@@ -518,7 +2406,7 @@
                 {
                     "name": "Cali",
                     "url": "cali",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "C\u00facuta",
@@ -558,7 +2446,7 @@
                 {
                     "name": "Neiva",
                     "url": "neiva",
-                    "listeners": 3
+                    "listeners": 2
                 },
                 {
                     "name": "Pasto",
@@ -588,7 +2476,7 @@
                 {
                     "name": "Villavicencio",
                     "url": "villavicencio",
-                    "listeners": 3
+                    "listeners": 2
                 }
             ]
         }
@@ -598,33 +2486,128 @@
             "name": "Armenia",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 1
                 }
             ]
@@ -633,34 +2616,129 @@
             "name": "Bogot\u00e1",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
+                    "listeners": 48
+                },
+                {
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
+                    "listeners": 48
+                },
+                {
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
+                    "listeners": 48
+                },
+                {
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
+                    "listeners": 48
+                },
+                {
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
+                    "listeners": 45
+                },
+                {
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 43
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 45
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 44
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 43
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 47
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 48
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 45
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 45
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 55
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 64
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 64
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
                     "listeners": 54
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
-                    "listeners": 63
-                },
-                {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
                     "listeners": 58
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 61
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 61
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 60
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 67
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
                     "listeners": 56
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
-                    "listeners": 55
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 56
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
-                    "listeners": 55
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
+                    "listeners": 52
                 }
             ]
         },
@@ -668,33 +2746,128 @@
             "name": "Bucaramanga",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 1
                 }
             ]
@@ -703,34 +2876,129 @@
             "name": "Cali",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
                     "listeners": 3
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
+                    "listeners": 2
                 }
             ]
         },
@@ -738,33 +3006,128 @@
             "name": "C\u00facuta",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 0
                 }
             ]
@@ -773,33 +3136,128 @@
             "name": "Florencia",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
-                    "listeners": 1
-                },
-                {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 0
                 }
             ]
@@ -808,33 +3266,128 @@
             "name": "Ibagu\u00e9",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
-                    "listeners": 3
-                },
-                {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
-                    "listeners": 3
-                },
-                {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
-                    "listeners": 3
-                },
-                {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
-                    "listeners": 3
-                },
-                {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 2
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 2
                 }
             ]
@@ -843,33 +3396,128 @@
             "name": "Leticia",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 0
                 }
             ]
@@ -878,33 +3526,128 @@
             "name": "Manizales",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
+                    "listeners": 5
+                },
+                {
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
                     "listeners": 4
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 5
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 5
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 4
                 }
             ]
@@ -913,33 +3656,128 @@
             "name": "Medell\u00edn",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 1
                 }
             ]
@@ -948,33 +3786,128 @@
             "name": "Mocoa",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 0
                 }
             ]
@@ -983,34 +3916,129 @@
             "name": "Neiva",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 2
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
                     "listeners": 3
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
+                    "listeners": 2
                 }
             ]
         },
@@ -1018,33 +4046,128 @@
             "name": "Pasto",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 0
                 }
             ]
@@ -1053,33 +4176,128 @@
             "name": "Pereira",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 1
                 }
             ]
@@ -1088,33 +4306,128 @@
             "name": "Quibd\u00f3",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 0
                 }
             ]
@@ -1123,33 +4436,128 @@
             "name": "Santa Marta",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 4
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 3
                 }
             ]
@@ -1158,33 +4566,128 @@
             "name": "Tunja",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 1
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 1
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
                     "listeners": 1
                 }
             ]
@@ -1193,34 +4696,129 @@
             "name": "Villavicencio",
             "data": [
                 {
-                    "timestamp": 1742092501,
-                    "formatted_date": "2025-03-15 21:35:01",
-                    "listeners": 4
-                },
-                {
-                    "timestamp": 1742092801,
-                    "formatted_date": "2025-03-15 21:40:01",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094002,
+                    "formatted_date": "2025-03-15 22:00:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094302,
+                    "formatted_date": "2025-03-15 22:05:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
                     "listeners": 2
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
                     "listeners": 2
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
                     "listeners": 3
                 },
                 {
-                    "timestamp": 1742093102,
-                    "formatted_date": "2025-03-15 21:45:02",
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742094901,
+                    "formatted_date": "2025-03-15 22:15:01",
                     "listeners": 3
+                },
+                {
+                    "timestamp": 1742094916,
+                    "formatted_date": "2025-03-15 22:15:16",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742095205,
+                    "formatted_date": "2025-03-15 22:20:05",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095501,
+                    "formatted_date": "2025-03-15 22:25:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742095802,
+                    "formatted_date": "2025-03-15 22:30:02",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096102,
+                    "formatted_date": "2025-03-15 22:35:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096402,
+                    "formatted_date": "2025-03-15 22:40:02",
+                    "listeners": 3
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742096701,
+                    "formatted_date": "2025-03-15 22:45:01",
+                    "listeners": 2
+                },
+                {
+                    "timestamp": 1742097002,
+                    "formatted_date": "2025-03-15 22:50:02",
+                    "listeners": 2
                 }
             ]
         },
@@ -1228,18 +4826,63 @@
             "name": "Popay\u00e1n",
             "data": [
                 {
-                    "timestamp": 1742092902,
-                    "formatted_date": "2025-03-15 21:41:42",
+                    "timestamp": 1742094074,
+                    "formatted_date": "2025-03-15 22:01:14",
                     "listeners": 0
                 },
                 {
-                    "timestamp": 1742092909,
-                    "formatted_date": "2025-03-15 21:41:49",
+                    "timestamp": 1742094337,
+                    "formatted_date": "2025-03-15 22:05:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094344,
+                    "formatted_date": "2025-03-15 22:05:44",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094388,
+                    "formatted_date": "2025-03-15 22:06:28",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094397,
+                    "formatted_date": "2025-03-15 22:06:37",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094421,
+                    "formatted_date": "2025-03-15 22:07:01",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094431,
+                    "formatted_date": "2025-03-15 22:07:11",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094616,
+                    "formatted_date": "2025-03-15 22:10:16",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094660,
+                    "formatted_date": "2025-03-15 22:11:00",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094672,
+                    "formatted_date": "2025-03-15 22:11:12",
+                    "listeners": 0
+                },
+                {
+                    "timestamp": 1742094868,
+                    "formatted_date": "2025-03-15 22:14:28",
                     "listeners": 0
                 }
             ]
         }
     },
-    "updated": "2025-03-15 21:45:02",
-    "cleared": "2025-03-16 02:34:41"
+    "updated": "2025-03-15 22:50:02",
+    "cleared": "2025-03-15 21:59:47"
 }
