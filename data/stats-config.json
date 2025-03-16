@@ -1,0 +1,14 @@
+{
+    "enableStatsCollection": true,
+    "collectionInterval": 5,
+    "dataRetention": 90,
+    "aggregateData": false,
+    "defaultDateRange": "week",
+    "defaultChartType": "line",
+    "showRealTimeUpdates": true,
+    "colorTheme": "default",
+    "storageMethod": "json",
+    "statsFilePath": "..\/data\/statistics\/",
+    "enableBackups": false,
+    "updatedAt": "2025-03-16 02:33:48"
+}

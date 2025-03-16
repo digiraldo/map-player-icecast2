@@ -1,75 +1,53 @@
 <?php
 /**
- * Script para borrar datos de estadísticas
- * 
- * Este script permite borrar todos los datos de estadísticas o filtrar 
- * por antiguedad u otros criterios
+ * API para limpiar datos de estadísticas
  */
 
-// Definir constantes
-define('DATA_PATH', '../../data/');
-define('STATS_DB', DATA_PATH . 'stats.db');
+// Configurar salida como JSON
+header('Content-Type: application/json');
 
-// Verificación de seguridad
-$secretKey = isset($_GET['key']) ? $_GET['key'] : '';
-$validKey = 'f8b4j9v2m3n7k8l1'; // Esta clave debería estar en un archivo de configuración
+// Verificar la clave API
+$apiKey = $_GET['key'] ?? '';
+$validKey = 'f8b4j9v2m3n7k8l1';
 
-if ($secretKey !== $validKey) {
-    header('HTTP/1.1 403 Forbidden');
-    header('Content-Type: application/json');
-    echo json_encode(['error' => true, 'message' => 'Acceso denegado']);
+if ($apiKey !== $validKey) {
+    echo json_encode(['error' => true, 'message' => 'Clave de API inválida']);
     exit;
 }
 
-// Tipo de limpieza (all = todo, older_than = más antiguos que X días)
-$type = isset($_GET['type']) ? $_GET['type'] : 'all';
-$days = isset($_GET['days']) ? (int)$_GET['days'] : 90;
-
-// Respuesta por defecto
-$response = [
-    'error' => false,
-    'message' => 'Operación completada',
-    'records_deleted' => 0
-];
+// Ruta al archivo de historial
+define('DATA_PATH', __DIR__ . '/../../data/');
+define('HISTORY_FILE', DATA_PATH . 'history.json');
 
 try {
-    // Verificar si existe la base de datos
-    if (!file_exists(STATS_DB)) {
-        throw new Exception("Base de datos de estadísticas no encontrada");
+    // Verificar que el archivo existe
+    if (!file_exists(HISTORY_FILE)) {
+        echo json_encode(['error' => false, 'message' => 'No hay datos que borrar']);
+        exit;
     }
     
-    // Conectar a la base de datos
-    $pdo = new PDO('sqlite:' . STATS_DB);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Crear estructura vacía para el archivo
+    $emptyData = [
+        'listeners' => [],
+        'stations' => [],
+        'updated' => date('Y-m-d H:i:s'),
+        'cleared' => date('Y-m-d H:i:s')
+    ];
     
-    // Preparar consulta según el tipo de limpieza
-    switch ($type) {
-        case 'older_than':
-            $cutoffDate = time() - ($days * 86400); // Días a segundos
-            $query = "DELETE FROM listener_stats WHERE timestamp < :cutoff";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':cutoff', $cutoffDate, PDO::PARAM_INT);
-            break;
-            
-        case 'all':
-        default:
-            $query = "DELETE FROM listener_stats";
-            $stmt = $pdo->prepare($query);
-            break;
+    // Guardar archivo vacío
+    if (file_put_contents(HISTORY_FILE, json_encode($emptyData, JSON_PRETTY_PRINT))) {
+        echo json_encode([
+            'error' => false, 
+            'message' => 'Datos borrados correctamente',
+            'date' => date('Y-m-d H:i:s')
+        ]);
+    } else {
+        throw new Exception("Error al escribir en el archivo de historial");
     }
-    
-    // Ejecutar la consulta
-    $stmt->execute();
-    
-    // Obtener número de registros eliminados
-    $response['records_deleted'] = $stmt->rowCount();
-    $response['message'] = "Se han eliminado {$response['records_deleted']} registros.";
     
 } catch (Exception $e) {
-    $response['error'] = true;
-    $response['message'] = $e->getMessage();
+    echo json_encode([
+        'error' => true,
+        'message' => $e->getMessage()
+    ]);
 }
-
-// Devolver respuesta como JSON
-header('Content-Type: application/json');
-echo json_encode($response);

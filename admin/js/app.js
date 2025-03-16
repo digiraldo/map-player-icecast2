@@ -194,7 +194,7 @@ function loadDashboard() {
             updateDashboardData();
         }, Config.updateInterval);
     }).catch(error => {
-        showError('Error al cargar el dashboard: ' + error.message);
+        showError('Error al cargar el dashboard: ' + error.message + 'Verificar en: ' + '<a href="database-tools.html">Herramientas</a>');
     });
 }
 

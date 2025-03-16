@@ -130,7 +130,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
                 <div class="position-sticky pt-3">
                     <div class="text-center mb-4">
                         <div class="logo-container mb-3">
@@ -454,6 +454,16 @@
                                 <a href="#" class="btn btn-sm btn-info w-100" id="showHelpModal">
                                     <i class="fas fa-book me-1"></i> Ver Documentación
                                 </a>
+                            <div></div>
+                                <br>
+                                <a href="database-tools.html" class="btn btn-sm btn-success w-100" id="showReq">
+                                    <i class="fas fa-database me-1"></i> Herramientas
+                                </a>
+                            <div></div>
+                                <br>
+                                <a href="capture-statistics.html" class="btn btn-sm btn-warning w-100" id="showReq">
+                                    <i class="fas fa-cogs me-1"></i> Config. Estadísticas
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -519,19 +529,317 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/date-utils.js"></script> <!-- Nuevo script de utilidades de fecha -->
+    <script src="js/date-utils.js"></script>
     <script src="js/theme-sync.js"></script>
     
     <script>
+        /**
+         * Carga la configuración actual desde el servidor
+         */
+        function loadStatsConfig() {
+            // Mostrar spinner en el botón de guardar
+            const saveBtn = document.getElementById('saveSettingsBtn');
+            const originalSaveBtnText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Cargando...';
+            saveBtn.disabled = true;
+            
+            fetch('api/get-stats-config.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error de red al cargar la configuración');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        showNotification('error', 'Error al cargar la configuración: ' + data.message);
+                        return;
+                    }
+                    
+                    // Aplicar la configuración a los elementos del formulario
+                    applyConfigToForm(data);
+                })
+                .catch(error => {
+                    console.error('Error al cargar la configuración:', error);
+                    // Si es la primera ejecución, podría no existir el archivo de configuración aún
+                    console.log('Usando valores predeterminados');
+                })
+                .finally(() => {
+                    // Restaurar botón
+                    saveBtn.innerHTML = originalSaveBtnText;
+                    saveBtn.disabled = false;
+                });
+        }
+        
+        /**
+         * Aplica la configuración cargada a los elementos del formulario
+         */
+        function applyConfigToForm(config) {
+            // Recopilación de datos
+            document.getElementById('enableStatsCollection').checked = config.enableStatsCollection || false;
+            
+            if (config.collectionInterval) {
+                const intervalSelect = document.getElementById('collectionInterval');
+                for (let i = 0; i < intervalSelect.options.length; i++) {
+                    if (intervalSelect.options[i].value == config.collectionInterval) {
+                        intervalSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            if (config.dataRetention) {
+                const retentionSelect = document.getElementById('dataRetention');
+                for (let i = 0; i < retentionSelect.options.length; i++) {
+                    if (retentionSelect.options[i].value == config.dataRetention) {
+                        retentionSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            document.getElementById('aggregateData').checked = config.aggregateData || false;
+            
+            // Visualización
+            if (config.defaultDateRange) {
+                document.getElementById('defaultDateRange').value = config.defaultDateRange;
+            }
+            
+            if (config.defaultChartType) {
+                document.getElementById('defaultChartType').value = config.defaultChartType;
+            }
+            
+            document.getElementById('showRealTimeUpdates').checked = config.showRealTimeUpdates !== false; // true por defecto
+            
+            if (config.colorTheme) {
+                document.getElementById('colorTheme').value = config.colorTheme;
+            }
+            
+            // Opciones avanzadas
+            if (config.storageMethod) {
+                const storageMethod = document.getElementById('storageMethod');
+                storageMethod.value = config.storageMethod;
+                // Mostrar/ocultar campos de DB
+                document.getElementById('dbSettings').classList.toggle('d-none', config.storageMethod === 'json');
+            }
+            
+            // Rellenar campos de base de datos si existen
+            if (config.dbHost) document.getElementById('dbHost').value = config.dbHost;
+            if (config.dbUser) document.getElementById('dbUser').value = config.dbUser;
+            if (config.dbPass) document.getElementById('dbPass').value = config.dbPass;
+            if (config.dbName) document.getElementById('dbName').value = config.dbName;
+            
+            if (config.statsFilePath) {
+                document.getElementById('statsFilePath').value = config.statsFilePath;
+            }
+            
+            document.getElementById('enableBackups').checked = config.enableBackups || false;
+            
+            // Actualizar estadísticas de la interfaz si hay información disponible
+            if (config.stats) {
+                updateStatsInfo(config.stats);
+            }
+        }
+        
+        /**
+         * Guarda la configuración en el servidor
+         */
+        function saveStatsConfig() {
+            // Recopilar datos del formulario
+            const config = {
+                // Recopilación de datos
+                enableStatsCollection: document.getElementById('enableStatsCollection').checked,
+                collectionInterval: parseInt(document.getElementById('collectionInterval').value),
+                dataRetention: parseInt(document.getElementById('dataRetention').value),
+                aggregateData: document.getElementById('aggregateData').checked,
+                
+                // Visualización
+                defaultDateRange: document.getElementById('defaultDateRange').value,
+                defaultChartType: document.getElementById('defaultChartType').value,
+                showRealTimeUpdates: document.getElementById('showRealTimeUpdates').checked,
+                colorTheme: document.getElementById('colorTheme').value,
+                
+                // Opciones avanzadas
+                storageMethod: document.getElementById('storageMethod').value,
+                statsFilePath: document.getElementById('statsFilePath').value,
+                enableBackups: document.getElementById('enableBackups').checked
+            };
+            
+            // Si el método de almacenamiento es una base de datos, agregar esos campos
+            if (config.storageMethod === 'mysql' || config.storageMethod === 'sqlite') {
+                config.dbHost = document.getElementById('dbHost').value;
+                config.dbUser = document.getElementById('dbUser').value;
+                config.dbPass = document.getElementById('dbPass').value;
+                config.dbName = document.getElementById('dbName').value;
+            }
+            
+            // Mostrar spinner en el botón de guardar
+            const saveBtn = document.getElementById('saveSettingsBtn');
+            const originalSaveBtnText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Guardando...';
+            saveBtn.disabled = true;
+            
+            // Enviar al servidor
+            fetch('api/save-stats-config.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(config)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error de red al guardar la configuración');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    showNotification('success', data.message || 'Configuración guardada correctamente');
+                } else {
+                    showNotification('error', data.message || 'Error al guardar la configuración');
+                }
+            })
+            .catch(error => {
+                console.error('Error al guardar la configuración:', error);
+                showNotification('error', 'Error al guardar la configuración: ' + error.message);
+            })
+            .finally(() => {
+                // Restaurar botón
+                saveBtn.innerHTML = originalSaveBtnText;
+                saveBtn.disabled = false;
+            });
+        }
+        
+        /**
+         * Muestra una notificación al usuario
+         * @param {string} type - Tipo de notificación ('success', 'error', 'warning', 'info')
+         * @param {string} message - Mensaje a mostrar
+         */
+        function showNotification(type, message) {
+            // Mapeo de tipos a clases de Bootstrap
+            const classMap = {
+                success: 'alert-success',
+                error: 'alert-danger',
+                warning: 'alert-warning',
+                info: 'alert-info'
+            };
+            
+            // Mapeo de tipos a iconos
+            const iconMap = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                warning: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle'
+            };
+            
+            const alertClass = classMap[type] || 'alert-info';
+            const iconClass = iconMap[type] || 'fas fa-info-circle';
+            
+            const notification = document.createElement('div');
+            notification.className = `alert ${alertClass} shadow save-notification`;
+            notification.innerHTML = `<i class="${iconClass} me-2"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            // Eliminar después de la animación
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+        
+        /**
+         * Actualiza la información de estadísticas en la UI
+         */
+        function updateStatsInfo(stats) {
+            // Actualizar solo si hay datos disponibles
+            if (stats.totalRecords !== undefined) {
+                const totalRecordsEl = document.querySelector('.list-group-item:nth-child(1) .badge');
+                if (totalRecordsEl) {
+                    totalRecordsEl.textContent = stats.totalRecords.toLocaleString();
+                }
+            }
+            
+            if (stats.diskUsage !== undefined) {
+                const diskUsageEl = document.querySelector('.list-group-item:nth-child(2) .badge');
+                if (diskUsageEl) {
+                    diskUsageEl.textContent = stats.diskUsage;
+                }
+            }
+            
+            if (stats.lastUpdate !== undefined) {
+                const lastUpdateEl = document.querySelector('.list-group-item:nth-child(3) .text-muted');
+                if (lastUpdateEl) {
+                    lastUpdateEl.textContent = stats.lastUpdate;
+                }
+            }
+            
+            if (stats.sinceDate !== undefined) {
+                const sinceEl = document.querySelector('.list-group-item:nth-child(4) .text-muted');
+                if (sinceEl) {
+                    sinceEl.textContent = stats.sinceDate;
+                }
+            }
+        }
+        
+        /**
+         * Actualiza el reloj con la hora actual de Colombia
+         */
+        function updateColombianClock() {
+            try {
+                // Verificar si la función está disponible
+                if (typeof getCurrentColombiaTime !== 'function') {
+                    console.warn('La función getCurrentColombiaTime no está disponible');
+                    return;
+                }
+                
+                // Actualizar la hora en la lista
+                const lastUpdateSpan = document.querySelector('.list-group-item:nth-child(3) .text-muted');
+                if (lastUpdateSpan && lastUpdateSpan.textContent.includes('Hoy')) {
+                    lastUpdateSpan.textContent = 'Hoy ' + getCurrentColombiaTime(true);
+                }
+                
+                // También actualizar la fecha en "Estadísticas desde" si tiene el formato por defecto
+                const statsFromSpan = document.querySelector('.list-group-item:nth-child(4) .text-muted');
+                if (statsFromSpan && statsFromSpan.textContent === '01/03/2023') {
+                    // Si es el valor predeterminado, formatearlo correctamente
+                    const date = new Date(2023, 2, 1); // Meses en JS son 0-indexed
+                    statsFromSpan.textContent = new Intl.DateTimeFormat('es-CO', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        timeZone: 'America/Bogota'
+                    }).format(date);
+                }
+            } catch (error) {
+                console.error('Error al actualizar el reloj colombiano:', error);
+            }
+        }
+        
         // Verificar tema al cargar
         document.addEventListener('DOMContentLoaded', function() {
+            // Cargar la configuración actual
+            loadStatsConfig();
+            
             // Obtener tema del localStorage
             const savedTheme = localStorage.getItem('theme') || 'light';
             applyTheme(savedTheme);
             
-            // Actualizar el reloj con la hora de Colombia
-            updateColombianClock();
-            setInterval(updateColombianClock, 1000);
+            try {
+                // Verificar que el script date-utils.js se cargó correctamente
+                if (typeof getCurrentColombiaTime !== 'function') {
+                    console.error('Error: El script date-utils.js no se ha cargado correctamente');
+                    // Cargar script de forma alternativa si es necesario
+                    loadDateUtilsScript();
+                } else {
+                    // Actualizar el reloj con la hora de Colombia
+                    updateColombianClock();
+                    setInterval(updateColombianClock, 1000);
+                }
+            } catch (e) {
+                console.error('Error al inicializar el reloj:', e);
+            }
             
             // Aplicar tema a modales (necesario usar clase para modales)
             document.querySelectorAll('.modal').forEach(modal => {
@@ -572,26 +880,52 @@
                 dbSettings.classList.toggle('d-none', this.value === 'json');
             });
             
-            // Botón guardar
+            // Botón guardar - Ahora usa la función real de guardado
             document.getElementById('saveSettingsBtn').addEventListener('click', function() {
-                // Simular guardado
-                const notification = document.createElement('div');
-                notification.className = 'alert alert-success shadow save-notification';
-                notification.innerHTML = '<i class="fas fa-check-circle me-2"></i> Configuración guardada correctamente';
-                document.body.appendChild(notification);
-                
-                // Eliminar después de la animación
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 3000);
+                saveStatsConfig();
             });
             
             // Modal de reinicio
             document.getElementById('resetStatsBtn').addEventListener('click', function() {
                 const resetModal = new bootstrap.Modal(document.getElementById('resetConfirmModal'));
                 resetModal.show();
+            });
+            
+            // Confirmación de reinicio
+            document.getElementById('confirmResetBtn').addEventListener('click', function() {
+                // Mostrar spinner en el botón
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Procesando...';
+                this.disabled = true;
+                
+                // Realizar la petición para reiniciar las estadísticas
+                fetch('api/reset-stats.php', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Cerrar el modal
+                    const resetModal = bootstrap.Modal.getInstance(document.getElementById('resetConfirmModal'));
+                    resetModal.hide();
+                    
+                    if (data.success) {
+                        showNotification('success', 'Estadísticas reiniciadas correctamente');
+                        // Recargar para reflejar los cambios
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        showNotification('error', data.message || 'Error al reiniciar estadísticas');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al reiniciar estadísticas:', error);
+                    showNotification('error', 'Error al reiniciar estadísticas: ' + error.message);
+                })
+                .finally(() => {
+                    // Restaurar el botón
+                    this.innerHTML = '<i class="fas fa-trash-alt me-1"></i> Sí, reiniciar estadísticas';
+                    this.disabled = false;
+                });
             });
             
             // Modal de ayuda
@@ -618,13 +952,27 @@
         });
         
         /**
-         * Actualiza el reloj con la hora actual de Colombia
+         * Carga el script date-utils.js de forma alternativa si no se cargó correctamente
          */
-        function updateColombianClock() {
-            const lastUpdateSpan = document.querySelector('.list-group-item:nth-child(3) .text-muted');
-            if (lastUpdateSpan) {
-                lastUpdateSpan.textContent = 'Hoy ' + getCurrentColombiaTime(true);
-            }
+        function loadDateUtilsScript() {
+            const script = document.createElement('script');
+            script.src = 'js/date-utils.js';
+            script.onload = function() {
+                console.log('Script date-utils.js cargado correctamente de forma alternativa');
+                updateColombianClock();
+                setInterval(updateColombianClock, 1000);
+            };
+            script.onerror = function() {
+                console.error('No se pudo cargar date-utils.js');
+                // Usar una alternativa simple si no se puede cargar el script
+                window.getCurrentColombiaTime = function(includeSeconds) {
+                    const now = new Date();
+                    return now.toLocaleTimeString('es-CO');
+                };
+                updateColombianClock();
+                setInterval(updateColombianClock, 1000);
+            };
+            document.body.appendChild(script);
         }
         
         // Función para aplicar tema

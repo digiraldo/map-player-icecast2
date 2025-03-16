@@ -2,7 +2,14 @@
 /**
  * Script para diagnosticar y resolver problemas con la extensión PDO_SQLite
  */
+// Al inicio de tus archivos PHP
+/* header('Content-Type: application/json'); */
 
+// Capturar errores y convertirlos a JSON
+/* set_error_handler(function($errno, $errstr) {
+    echo json_encode(['error' => true, 'message' => $errstr]);
+    exit;
+}); */
 // Función para verificar si la extensión está habilitada
 function checkPDOSQLite() {
     return extension_loaded('pdo_sqlite');
@@ -45,7 +52,7 @@ function getSuggestions() {
         // Linux/Unix/MacOS
         $suggestions[] = "2. En Linux/Unix, instale la extensión con: sudo apt-get install php-sqlite3 (Debian/Ubuntu) o sudo yum install php-pdo_sqlite (CentOS/RHEL)";
         $suggestions[] = "3. En macOS con Homebrew: brew install php@8.0 y asegúrese de que sqlite esté habilitado.";
-        $suggestions[] = "4. Después de instalar, reinicie su servidor web con: sudo service apache2 restart (o nginx, php-fpm según corresponda).";
+        $suggestions[] = "4. Después de instalar, reinicie su servidor web con: sudo service nginx restart sudo service php-fpm restart (o apache2, php-fpm según corresponda).";
     }
     
     return $suggestions;
@@ -53,7 +60,7 @@ function getSuggestions() {
 
 // Verificar si existe /data y tiene permisos correctos
 function checkDataDirectory() {
-    $dataPath = '../../data';
+    $dataPath = '../data';
     $results = [];
     
     // Verificar si existe el directorio
@@ -82,7 +89,7 @@ function checkDataDirectory() {
 
 // Verificar si la base de datos SQLite existe y es válida
 function checkSQLiteDatabase() {
-    $dbFile = '../../data/stats.db';
+    $dbFile = '../data/stats.db';
     $results = [
         'exists' => file_exists($dbFile),
         'valid' => false,
@@ -176,7 +183,7 @@ $suggestions = getSuggestions();
                         
                         <!-- Información de PHP -->
                         <div class="card mb-4">
-                            <div class="card-header bg-light">
+                            <div class="card-header">
                                 <h5 class="mb-0">Información de PHP</h5>
                             </div>
                             <div class="card-body">
@@ -190,7 +197,7 @@ $suggestions = getSuggestions();
                         
                         <!-- Directorio de datos -->
                         <div class="card mb-4">
-                            <div class="card-header bg-light">
+                            <div class="card-header">
                                 <h5 class="mb-0">Directorio de datos</h5>
                             </div>
                             <div class="card-body">
@@ -224,7 +231,7 @@ $suggestions = getSuggestions();
                         
                         <!-- Base de datos SQLite -->
                         <div class="card mb-4">
-                            <div class="card-header bg-light">
+                            <div class="card-header">
                                 <h5 class="mb-0">Base de datos SQLite</h5>
                             </div>
                             <div class="card-body">
@@ -279,7 +286,7 @@ $suggestions = getSuggestions();
                         <!-- Sugerencias para resolver el problema -->
                         <?php if (!$pdoSQLiteEnabled): ?>
                         <div class="card mb-4">
-                            <div class="card-header bg-light">
+                            <div class="card-header">
                                 <h5 class="mb-0">¿Cómo habilitar PDO_SQLite?</h5>
                             </div>
                             <div class="card-body">
@@ -294,10 +301,8 @@ $suggestions = getSuggestions();
                     </div>
                     
                     <div class="card-footer d-flex justify-content-between">
-                        <a href="index.html" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-1"></i> Volver al panel
-                        </a>
-                        <button onclick="location.reload()" class="btn btn-primary">
+                    <a href="database-tools.html" class="btn btn-primary"><i class="fas fa-arrow-left me-2"></i>Volver a Herramientas</a>
+                        <button onclick="location.reload()" class="btn btn-success">
                             <i class="fas fa-sync-alt me-1"></i> Actualizar diagnóstico
                         </button>
                     </div>
@@ -305,5 +310,16 @@ $suggestions = getSuggestions();
             </div>
         </div>
     </div>
+    <script>
+        // Cargar tema guardado
+            const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            // Selecciona el elemento al que deseas agregar el atributo
+            const htmlElement = document.querySelector('html');
+
+            // Agrega el atributo data-bs-theme con el valor "dark"
+            htmlElement.setAttribute('data-bs-theme', 'dark');
+        }
+</script>
 </body>
 </html>

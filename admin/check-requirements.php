@@ -3,7 +3,14 @@
  * Script para verificar los requisitos del sistema
  * Comprueba que todas las extensiones necesarias estén habilitadas
  */
+// Al inicio de tus archivos PHP
+/* header('Content-Type: application/json'); */
 
+// Capturar errores y convertirlos a JSON
+/* set_error_handler(function($errno, $errstr) {
+    echo json_encode(['error' => true, 'message' => $errstr]);
+    exit;
+}); */
 // Definir requisitos
 $requirements = [
     'extensions' => [
@@ -88,7 +95,7 @@ if ($format === 'json') {
 // Salida en formato HTML
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -194,7 +201,10 @@ if ($format === 'json') {
                                 <li>Para habilitar <strong>JSON</strong>: Edite su archivo php.ini y descomente o añada <code>extension=json</code>.</li>
                                 <?php endif; ?>
                                 <?php if (!$requirements['extensions']['curl']['installed']): ?>
+                                <li>Habilitado <strong>CURL?</strong>: Estado <code><?php echo 'Curl: ', function_exists('curl_version') ? 'Enabled' : 'Disabled';?></code>.</li>
+                                <li>Para Ver <strong>CURL</strong>: En su terminal linux <code>sudo apt-cache search php8.3-curl</code>.</li>
                                 <li>Para habilitar <strong>CURL</strong>: Edite su archivo php.ini y descomente o añada <code>extension=curl</code>.</li>
+                                <li>Para Instalar <strong>CURL</strong>: En su terminal linux: <code>sudo apt-get install php8.3-curl</code>.</li>
                                 <?php endif; ?>
                                 <?php foreach ($requirements['writable_dirs'] as $dir): ?>
                                 <?php if (!$dir['status']): ?>
@@ -204,18 +214,31 @@ if ($format === 'json') {
                             </ul>
                             <hr>
                             <p class="mb-0">Después de realizar los cambios, reinicie su servidor web y vuelva a verificar esta página.</p>
+                            <p class="mb-0">Ej: systemctl restart php7.0-fpm.service systemctl restart nginx.service.</p>
                         </div>
                         <?php endif; ?>
                         
                     </div>
                     
                     <div class="card-footer">
-                        <a href="index.html" class="btn btn-primary"><i class="fas fa-arrow-left me-2"></i>Volver al Panel</a>
+                        <a href="database-tools.html" class="btn btn-primary"><i class="fas fa-arrow-left me-2"></i>Volver a Herramientas</a>
                         <button class="btn btn-success float-end" onclick="location.reload()"><i class="fas fa-sync-alt me-2"></i>Volver a verificar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+<script>
+        // Cargar tema guardado
+            const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            // Selecciona el elemento al que deseas agregar el atributo
+            const htmlElement = document.querySelector('html');
+
+            // Agrega el atributo data-bs-theme con el valor "dark"
+            htmlElement.setAttribute('data-bs-theme', 'dark');
+        }
+</script>
 </body>
 </html>
