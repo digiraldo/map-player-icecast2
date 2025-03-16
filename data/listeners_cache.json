@@ -1,5 +1,5 @@
 {
-    "timestamp": 1742097164,
+    "timestamp": 1742098043,
     "data": {
         "error": false,
         "hostUrl": "https:\/\/radio.policia.gov.co:8080",
@@ -8,10 +8,10 @@
             "online": 19,
             "offline": 22,
             "totalSources": 20,
-            "totalListeners": 75,
+            "totalListeners": 74,
             "availabilityPercentage": 46,
-            "time": "22:52:44",
-            "lastUpdate": "2025-03-15 22:52:44"
+            "time": "23:07:23",
+            "lastUpdate": "2025-03-15 23:07:23"
         },
         "server": {
             "version": "Icecast 2.4.3",
@@ -60,7 +60,7 @@
                 "name": "Bogot\u00e1",
                 "serverUrl": "inhouse",
                 "frecuencia": "92.4 FM",
-                "listeners": 56,
+                "listeners": 53,
                 "description": "Unspecified description",
                 "title": "",
                 "bitrate": 128,
@@ -95,7 +95,7 @@
                 "name": "Cali",
                 "serverUrl": "cali",
                 "frecuencia": "102.0 FM",
-                "listeners": 2,
+                "listeners": 3,
                 "description": "radio policia nacional",
                 "title": "",
                 "bitrate": 128,
@@ -242,7 +242,7 @@
                 "name": "Neiva",
                 "serverUrl": "neiva",
                 "frecuencia": "97.3 FM",
-                "listeners": 1,
+                "listeners": 2,
                 "description": "radio policia nacional ",
                 "title": "",
                 "bitrate": "",
@@ -447,7 +447,7 @@
                 "name": "Bogot\u00e1",
                 "serverUrl": "inhouse",
                 "frecuencia": "92.4 FM",
-                "listeners": 56,
+                "listeners": 53,
                 "description": "Unspecified description",
                 "title": "",
                 "bitrate": 128,
@@ -472,6 +472,20 @@
             },
             {
                 "online": true,
+                "name": "Cali",
+                "serverUrl": "cali",
+                "frecuencia": "102.0 FM",
+                "listeners": 3,
+                "description": "radio policia nacional",
+                "title": "",
+                "bitrate": 128,
+                "genre": "crossover",
+                "listenurl": "https:\/\/radio.policia.gov.co:8080\/cali",
+                "ice-bitrate": 128,
+                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
+            },
+            {
+                "online": true,
                 "name": "Santa Marta",
                 "serverUrl": "santamarta",
                 "frecuencia": "105.4 FM",
@@ -483,20 +497,6 @@
                 "listenurl": "https:\/\/radio.policia.gov.co:8080\/santamarta",
                 "ice-bitrate": 96,
                 "audio_info": "ice-bitrate=96;ice-channels=2;ice-samplerate=48000"
-            },
-            {
-                "online": true,
-                "name": "Cali",
-                "serverUrl": "cali",
-                "frecuencia": "102.0 FM",
-                "listeners": 2,
-                "description": "radio policia nacional",
-                "title": "",
-                "bitrate": 128,
-                "genre": "crossover",
-                "listenurl": "https:\/\/radio.policia.gov.co:8080\/cali",
-                "ice-bitrate": 128,
-                "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=48000"
             },
             {
                 "online": true,
@@ -513,6 +513,6 @@
                 "audio_info": "ice-bitrate=128;ice-channels=2;ice-samplerate=44100"
             }
         ],
-        "cache_timestamp": 1742097164
+        "cache_timestamp": 1742098043
     }
 }

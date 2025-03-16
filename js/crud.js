@@ -83,6 +83,8 @@ function createModals() {
                         <button type="button" class="btn btn-info me-2" id="configPlayerBtn">
                             <i class="fas fa-cog"></i> Configuración
                         </button>
+                        <a name="Estadísticas" id="infoStatistics" class="btn btn-success me-2" href="admin/index.html" role="button"><i class="fas fa-chart-line"></i> Estadísticas</a>
+                        
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                 </div>
